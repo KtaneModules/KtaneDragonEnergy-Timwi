@@ -11,17 +11,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 615501dbe4f3fe94fbf4b564abb10237, type: 3}
   m_Name: ModConfig
   m_EditorClassIdentifier: 
-  id: MorseWar
-  title: Morse War
-  description: 'Whether you are sending supplies to foreign allies, or submarines
-    for assault, lives are in your hands.
-
-
-    Design and Module by Brandon
-
-    Coding by Flamanis
-
-    Manual by Timwi'
-  version: 0.01
+  id: dragonEnergy
+  title: Dragon Energy
+  description: 
+  version: 1.0
   outputFolder: build
   previewImage: {fileID: 2800000, guid: c4cf627f3f3ec1a46901499be92c0416, type: 3}
