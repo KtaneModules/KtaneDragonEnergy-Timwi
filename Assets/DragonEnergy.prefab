@@ -347,6 +347,7 @@ GameObject:
   - component: {fileID: 114001997743584836}
   - component: {fileID: 114502742347374720}
   - component: {fileID: 114886618376691310}
+  - component: {fileID: 114856538007677974}
   m_Layer: 0
   m_Name: DragonEnergy
   m_TagString: Untagged
@@ -2166,6 +2167,17 @@ MonoBehaviour:
   AllowSelectionWrapY: 0
   ForceSelectionHighlight: 0
   ForceInteractionHighlight: 0
+--- !u!114 &114856538007677974
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1754159799592248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56c0fea76d64b274c9ea618972e66440, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114886618376691310
 MonoBehaviour:
   m_ObjectHideFlags: 1
