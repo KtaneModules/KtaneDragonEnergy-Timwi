@@ -327,7 +327,7 @@
          id="tspan3199"
          x="154.08466"
          y="173.00525"
-         style="stroke-width:0.12189227">Honor</tspan></text>
+         style="stroke-width:0.12189227">Soul</tspan></text>
     <text
        transform="scale(0.99852753,1.0014746)"
        id="text2958-5-2"
@@ -410,20 +410,9 @@
          sodipodi:role="line"
          id="tspan3225"
          x="80.887215"
-         y="196.43623"
+         y="199.43623"
          style="stroke-width:0.12189227">Health</tspan></text>
-    <text
-       transform="scale(0.99852753,1.0014746)"
-       id="text2958-5-7"
-       y="208.93271"
-       x="79.948784"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227"
-       xml:space="preserve"><tspan
-         sodipodi:role="line"
-         id="tspan3227"
-         x="79.948784"
-         y="208.93271"
-         style="stroke-width:0.12189227">Dragon</tspan></text>
+
     <text
        transform="scale(0.99852753,1.0014746)"
        id="text2958-5-97"
@@ -433,9 +422,9 @@
        xml:space="preserve"><tspan
          sodipodi:role="line"
          id="tspan3229"
-         x="84.015305"
-         y="221.11682"
-         style="stroke-width:0.12189227">Soul</tspan></text>
+         x="79.948784"
+         y="219.11682"
+         style="stroke-width:0.12189227">Dragon</tspan></text>
     <text
        transform="scale(0.99852753,1.0014746)"
        id="text2958-5-1"
