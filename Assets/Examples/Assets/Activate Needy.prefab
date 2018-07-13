@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 33306621777780366}
   - component: {fileID: 135539227242731996}
   - component: {fileID: 23641004549407626}
+  - component: {fileID: 114025564681080576}
   m_Layer: 0
   m_Name: Stage 2
   m_TagString: Untagged
@@ -240,6 +241,7 @@ GameObject:
   - component: {fileID: 33636164239964214}
   - component: {fileID: 65179113461911024}
   - component: {fileID: 23319447592218506}
+  - component: {fileID: 114680711650629436}
   m_Layer: 0
   m_Name: DisplayTL
   m_TagString: Untagged
@@ -258,6 +260,7 @@ GameObject:
   - component: {fileID: 33624774240325054}
   - component: {fileID: 65092026620901820}
   - component: {fileID: 23742108726436598}
+  - component: {fileID: 114049419842081402}
   m_Layer: 0
   m_Name: DisplayTR
   m_TagString: Untagged
@@ -310,6 +313,7 @@ GameObject:
   - component: {fileID: 33433983316880600}
   - component: {fileID: 65602967184291372}
   - component: {fileID: 23839804051520054}
+  - component: {fileID: 114960762049154558}
   m_Layer: 0
   m_Name: Displaybacking
   m_TagString: Untagged
@@ -328,6 +332,7 @@ GameObject:
   - component: {fileID: 33622034962042214}
   - component: {fileID: 65872018281278210}
   - component: {fileID: 23201706747419548}
+  - component: {fileID: 114260963033550728}
   m_Layer: 0
   m_Name: DisplayBL
   m_TagString: Untagged
@@ -1813,6 +1818,32 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
+--- !u!114 &114025564681080576
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1211571212965744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShaderNames:
+  - Unlit/Color
+--- !u!114 &114049419842081402
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1622864138828106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShaderNames:
+  - KT/Mobile/DiffuseTint
 --- !u!114 &114082317772490028
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1825,7 +1856,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShaderNames:
-  - Standard
+  - Unlit/Color
 --- !u!114 &114086862918775692
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1838,7 +1869,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShaderNames:
-  - Standard
+  - KT/Mobile/DiffuseTint
 --- !u!114 &114090363424661744
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1930,7 +1961,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShaderNames:
-  - Standard
+  - KT/Mobile/DiffuseTint
 --- !u!114 &114188553979840446
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1944,6 +1975,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShaderNames:
   - GUI/KT 3D Text
+--- !u!114 &114260963033550728
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1820176194516880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShaderNames:
+  - KT/Mobile/DiffuseTint
 --- !u!114 &114310027187977624
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2016,6 +2060,19 @@ MonoBehaviour:
   m_Script: {fileID: 2144496390, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114680711650629436
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1587193241427874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShaderNames:
+  - KT/Mobile/DiffuseTint
 --- !u!114 &114723302613894906
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2151,6 +2208,19 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1384407598723080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShaderNames:
+  - Standard
+--- !u!114 &114960762049154558
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1814794500855742}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}

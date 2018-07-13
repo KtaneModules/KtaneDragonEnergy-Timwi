@@ -22,6 +22,10 @@ public class dragonEnergy : MonoBehaviour {
     public GameObject[] sprites;
     public GameObject[] displaySprites;
 
+    private Word[] displayed;
+
+    private int[] badTimes;
+
     public Material[] colors; //0=orange,1=cyan,2=purple
     public Material off, on;
     private int indicatorColor;
@@ -30,10 +34,11 @@ public class dragonEnergy : MonoBehaviour {
 
     private Word Ambition, Anger, Beauty, Brave, Courage, Crisis, Death, Destiny, Devotion, DoubleHappiness, Dragon, Dream, Energy, Eternity, Female, Fortune, Freedom, GoodLuck, Happiness, Hate, Health, Honor, Kind, Life, Longevity, Love, Male, Soul, Wisdom, Wood;
     private Word[] words;
-    private Word[] wordsAtZero;
-    private int currentDisplay;
+    private int currentDisplay, stage = 1;
 
-    private String correctWord;
+    private Word correctWord;
+
+    private List<string> modules;
 
     void Start()
     {
@@ -70,7 +75,6 @@ public class dragonEnergy : MonoBehaviour {
     {
         setupWords();
         words = new Word[] { Ambition, Anger, Beauty, Brave, Courage, Crisis, Death, Destiny, Devotion, DoubleHappiness, Dragon, Dream, Energy, Eternity, Female, Fortune, Freedom, GoodLuck, Happiness, Hate, Health, Honor, Kind, Life, Longevity, Love, Male, Soul, Wisdom, Wood };
-        wordsAtZero = words;
         stage1.material = off;
         stage2.material = off;
         stage3.material = off;
@@ -79,21 +83,341 @@ public class dragonEnergy : MonoBehaviour {
         indicatorColor = Random.Range(0, 3);
         indicator.material = colors[indicatorColor];
         currentDisplay = Random.Range(0, 30);
+        setupThreeWords();
         DisplayCurrent();
-        getCorrectAnswer(1);
+        modules = info.GetModuleNames();
+        Debug.LogFormat("[DragonEnergy #{0}] Note: Answer is not calculated until submit is pressed.", _moduleId);
+    }
+
+    void InitSwaps()
+    {
+        if(info.GetBatteryCount() > 10 && (info.GetSerialNumberNumbers().ToArray()[info.GetSerialNumberNumbers().ToArray().Length-1] == 5 || info.GetSerialNumberNumbers().ToArray()[info.GetSerialNumberNumbers().ToArray().Length - 1] == 7))
+        {
+            Swaps(1);
+        }
+        else if (info.GetPortPlateCount()>info.GetBatteryHolderCount() && (modules.Contains("Morse War") || modules.Contains("Double Color")))
+        {
+            Swaps(2);
+        }
+    }
+
+    void Swaps(int swap)
+    {
+        switch (swap){
+            case 1:
+                Word[] greenpurple = new Word[] { };
+                Word[] green = new Word[] { };
+
+                Word[] greenred = new Word[] { };
+                Word[] red = new Word[] { };
+
+                Word[] redcyan = new Word[] { };
+                Word[] cyan = new Word[] { };
+
+                Word[] purplecyan = new Word[] { };
+                Word[] purple = new Word[] { };
+                foreach (Word word in words)
+                {
+                    Word[] temp = new Word[] { word };
+                    Circle circle = word.getPosition().getCircle();
+                    if (circle == Circle.GREENRED)
+                    {
+                        greenred.Concat(temp);
+                    }
+                    else if (circle == Circle.RED)
+                    {
+                        red.Concat(temp);
+                    }
+                    else if (circle == Circle.GREENPURPLE)
+                    {
+                        greenpurple.Concat(temp);
+                    }
+                    else if (circle == Circle.GREEN)
+                    {
+                        green.Concat(temp);
+                    }
+                    else if (circle == Circle.BLUERED)
+                    {
+                        redcyan.Concat(temp);
+                    }
+                    else if (circle == Circle.BLUE)
+                    {
+                        cyan.Concat(temp);
+                    }
+                    else if (circle == Circle.BLUEPURPLE)
+                    {
+                        purplecyan.Concat(temp);
+                    }
+                    else if (circle == Circle.PURPLE)
+                    {
+                        purple.Concat(temp);
+                    }
+
+                }
+                for (int i = 0; i < greenpurple.Length; i++)
+                {
+                    Word.Swap(greenpurple[i], green[i]);
+                }
+
+                for (int i = 0; i < greenred.Length; i++)
+                {
+                    Word.Swap(greenred[i], red[i]);
+                }
+
+                for (int i = 0; i < redcyan.Length; i++)
+                {
+                    Word.Swap(redcyan[i], cyan[i]);
+                }
+
+                for (int i = 0; i < purplecyan.Length; i++)
+                {
+                    Word.Swap(purplecyan[i], purple[i]);
+                }
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+            case 7:
+                break;
+        }
     }
 
     void getCorrectAnswer(int stage)
     {
-
+        switch (stage)
+        {
+            case 1:
+                InitSwaps();
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+        }
     }
 
     void handleSubmit()
     {
         newAudio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.ButtonPress, submit.transform);
         if (!_lightsOn || _isSolved) return;
+        getCorrectAnswer(stage);
+        if(info.GetBatteryHolderCount() == info.GetPortPlateCount())
+        {
+            switch (indicatorColor)
+            {
+                case 0:
+                    switch (info.GetStrikes())
+                    {
+                        case 0:
+                            badTimes = new int[] { };
+                            break;
+                        case 1:
+                            badTimes = new int[] { };
+                            break;
+                        default:
+                            badTimes = new int[] { };
+                            break;
+                    }
+                    break;
+                case 1:
+                    switch (info.GetStrikes())
+                    {
+                        case 0:
+                            badTimes = new int[] { };
+                            break;
+                        case 1:
+                            badTimes = new int[] { };
+                            break;
+                        default:
+                            badTimes = new int[] { };
+                            break;
+                    }
+                    break;
+                case 2:
+                    switch (info.GetStrikes())
+                    {
+                        case 0:
+                            badTimes = new int[] { };
+                            break;
+                        case 1:
+                            badTimes = new int[] { };
+                            break;
+                        default:
+                            badTimes = new int[] { };
+                            break;
+                    }
+                    break;
+            }
+        } else if(info.GetBatteryHolderCount() > info.GetPortPlateCount())
+        {
+            switch (indicatorColor)
+            {
+                case 0:
+                    switch (info.GetStrikes())
+                    {
+                        case 0:
+                            badTimes = new int[] { };
+                            break;
+                        case 1:
+                            badTimes = new int[] { };
+                            break;
+                        default:
+                            badTimes = new int[] { };
+                            break;
+                    }
+                    break;
+                case 1:
+                    switch (info.GetStrikes())
+                    {
+                        case 0:
+                            badTimes = new int[] { };
+                            break;
+                        case 1:
+                            badTimes = new int[] { };
+                            break;
+                        default:
+                            badTimes = new int[] { };
+                            break;
+                    }
+                    break;
+                case 2:
+                    switch (info.GetStrikes())
+                    {
+                        case 0:
+                            badTimes = new int[] { };
+                            break;
+                        case 1:
+                            badTimes = new int[] { };
+                            break;
+                        default:
+                            badTimes = new int[] { };
+                            break;
+                    }
+                    break;
+            }
+        } else
+        {
+            switch (indicatorColor)
+            {
+                case 0:
+                    switch (info.GetStrikes())
+                    {
+                        case 0:
+                            badTimes = new int[] { };
+                            break;
+                        case 1:
+                            badTimes = new int[] { };
+                            break;
+                        default:
+                            badTimes = new int[] { };
+                            break;
+                    }
+                    break;
+                case 1:
+                    switch (info.GetStrikes())
+                    {
+                        case 0:
+                            badTimes = new int[] { };
+                            break;
+                        case 1:
+                            badTimes = new int[] { };
+                            break;
+                        default:
+                            badTimes = new int[] { };
+                            break;
+                    }
+                    break;
+                case 2:
+                    switch (info.GetStrikes())
+                    {
+                        case 0:
+                            badTimes = new int[] { };
+                            break;
+                        case 1:
+                            badTimes = new int[] { };
+                            break;
+                        default:
+                            badTimes = new int[] { };
+                            break;
+                    }
+                    break;
+            }
+        }
+        if(badTimes.Contains((int)(info.GetTime() % 60) % 10))
+        {
+            module.HandleStrike();
+            Debug.LogFormat("[DragonEnergy #{0}] Submit pressed with {1} in last digit of timer.", _moduleId, ((int)(info.GetTime() % 60) % 10));
+            setupThreeWords();
+        }
+        else if(words[currentDisplay].getWord() == correctWord.getWord())
+        {
+            stage++;
+            switch (stage)
+            {
+                case 2:
+                    stage1.material = on;
+                    setupThreeWords();
+                    break;
+                case 3:
+                    stage2.material = on;
+                    setupThreeWords();
+                    break;
+                case 4:
+                    stage3.material = on;
+                    setupThreeWords();
+                    break;
+                case 5:
+                    stage4.material = on;
+                    indicator.material = off;
+                    module.HandlePass();
+                    Debug.LogFormat("[DragonEnergy #{0}] Module solved!", _moduleId);
+                    break;
+            }
+
+        } else
+        {
+            module.HandleStrike();
+            Debug.LogFormat("[DragonEnergy #{0}] Incorrect input. Recieved: {1}. Expected: {2}.", _moduleId, words[currentDisplay].getWord(), correctWord.getWord());
+            setupThreeWords();
+        }
     }
     
+    void setupThreeWords()
+    {
+        foreach(Word word in words)
+        {
+            word.getSprite().SetActive(false);
+        }
+        int one = Random.Range(0, 30);
+        int two = Random.Range(0, 30);
+        do
+        {
+            two = Random.Range(0, 30);
+        } while (two == one);
+        int three = Random.Range(0, 30);
+        do
+        {
+            three = Random.Range(0, 30);
+        } while (three == one || three == two);
+
+        displayed = new Word[] { words[one], words[two], words[three] };
+
+        words[one].display(1);
+        words[two].display(2);
+        words[three].display(3);
+
+        Debug.LogFormat("[DragonEnergy #{0}] The words displayed are: BL: {1}, TL: {2}, TR: {3}.", _moduleId, words[one].getWord(), words[two].getWord(), words[three].getWord());
+    }
+
     void handleLeft()
     {
         newAudio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.ButtonPress, left.transform);
@@ -203,15 +527,15 @@ public class Word
     private Position position;
     private String name;
 
-    private static double x1 = 0.0453;
-    private static double y1 = 0.042;
-    private static double z1 = -0.0091;
-    private static double x2 = 0.0453;
-    private static double y2 = 0.042;
-    private static double z2 = -0.0639;
-    private static double x3 = -0.0087;
-    private static double y3 = 0.042;
-    private static double z3 = -0.0639;
+    private static float x1 = -0.05256132f;
+    private static float y1 = 0.02664061f;
+    private static float z1 = -0.007111584f;
+    private static float x2 = -0.05256132f;
+    private static float y2 = 0.02664061f;
+    private static float z2 = 0.04768842f;
+    private static float x3 = 0.0014386f;
+    private static float y3 = 0.02664061f;
+    private static float z3 = 0.0476884f;
 
     public Word(GameObject sprite, Position pos, String name)
     {
@@ -220,7 +544,7 @@ public class Word
         this.name = name;
     }
 
-    static void Swap(Word first, Word second)
+    public static void Swap(Word first, Word second)
     {
         Position temp = first.getPosition();
         first.setPosition(second.getPosition());
@@ -229,7 +553,18 @@ public class Word
 
     public void display(int location)
     {
-
+        switch (location) {
+            case 1:
+                sprite.transform.position = new Vector3(x1, y1, z1);
+                break;
+            case 2:
+                sprite.transform.position = new Vector3(x2, y2, z2);
+                break;
+            case 3:
+                sprite.transform.position = new Vector3(x3, y3, z3);
+                break;
+        }
+        sprite.SetActive(true);
     }
 
     public Position getPosition()
