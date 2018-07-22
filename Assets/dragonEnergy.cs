@@ -34,6 +34,7 @@ public class dragonEnergy : MonoBehaviour {
 
     private Word Ambition, Anger, Beauty, Brave, Courage, Crisis, Death, Destiny, Devotion, DoubleHappiness, Dragon, Dream, Energy, Eternity, Female, Fortune, Freedom, GoodLuck, Happiness, Hate, Health, Honor, Kind, Life, Longevity, Love, Male, Soul, Wisdom, Wood;
     private Word[] words;
+    private Word[] swapped = new Word[] { };
     private int currentDisplay, stage = 1;
 
     private Word correctWord;
@@ -91,6 +92,15 @@ public class dragonEnergy : MonoBehaviour {
 
     void InitSwaps()
     {
+        char[] letters = info.GetSerialNumberLetters().ToArray();
+        int vowelCount = 0;
+        foreach(char letter in letters)
+        {
+            if(letter == 'A' || letter == 'E' || letter == 'I' || letter == 'O' || letter == 'U')
+            {
+                vowelCount++;
+            }
+        }
         if(info.GetBatteryCount() > 10 && (info.GetSerialNumberNumbers().ToArray()[info.GetSerialNumberNumbers().ToArray().Length-1] == 5 || info.GetSerialNumberNumbers().ToArray()[info.GetSerialNumberNumbers().ToArray().Length - 1] == 7))
         {
             Swaps(1);
@@ -98,6 +108,21 @@ public class dragonEnergy : MonoBehaviour {
         else if (info.GetPortPlateCount()>info.GetBatteryHolderCount() && (modules.Contains("Morse War") || modules.Contains("Double Color")))
         {
             Swaps(2);
+        } else if((info.IsIndicatorOn(KMBombInfoExtensions.KnownIndicatorLabel.SIG) && info.IsIndicatorOn(KMBombInfoExtensions.KnownIndicatorLabel.FRK)) || (info.GetOffIndicators().Count() == 3))
+        {
+            Swaps(3);
+        } else if (info.GetModuleNames().Count() > 8)
+        {
+            Swaps(4);
+        } else if (vowelCount >= 2)
+        {
+            Swaps(5);
+        } else if (info.GetSolvedModuleNames().Count() == 0)
+        {
+            Swaps(6);
+        } else
+        {
+            Swaps(7);
         }
     }
 
@@ -105,93 +130,420 @@ public class dragonEnergy : MonoBehaviour {
     {
         switch (swap){
             case 1:
-                Word[] greenpurple = new Word[] { };
-                Word[] green = new Word[] { };
+                Word[] greenpurple1 = new Word[] { };
+                Word[] green1 = new Word[] { };
 
-                Word[] greenred = new Word[] { };
-                Word[] red = new Word[] { };
+                Word[] greenred1 = new Word[] { };
+                Word[] red1 = new Word[] { };
 
-                Word[] redcyan = new Word[] { };
-                Word[] cyan = new Word[] { };
+                Word[] redcyan1 = new Word[] { };
+                Word[] cyan1 = new Word[] { };
 
-                Word[] purplecyan = new Word[] { };
-                Word[] purple = new Word[] { };
+                Word[] purplecyan1 = new Word[] { };
+                Word[] purple1 = new Word[] { };
                 foreach (Word word in words)
                 {
                     Word[] temp = new Word[] { word };
                     Circle circle = word.getPosition().getCircle();
                     if (circle == Circle.GREENRED)
                     {
-                        greenred.Concat(temp);
+                        greenred1.Concat(temp);
                     }
                     else if (circle == Circle.RED)
                     {
-                        red.Concat(temp);
+                        red1.Concat(temp);
                     }
                     else if (circle == Circle.GREENPURPLE)
                     {
-                        greenpurple.Concat(temp);
+                        greenpurple1.Concat(temp);
                     }
                     else if (circle == Circle.GREEN)
                     {
-                        green.Concat(temp);
+                        green1.Concat(temp);
                     }
                     else if (circle == Circle.BLUERED)
                     {
-                        redcyan.Concat(temp);
+                        redcyan1.Concat(temp);
                     }
                     else if (circle == Circle.BLUE)
                     {
-                        cyan.Concat(temp);
+                        cyan1.Concat(temp);
                     }
                     else if (circle == Circle.BLUEPURPLE)
                     {
-                        purplecyan.Concat(temp);
+                        purplecyan1.Concat(temp);
                     }
                     else if (circle == Circle.PURPLE)
                     {
-                        purple.Concat(temp);
+                        purple1.Concat(temp);
                     }
-
-                }
-                for (int i = 0; i < greenpurple.Length; i++)
-                {
-                    Word.Swap(greenpurple[i], green[i]);
-                }
-
-                for (int i = 0; i < greenred.Length; i++)
-                {
-                    Word.Swap(greenred[i], red[i]);
+                    if (!swapped.Contains(word))
+                    {
+                        swapped.Concat(temp);
+                    }
                 }
 
-                for (int i = 0; i < redcyan.Length; i++)
+                for (int i = 0; i < greenpurple1.Length; i++)
                 {
-                    Word.Swap(redcyan[i], cyan[i]);
+                    Word.Swap(greenpurple1[i], green1[i]);
                 }
 
-                for (int i = 0; i < purplecyan.Length; i++)
+                for (int i = 0; i < greenred1.Length; i++)
                 {
-                    Word.Swap(purplecyan[i], purple[i]);
+                    Word.Swap(greenred1[i], red1[i]);
+                }
+
+                for (int i = 0; i < redcyan1.Length; i++)
+                {
+                    Word.Swap(redcyan1[i], cyan1[i]);
+                }
+
+                for (int i = 0; i < purplecyan1.Length; i++)
+                {
+                    Word.Swap(purplecyan1[i], purple1[i]);
                 }
                 break;
             case 2:
+                Word[] greenpurple2 = new Word[] { };
+                Word[] redcyan2 = new Word[] { };
+
+                Word[] purplecyan2 = new Word[] { };
+                Word[] greenred2 = new Word[] { };
+
+                foreach(Word word in words)
+                {
+                    Word[] temp = new Word[] { word };
+                    Circle circle = word.getPosition().getCircle();
+                    if (circle == Circle.GREENRED)
+                    {
+                        greenred2.Concat(temp);
+                    }
+                    else if (circle == Circle.GREENPURPLE)
+                    {
+                        greenpurple2.Concat(temp);
+                    }
+                    else if (circle == Circle.BLUERED)
+                    {
+                        redcyan2.Concat(temp);
+                    }
+                    else if (circle == Circle.BLUEPURPLE)
+                    {
+                        purplecyan2.Concat(temp);
+                    }
+                    if (!swapped.Contains(word))
+                    {
+                        swapped.Concat(temp);
+                    }
+                }
+
+                for (int i = 0; i < greenpurple2.Length; i++)
+                {
+                    Word.Swap(greenpurple2[i], redcyan2[i]);
+                }
+
+                for (int i = 0; i < purplecyan2.Length; i++)
+                {
+                    Word.Swap(purplecyan2[i], greenred2[i]);
+                }
                 break;
             case 3:
+                Word[] greenpurple3 = new Word[] { };
+                Word[] cyan3 = new Word[] { };
+
+                Word[] greenred3 = new Word[] { };
+                Word[] purple3 = new Word[] { };
+
+                Word[] redcyan3 = new Word[] { };
+                Word[] green3 = new Word[] { };
+
+                Word[] purplecyan3 = new Word[] { };
+                Word[] red3 = new Word[] { };
+                foreach (Word word in words)
+                {
+                    Word[] temp = new Word[] { word };
+                    Circle circle = word.getPosition().getCircle();
+                    if (circle == Circle.GREENRED)
+                    {
+                        greenred3.Concat(temp);
+                    }
+                    else if (circle == Circle.RED)
+                    {
+                        red3.Concat(temp);
+                    }
+                    else if (circle == Circle.GREENPURPLE)
+                    {
+                        greenpurple3.Concat(temp);
+                    }
+                    else if (circle == Circle.GREEN)
+                    {
+                        green3.Concat(temp);
+                    }
+                    else if (circle == Circle.BLUERED)
+                    {
+                        redcyan3.Concat(temp);
+                    }
+                    else if (circle == Circle.BLUE)
+                    {
+                        cyan3.Concat(temp);
+                    }
+                    else if (circle == Circle.BLUEPURPLE)
+                    {
+                        purplecyan3.Concat(temp);
+                    }
+                    else if (circle == Circle.PURPLE)
+                    {
+                        purple3.Concat(temp);
+                    }
+                    if (!swapped.Contains(word))
+                    {
+                        swapped.Concat(temp);
+                    }
+                }
+
+                for (int i = 0; i < greenpurple3.Length; i++)
+                {
+                    Word.Swap(greenpurple3[i], cyan3[i]);
+                }
+
+                for (int i = 0; i < greenred3.Length; i++)
+                {
+                    Word.Swap(greenred3[i], purple3[i]);
+                }
+
+                for (int i = 0; i < redcyan3.Length; i++)
+                {
+                    Word.Swap(redcyan3[i], green3[i]);
+                }
+
+                for (int i = 0; i < purplecyan3.Length; i++)
+                {
+                    Word.Swap(purplecyan3[i], red3[i]);
+                }
                 break;
             case 4:
+                Word[] greenpurplered4 = new Word[] { };
+                Word[] greenredcyan4 = new Word[] { };
+
+                Word[] greenpurplecyan4 = new Word[] { };
+                Word[] redcyanpurple4 = new Word[] { };
+
+                Word[] quarter4 = new Word[] { };
+                Word[] greenred4 = new Word[] { };
+
+                Word[] purple4 = new Word[] { };
+                Word[] cyan4 = new Word[] { };
+                foreach (Word word in words)
+                {
+                    Word[] temp = new Word[] { word };
+                    Circle circle = word.getPosition().getCircle();
+                    if (circle == Circle.GREENRED)
+                    {
+                        greenred4.Concat(temp);
+                    }
+                    else if (circle == Circle.GREENPURPLERED)
+                    {
+                        greenpurplered4.Concat(temp);
+                    }
+                    else if (circle == Circle.GREENREDBLUE)
+                    {
+                        greenredcyan4.Concat(temp);
+                    }
+                    else if (circle == Circle.BLUEPURPLEGREEN)
+                    {
+                        greenpurplecyan4.Concat(temp);
+                    }
+                    else if (circle == Circle.REDBLUEPURPLE)
+                    {
+                        redcyanpurple4.Concat(temp);
+                    }
+                    else if (circle == Circle.BLUE)
+                    {
+                        cyan4.Concat(temp);
+                    }
+                    else if (circle == Circle.GREENREDBLUEPURPLE)
+                    {
+                        quarter4.Concat(temp);
+                    }
+                    else if (circle == Circle.PURPLE)
+                    {
+                        purple4.Concat(temp);
+                    }
+                    if (!swapped.Contains(word))
+                    {
+                        swapped.Concat(temp);
+                    }
+                }
+
+                for (int i = 0; i < greenpurplered4.Length; i++)
+                {
+                    Word.Swap(greenpurplered4[i], greenredcyan4[i]);
+                }
+
+                for (int i = 0; i < greenpurplecyan4.Length; i++)
+                {
+                    Word.Swap(greenpurplecyan4[i], redcyanpurple4[i]);
+                }
+
+                for (int i = 0; i < quarter4.Length; i++)
+                {
+                    Word.Swap(quarter4[i], greenred4[i]);
+                }
+
+                for (int i = 0; i < purple4.Length; i++)
+                {
+                    Word.Swap(purple4[i], cyan4[i]);
+                }
                 break;
             case 5:
+                Word[] green5 = new Word[] { };
+                Word[] red5 = new Word[] { };
+
+                Word[] purplecyan5 = new Word[] { };
+                Word[] quarter5 = new Word[] { };
+
+                Word[] redcyan5 = new Word[] { };
+                Word[] cyan5 = new Word[] { };
+
+                foreach (Word word in words)
+                {
+                    Word[] temp = new Word[] { word };
+                    Circle circle = word.getPosition().getCircle();
+                    if (circle == Circle.GREENREDBLUEPURPLE)
+                    {
+                        quarter5.Concat(temp);
+                    }
+                    else if (circle == Circle.GREEN)
+                    {
+                        green5.Concat(temp);
+                    }
+                    else if (circle == Circle.BLUERED)
+                    {
+                        redcyan5.Concat(temp);
+                    }
+                    else if (circle == Circle.BLUEPURPLE)
+                    {
+                        purplecyan5.Concat(temp);
+                    }
+                    else if (circle == Circle.BLUE)
+                    {
+                        cyan5.Concat(temp);
+                    }
+                    else if (circle == Circle.RED)
+                    {
+                        red5.Concat(temp);
+                    }
+                    if (!swapped.Contains(word))
+                    {
+                        swapped.Concat(temp);
+                    }
+                }
+
+                for (int i = 0; i < green5.Length; i++)
+                {
+                    Word.Swap(green5[i], red5[i]);
+                }
+
+                for (int i = 0; i < purplecyan5.Length; i++)
+                {
+                    Word.Swap(purplecyan5[i], quarter5[i]);
+                }
+
+                for (int i = 0; i < redcyan5.Length; i++)
+                {
+                    Word.Swap(redcyan5[i], cyan5[i]);
+                }
                 break;
             case 6:
+                Word[] quarter6 = new Word[] { };
+                Word[] greenpurple6 = new Word[] { };
+
+                foreach (Word word in words)
+                {
+                    Word[] temp = new Word[] { word };
+                    Circle circle = word.getPosition().getCircle();
+                    if (circle == Circle.GREENREDBLUEPURPLE)
+                    {
+                        quarter6.Concat(temp);
+                    }
+                    else if (circle == Circle.GREENPURPLE)
+                    {
+                        greenpurple6.Concat(temp);
+                    }
+                    if (!swapped.Contains(word))
+                    {
+                        swapped.Concat(temp);
+                    }
+                }
+
+                for (int i = 0; i < quarter6.Length; i++)
+                {
+                    Word.Swap(quarter6[i], greenpurple6[i]);
+                }
+
+                Word.Swap(Wisdom, Love);
+
+                if (!swapped.Contains(Wisdom))
+                {
+                    swapped.Concat(new Word[] { Wisdom });
+                }
+                if (!swapped.Contains(Love))
+                {
+                    swapped.Concat(new Word[] { Love });
+                }
+
                 break;
             case 7:
+
+                Word.Swap(Wood, Dream);
+
+                if (!swapped.Contains(Wood))
+                {
+                    swapped.Concat(new Word[] { Wood });
+                }
+                if (!swapped.Contains(Dream))
+                {
+                    swapped.Concat(new Word[] { Dream });
+                }
+                Word.Swap(Courage, Hate);
+
+                if (!swapped.Contains(Courage))
+                {
+                    swapped.Concat(new Word[] { Courage });
+                }
+                if (!swapped.Contains(Hate))
+                {
+                    swapped.Concat(new Word[] { Hate });
+                }
+                Word.Swap(Freedom, Honor);
+
+                if (!swapped.Contains(Freedom))
+                {
+                    swapped.Concat(new Word[] { Freedom });
+                }
+                if (!swapped.Contains(Honor))
+                {
+                    swapped.Concat(new Word[] { Honor });
+                }
+                Word.Swap(Female, Dragon);
+
+                if (!swapped.Contains(Female))
+                {
+                    swapped.Concat(new Word[] { Female });
+                }
+                if (!swapped.Contains(Dragon))
+                {
+                    swapped.Concat(new Word[] { Dragon });
+                }
+                int last = info.GetSerialNumberNumbers().ToArray()[info.GetSerialNumberNumbers().ToArray().Length - 1];
+                if(last == 0 || last==8 || last == 9 || last == 7) { break; }
+                Swaps(last);
                 break;
         }
     }
 
-    void getCorrectAnswer(int stage)
+    void getCorrectAnswer(int s)
     {
-        switch (stage)
+        switch (s)
         {
             case 1:
                 InitSwaps();
@@ -218,13 +570,13 @@ public class dragonEnergy : MonoBehaviour {
                     switch (info.GetStrikes())
                     {
                         case 0:
-                            badTimes = new int[] { };
+                            badTimes = new int[] { 0, 1, 5, 9 };
                             break;
                         case 1:
-                            badTimes = new int[] { };
+                            badTimes = new int[] { 0, 3, 4, 6 };
                             break;
                         default:
-                            badTimes = new int[] { };
+                            badTimes = new int[] { 0, 2, 7, 8 };
                             break;
                     }
                     break;
@@ -232,13 +584,13 @@ public class dragonEnergy : MonoBehaviour {
                     switch (info.GetStrikes())
                     {
                         case 0:
-                            badTimes = new int[] { };
+                            badTimes = new int[] { 0, 1, 2, 3, 6 };
                             break;
                         case 1:
-                            badTimes = new int[] { };
+                            badTimes = new int[] { 0, 2, 5, 6, 7 };
                             break;
                         default:
-                            badTimes = new int[] { };
+                            badTimes = new int[] { 1, 3, 4, 7 };
                             break;
                     }
                     break;
@@ -246,13 +598,13 @@ public class dragonEnergy : MonoBehaviour {
                     switch (info.GetStrikes())
                     {
                         case 0:
-                            badTimes = new int[] { };
+                            badTimes = new int[] { 3, 4, 7, 9 };
                             break;
                         case 1:
-                            badTimes = new int[] { };
+                            badTimes = new int[] { 5, 6, 8, 9 };
                             break;
                         default:
-                            badTimes = new int[] { };
+                            badTimes = new int[] { 0, 1, 2, 9 };
                             break;
                     }
                     break;
@@ -265,13 +617,13 @@ public class dragonEnergy : MonoBehaviour {
                     switch (info.GetStrikes())
                     {
                         case 0:
-                            badTimes = new int[] { };
+                            badTimes = new int[] { 0, 2, 4, 6, 8 };
                             break;
                         case 1:
-                            badTimes = new int[] { };
+                            badTimes = new int[] { 3, 4, 6 };
                             break;
                         default:
-                            badTimes = new int[] { };
+                            badTimes = new int[] { 0, 2, 7, 8 };
                             break;
                     }
                     break;
@@ -279,13 +631,13 @@ public class dragonEnergy : MonoBehaviour {
                     switch (info.GetStrikes())
                     {
                         case 0:
-                            badTimes = new int[] { };
+                            badTimes = new int[] { 1, 3, 5, 7, 9 };
                             break;
                         case 1:
-                            badTimes = new int[] { };
+                            badTimes = new int[] { 5, 8, 9 };
                             break;
                         default:
-                            badTimes = new int[] { };
+                            badTimes = new int[] { 1, 3, 4, 7 };
                             break;
                     }
                     break;
@@ -293,13 +645,13 @@ public class dragonEnergy : MonoBehaviour {
                     switch (info.GetStrikes())
                     {
                         case 0:
-                            badTimes = new int[] { };
+                            badTimes = new int[] { 0, 1, 2, 3, 4, 5 };
                             break;
                         case 1:
-                            badTimes = new int[] { };
+                            badTimes = new int[] { 5, 6, 8, 9 };
                             break;
                         default:
-                            badTimes = new int[] { };
+                            badTimes = new int[] { 0, 1, 2 };
                             break;
                     }
                     break;
@@ -312,13 +664,13 @@ public class dragonEnergy : MonoBehaviour {
                     switch (info.GetStrikes())
                     {
                         case 0:
-                            badTimes = new int[] { };
+                            badTimes = new int[] { 0, 1, 2, 7, 8, 9 };
                             break;
                         case 1:
-                            badTimes = new int[] { };
+                            badTimes = new int[] { 0, 1, 2, 4, 5, 7, 8 };
                             break;
                         default:
-                            badTimes = new int[] { };
+                            badTimes = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
                             break;
                     }
                     break;
@@ -326,13 +678,13 @@ public class dragonEnergy : MonoBehaviour {
                     switch (info.GetStrikes())
                     {
                         case 0:
-                            badTimes = new int[] { };
+                            badTimes = new int[] { 4, 5, 6, 7, 8 };
                             break;
                         case 1:
-                            badTimes = new int[] { };
+                            badTimes = new int[] { 0, 4, 6, 7, 9 };
                             break;
                         default:
-                            badTimes = new int[] { };
+                            badTimes = new int[] { 0, 1, 2, 3, 4, 5, 7, 8, 9 };
                             break;
                     }
                     break;
@@ -340,19 +692,19 @@ public class dragonEnergy : MonoBehaviour {
                     switch (info.GetStrikes())
                     {
                         case 0:
-                            badTimes = new int[] { };
+                            badTimes = new int[] { 1, 3, 4, 6, 7, 9 };
                             break;
                         case 1:
-                            badTimes = new int[] { };
+                            badTimes = new int[] { 0, 4, 5, 6, 7 };
                             break;
                         default:
-                            badTimes = new int[] { };
+                            badTimes = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
                             break;
                     }
                     break;
             }
         }
-        if(badTimes.Contains((int)(info.GetTime() % 60) % 10))
+        if(badTimes.Contains((int)((info.GetTime() % 60) % 10)))
         {
             module.HandleStrike();
             Debug.LogFormat("[DragonEnergy #{0}] Submit pressed with {1} in last digit of timer.", _moduleId, ((int)(info.GetTime() % 60) % 10));
