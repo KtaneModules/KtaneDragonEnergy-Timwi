@@ -37,7 +37,7 @@ public class dragonEnergy : MonoBehaviour {
     private Word[] swapped = new Word[] { };
     private int currentDisplay, stage = 1;
 
-    private Word correctWord;
+    private Word[] correctWords;
 
     private List<string> modules;
 
@@ -547,7 +547,124 @@ public class dragonEnergy : MonoBehaviour {
         {
             case 1:
                 InitSwaps();
-                break;
+                Circle[] correctPrimaries = new Circle[] { };
+                foreach(Circle circle in getPrimarys(displayed[0]))
+                {
+                    Circle one = circle;
+                    foreach(Circle nextCircle in getPrimarys(displayed[1]))
+                    {
+                        Circle two = nextCircle;
+                        foreach (Circle lastCircle in getPrimarys(displayed[2]))
+                        {
+                            Circle three = nextCircle;
+                            if (one == two && one == three)
+                            {
+                                if (!correctPrimaries.Contains(three))
+                                {
+                                    correctPrimaries.Concat(new Circle[] { three });
+                                }
+                            }
+                        }
+                    }
+                }
+                if(correctPrimaries.Length > 0)
+                {
+                    foreach(Circle primary in correctPrimaries)
+                    {
+                        foreach(Word word in words)
+                        {
+                            if (getPrimarys(word).Contains(primary))
+                            {
+                                if (!correctWords.Contains(word))
+                                {
+                                    correctWords.Concat(new Word[] { word });
+                                }
+                            }
+                        }
+                    }
+                    return;
+                }
+                int secondary = 0;
+                foreach(Word word in displayed)
+                {
+                    if (word.getPosition().getLevel() == Level.SECONDARY)
+                    {
+                        secondary++;
+                    }
+                }
+                bool second = false;
+                if(secondary > 1)
+                {
+                    if(displayed[0].getPosition().getLevel() == Level.SECONDARY)
+                    {
+                        if(displayed[0].getPosition().getCircle() == displayed[1].getPosition().getCircle())
+                        {
+                            second = true;
+                        } else if (displayed[0].getPosition().getCircle() == displayed[2].getPosition().getCircle())
+                        {
+                            second = true;
+                        } else if (displayed[1].getPosition().getLevel() == Level.SECONDARY && displayed[1].getPosition().getCircle() == displayed[2].getPosition().getCircle())
+                        {
+                            second = true;
+                        }
+                    }
+                }
+                if (second)
+                {
+                    foreach(Word word in words)
+                    {
+                        if(word.getPosition().getLevel() == Level.SECONDARY)
+                        {
+                            if (!correctWords.Contains(word))
+                            {
+                                correctWords.Concat(new Word[] { word });
+                            }
+                        }
+                    }
+                    return;
+                }
+                bool sharePrimary = false;
+                foreach (Circle circle in getPrimarys(displayed[0]))
+                {
+                    Circle one = circle;
+                    foreach (Circle nextCircle in getPrimarys(displayed[1]))
+                    {
+                        Circle two = nextCircle;
+                        foreach (Circle lastCircle in getPrimarys(displayed[2]))
+                        {
+                            Circle three = nextCircle;
+                            if (one == two || one == three || two == three)
+                            {
+                                sharePrimary = true;
+                            }
+                        }
+                    }
+                }
+                if (!sharePrimary)
+                {
+                    foreach (Word word in words)
+                    {
+                        if (word.getPosition().getLevel() == Level.QUARTERNARY)
+                        {
+                            if (!correctWords.Contains(word))
+                            {
+                                correctWords.Concat(new Word[] { word });
+                            }
+                        }
+                    }
+                    return;
+                }
+                foreach (Word word in words)
+                {
+                    if (word.getPosition().getLevel() == Level.TERTIARY)
+                    {
+                        if (!correctWords.Contains(word))
+                        {
+                            correctWords.Concat(new Word[] { word });
+                        }
+                    }
+                }
+                return;
             case 2:
                 break;
             case 3:
@@ -709,8 +826,9 @@ public class dragonEnergy : MonoBehaviour {
             module.HandleStrike();
             Debug.LogFormat("[DragonEnergy #{0}] Submit pressed with {1} in last digit of timer.", _moduleId, ((int)(info.GetTime() % 60) % 10));
             setupThreeWords();
+            return;
         }
-        else if(words[currentDisplay].getWord() == correctWord.getWord())
+        else if(correctWords.Contains(words[currentDisplay]))
         {
             stage++;
             switch (stage)
@@ -718,6 +836,7 @@ public class dragonEnergy : MonoBehaviour {
                 case 2:
                     stage1.material = on;
                     setupThreeWords();
+                    Debug.LogFormat("[DragonEnergy #{0}] Stage 1 solved, word submitted: {1}.", _moduleId, words[currentDisplay].getWord());
                     break;
                 case 3:
                     stage2.material = on;
@@ -738,7 +857,16 @@ public class dragonEnergy : MonoBehaviour {
         } else
         {
             module.HandleStrike();
-            Debug.LogFormat("[DragonEnergy #{0}] Incorrect input. Recieved: {1}. Expected: {2}.", _moduleId, words[currentDisplay].getWord(), correctWord.getWord());
+            string incorrect = words[currentDisplay].getWord();
+            int correctLength = correctWords.Length-1;
+            string correct = "";
+            foreach(Word word in correctWords)
+            {
+                correct += word.getWord();
+                correct += ", ";
+            }
+            correct = correct.Substring(0, correct.Length - 2);
+            Debug.LogFormat("[DragonEnergy #{0}] Incorrect answer submitted. Inputted: {1}. Any of the following are correct: {2}.", _moduleId, incorrect, correct);
             setupThreeWords();
         }
     }
@@ -829,7 +957,7 @@ public class dragonEnergy : MonoBehaviour {
         Wood = new Word(sprites[29], new Position(Level.EXCLUDED, Circle.GREEN), "Wood");
     }
 
-    Circle[] getPrimarys(Word word)
+    public Circle[] getPrimarys(Word word)
     {
         switch (word.getPosition().getCircle())
         {
@@ -959,6 +1087,73 @@ public class Position
     public Level getLevel()
     {
         return level;
+    }
+
+    public string getName()
+    {
+        String name = "";
+        switch (level)
+        {
+            case Level.EXCLUDED:
+                name += "Excluded, ";
+                switch (circle)
+                {
+                    case Circle.RED:
+                        name += "Red";
+                        break;
+                    case Circle.GREEN:
+                        name += "Green";
+                        break;
+                    case Circle.BLUE:
+                        name += "Cyan";
+                        break;
+                    case Circle.PURPLE:
+                        name += "Purple";
+                        break;
+                }
+                break;
+            case Level.SECONDARY:
+                name += "Secondary, ";
+                switch (circle)
+                {
+                    case Circle.GREENPURPLE:
+                        name += "Green + Purple";
+                        break;
+                    case Circle.BLUERED:
+                        name += "Cyan + Red";
+                        break;
+                    case Circle.GREENRED:
+                        name += "Green + Red";
+                        break;
+                    case Circle.BLUEPURPLE:
+                        name += "Cyan + Purple";
+                        break;
+                }
+                break;
+            case Level.TERTIARY:
+                name += "Tertiary, ";
+                switch (circle)
+                {
+                    case Circle.BLUEPURPLEGREEN:
+                        name += "Green + Purple + Cyan";
+                        break;
+                    case Circle.GREENPURPLERED:
+                        name += "Green + Purple + Red";
+                        break;
+                    case Circle.GREENREDBLUE:
+                        name += "Green + Red + Cyan";
+                        break;
+                    case Circle.REDBLUEPURPLE:
+                        name += "Cyan + Purple + Red";
+                        break;
+                }
+                break;
+            case Level.QUARTERNARY:
+                name += "Quarternary, Green + Red + Cyan + Purple";
+                break;
+
+        }
+        return name;
     }
 }
 
