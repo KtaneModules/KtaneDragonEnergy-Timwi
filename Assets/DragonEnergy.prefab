@@ -1201,7 +1201,7 @@ GameObject:
   - component: {fileID: 114001997743584836}
   - component: {fileID: 114502742347374720}
   - component: {fileID: 114886618376691310}
-  - component: {fileID: 114856538007677974}
+  - component: {fileID: 114361400754116004}
   m_Layer: 0
   m_Name: DragonEnergy
   m_TagString: Untagged
@@ -3923,6 +3923,96 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HighlightScale: {x: 0, y: 0, z: 0}
   OutlineAmount: 0
+--- !u!114 &114361400754116004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1754159799592248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56c0fea76d64b274c9ea618972e66440, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  newAudio: {fileID: 114502742347374720}
+  module: {fileID: 114554407584949396}
+  info: {fileID: 114001997743584836}
+  submit: {fileID: 114901245816094998}
+  left: {fileID: 114813311540091174}
+  right: {fileID: 114149464450168638}
+  sprites:
+  - {fileID: 1368048954007824}
+  - {fileID: 1247464065203430}
+  - {fileID: 1559424577573826}
+  - {fileID: 1465891490079036}
+  - {fileID: 1975232353469362}
+  - {fileID: 1501108805159240}
+  - {fileID: 1490505205502428}
+  - {fileID: 1574746613159128}
+  - {fileID: 1213590410691226}
+  - {fileID: 1269770264351824}
+  - {fileID: 1634857436661750}
+  - {fileID: 1506888766401154}
+  - {fileID: 1632946518237974}
+  - {fileID: 1274975946760656}
+  - {fileID: 1669797629567898}
+  - {fileID: 1450666617564354}
+  - {fileID: 1262413937268428}
+  - {fileID: 1125983585778722}
+  - {fileID: 1738482620859544}
+  - {fileID: 1368161310971120}
+  - {fileID: 1843636562102168}
+  - {fileID: 1466866604673784}
+  - {fileID: 1840674423787066}
+  - {fileID: 1306494161528998}
+  - {fileID: 1905778231894036}
+  - {fileID: 1637016587501938}
+  - {fileID: 1116750640197362}
+  - {fileID: 1380864212203808}
+  - {fileID: 1653153369862192}
+  - {fileID: 1612937663383014}
+  displaySprites:
+  - {fileID: 1833566489404036}
+  - {fileID: 1598422737533580}
+  - {fileID: 1521683907842204}
+  - {fileID: 1385349134809578}
+  - {fileID: 1910385092887504}
+  - {fileID: 1255189530388996}
+  - {fileID: 1371008609471348}
+  - {fileID: 1965239751184454}
+  - {fileID: 1743600992528666}
+  - {fileID: 1242318484931476}
+  - {fileID: 1100320389164980}
+  - {fileID: 1072603645144164}
+  - {fileID: 1261705299091630}
+  - {fileID: 1169103711132412}
+  - {fileID: 1686414996484748}
+  - {fileID: 1549213619500014}
+  - {fileID: 1138011298469968}
+  - {fileID: 1097103942938732}
+  - {fileID: 1288950941596792}
+  - {fileID: 1147515384849786}
+  - {fileID: 1940995224238854}
+  - {fileID: 1258408321435660}
+  - {fileID: 1105233564389916}
+  - {fileID: 1449248160971246}
+  - {fileID: 1430145773747588}
+  - {fileID: 1248680673956636}
+  - {fileID: 1461160588802942}
+  - {fileID: 1708800413411750}
+  - {fileID: 1723936764664620}
+  - {fileID: 1862601229342398}
+  colors:
+  - {fileID: 2100000, guid: 4fde4edfa4c1a7645b1bb4cccd973a5a, type: 2}
+  - {fileID: 2100000, guid: b38cd6f5a7cbe5a41a5ae15fe85677e1, type: 2}
+  - {fileID: 2100000, guid: 82862373c7f40434283228015dac821c, type: 2}
+  off: {fileID: 2100000, guid: ffb26fe787725c249b0008cb1e64053e, type: 2}
+  on: {fileID: 2100000, guid: f44e9bfe33d451e47b8a3f61bedeeb4f, type: 2}
+  stage1: {fileID: 23298449049943176}
+  stage2: {fileID: 23487959269888308}
+  stage3: {fileID: 23649843519198904}
+  stage4: {fileID: 23647174375602212}
+  indicator: {fileID: 23853032061899042}
 --- !u!114 &114380149186428852
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4112,96 +4202,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShaderNames:
   - Unlit/Color
---- !u!114 &114856538007677974
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1754159799592248}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56c0fea76d64b274c9ea618972e66440, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  newAudio: {fileID: 114502742347374720}
-  module: {fileID: 114554407584949396}
-  info: {fileID: 114001997743584836}
-  submit: {fileID: 114901245816094998}
-  left: {fileID: 114813311540091174}
-  right: {fileID: 114149464450168638}
-  sprites:
-  - {fileID: 1368048954007824}
-  - {fileID: 1247464065203430}
-  - {fileID: 1559424577573826}
-  - {fileID: 1465891490079036}
-  - {fileID: 1975232353469362}
-  - {fileID: 1501108805159240}
-  - {fileID: 1490505205502428}
-  - {fileID: 1574746613159128}
-  - {fileID: 1213590410691226}
-  - {fileID: 1269770264351824}
-  - {fileID: 1634857436661750}
-  - {fileID: 1506888766401154}
-  - {fileID: 1632946518237974}
-  - {fileID: 1274975946760656}
-  - {fileID: 1669797629567898}
-  - {fileID: 1450666617564354}
-  - {fileID: 1262413937268428}
-  - {fileID: 1125983585778722}
-  - {fileID: 1738482620859544}
-  - {fileID: 1368161310971120}
-  - {fileID: 1843636562102168}
-  - {fileID: 1466866604673784}
-  - {fileID: 1840674423787066}
-  - {fileID: 1306494161528998}
-  - {fileID: 1905778231894036}
-  - {fileID: 1637016587501938}
-  - {fileID: 1116750640197362}
-  - {fileID: 1380864212203808}
-  - {fileID: 1653153369862192}
-  - {fileID: 1612937663383014}
-  displaySprites:
-  - {fileID: 1833566489404036}
-  - {fileID: 1598422737533580}
-  - {fileID: 1521683907842204}
-  - {fileID: 1385349134809578}
-  - {fileID: 1910385092887504}
-  - {fileID: 1255189530388996}
-  - {fileID: 1371008609471348}
-  - {fileID: 1965239751184454}
-  - {fileID: 1743600992528666}
-  - {fileID: 1242318484931476}
-  - {fileID: 1100320389164980}
-  - {fileID: 1072603645144164}
-  - {fileID: 1261705299091630}
-  - {fileID: 1169103711132412}
-  - {fileID: 1686414996484748}
-  - {fileID: 1549213619500014}
-  - {fileID: 1138011298469968}
-  - {fileID: 1097103942938732}
-  - {fileID: 1288950941596792}
-  - {fileID: 1147515384849786}
-  - {fileID: 1940995224238854}
-  - {fileID: 1258408321435660}
-  - {fileID: 1105233564389916}
-  - {fileID: 1449248160971246}
-  - {fileID: 1430145773747588}
-  - {fileID: 1248680673956636}
-  - {fileID: 1461160588802942}
-  - {fileID: 1708800413411750}
-  - {fileID: 1723936764664620}
-  - {fileID: 1862601229342398}
-  colors:
-  - {fileID: 2100000, guid: 4fde4edfa4c1a7645b1bb4cccd973a5a, type: 2}
-  - {fileID: 2100000, guid: b38cd6f5a7cbe5a41a5ae15fe85677e1, type: 2}
-  - {fileID: 2100000, guid: 82862373c7f40434283228015dac821c, type: 2}
-  off: {fileID: 2100000, guid: ffb26fe787725c249b0008cb1e64053e, type: 2}
-  on: {fileID: 2100000, guid: f44e9bfe33d451e47b8a3f61bedeeb4f, type: 2}
-  stage1: {fileID: 23298449049943176}
-  stage2: {fileID: 23487959269888308}
-  stage3: {fileID: 23649843519198904}
-  stage4: {fileID: 23647174375602212}
-  indicator: {fileID: 23853032061899042}
 --- !u!114 &114886618376691310
 MonoBehaviour:
   m_ObjectHideFlags: 1

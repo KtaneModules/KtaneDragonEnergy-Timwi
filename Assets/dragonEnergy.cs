@@ -35,9 +35,9 @@ public class dragonEnergy : MonoBehaviour {
     private Word Ambition, Anger, Beauty, Brave, Courage, Crisis, Death, Destiny, Devotion, DoubleHappiness, Dragon, Dream, Energy, Eternity, Female, Fortune, Freedom, GoodLuck, Happiness, Hate, Health, Honor, Kind, Life, Longevity, Love, Male, Soul, Wisdom, Wood;
     private Word[] words;
     private Word[] swapped = new Word[] { };
-    private int currentDisplay, stage = 1;
+    private int currentDisplay, stage, stage1submit, stage2submit, stage3submit;
 
-    private Word[] correctWords;
+    private Word[] correctWords = new Word[]{};
 
     private List<string> modules;
 
@@ -74,20 +74,39 @@ public class dragonEnergy : MonoBehaviour {
 
     void Init()
     {
+        stage = 1;
         setupWords();
         words = new Word[] { Ambition, Anger, Beauty, Brave, Courage, Crisis, Death, Destiny, Devotion, DoubleHappiness, Dragon, Dream, Energy, Eternity, Female, Fortune, Freedom, GoodLuck, Happiness, Hate, Health, Honor, Kind, Life, Longevity, Love, Male, Soul, Wisdom, Wood };
+        Debug.LogFormat("[DragonEnergy #{0}] Initial position of words: Ambition: {1}; Anger: {2}; Beauty: {3}; Brave: {4}; Courage: {5}; Crisis: {6}; Death: {7}; Destiny: {8}; Devotion: {9}; DoubleHappiness: {10}; Dragon: {11}; Dream: {12}; Energy: {13}; Eternity: {14}; Female: {15}; Fortune: {16}; Freedom: {17}; GoodLuck: {18}; Happiness: {19}; Hate: {20}; Health: {21}; Honor: {22}; Kind: {23}; Life: {24}; Longevity: {25}; Love: {26}; Male: {27}; Soul: {28}; Wisdom: {29}; Wood: {30}.", _moduleId, Ambition.getPosition().getName(), Anger.getPosition().getName(), Beauty.getPosition().getName(), Brave.getPosition().getName(), Courage.getPosition().getName(), Crisis.getPosition().getName(), Death.getPosition().getName(), Destiny.getPosition().getName(), Devotion.getPosition().getName(), DoubleHappiness.getPosition().getName(), Dragon.getPosition().getName(), Dream.getPosition().getName(), Energy.getPosition().getName(), Eternity.getPosition().getName(), Female.getPosition().getName(), Fortune.getPosition().getName(), Freedom.getPosition().getName(), GoodLuck.getPosition().getName(), Happiness.getPosition().getName(), Hate.getPosition().getName(), Health.getPosition().getName(), Honor.getPosition().getName(), Kind.getPosition().getName(), Life.getPosition().getName(), Longevity.getPosition().getName(), Love.getPosition().getName(), Male.getPosition().getName(), Soul.getPosition().getName(), Wisdom.getPosition().getName(), Wood.getPosition().getName());
         stage1.material = off;
         stage2.material = off;
         stage3.material = off;
         stage4.material = off;
         indicator.material = off;
-        indicatorColor = Random.Range(0, 3);
-        indicator.material = colors[indicatorColor];
+        setupIndicator();
         currentDisplay = Random.Range(0, 30);
         setupThreeWords();
         DisplayCurrent();
         modules = info.GetModuleNames();
         Debug.LogFormat("[DragonEnergy #{0}] Note: Answer is not calculated until submit is pressed.", _moduleId);
+    }
+
+    void setupIndicator()
+    {
+        indicatorColor = Random.Range(0, 3);
+        indicator.material = colors[indicatorColor];
+        switch (indicatorColor)
+        {
+            case 0:
+                Debug.LogFormat("[DragonEnergy #{0}] Indicator color: Orange.", _moduleId);
+                break;
+            case 1:
+                Debug.LogFormat("[DragonEnergy #{0}] Indicator color: Cyan.", _moduleId);
+                break;
+            case 2:
+                Debug.LogFormat("[DragonEnergy #{0}] Indicator color: Purple.", _moduleId);
+                break;
+        }
     }
 
     void InitSwaps()
@@ -113,6 +132,7 @@ public class dragonEnergy : MonoBehaviour {
             Swaps(3);
         } else if (info.GetModuleNames().Count() > 8)
         {
+            
             Swaps(4);
         } else if (vowelCount >= 2)
         {
@@ -179,7 +199,8 @@ public class dragonEnergy : MonoBehaviour {
                     }
                     if (!swapped.Contains(word))
                     {
-                        swapped.Concat(temp);
+                        Array.Resize(ref swapped, swapped.Length + 1);
+                        swapped[swapped.Length - 1] = word;
                     }
                 }
 
@@ -202,6 +223,8 @@ public class dragonEnergy : MonoBehaviour {
                 {
                     Word.Swap(purplecyan1[i], purple1[i]);
                 }
+                Debug.LogFormat("[DragonEnergy #{0}] Swap 1 has occurred! Current position of words: Ambition: {1}; Anger: {2}; Beauty: {3}; Brave: {4}; Courage: {5}; Crisis: {6}; Death: {7}; Destiny: {8}; Devotion: {9}; DoubleHappiness: {10}; Dragon: {11}; Dream: {12}; Energy: {13}; Eternity: {14}; Female: {15}; Fortune: {16}; Freedom: {17}; GoodLuck: {18}; Happiness: {19}; Hate: {20}; Health: {21}; Honor: {22}; Kind: {23}; Life: {24}; Longevity: {25}; Love: {26}; Male: {27}; Soul: {28}; Wisdom: {29}; Wood: {30}.", _moduleId, Ambition.getPosition().getName(), Anger.getPosition().getName(), Beauty.getPosition().getName(), Brave.getPosition().getName(), Courage.getPosition().getName(), Crisis.getPosition().getName(), Death.getPosition().getName(), Destiny.getPosition().getName(), Devotion.getPosition().getName(), DoubleHappiness.getPosition().getName(), Dragon.getPosition().getName(), Dream.getPosition().getName(), Energy.getPosition().getName(), Eternity.getPosition().getName(), Female.getPosition().getName(), Fortune.getPosition().getName(), Freedom.getPosition().getName(), GoodLuck.getPosition().getName(), Happiness.getPosition().getName(), Hate.getPosition().getName(), Health.getPosition().getName(), Honor.getPosition().getName(), Kind.getPosition().getName(), Life.getPosition().getName(), Longevity.getPosition().getName(), Love.getPosition().getName(), Male.getPosition().getName(), Soul.getPosition().getName(), Wisdom.getPosition().getName(), Wood.getPosition().getName());
+
                 break;
             case 2:
                 Word[] greenpurple2 = new Word[] { };
@@ -232,7 +255,8 @@ public class dragonEnergy : MonoBehaviour {
                     }
                     if (!swapped.Contains(word))
                     {
-                        swapped.Concat(temp);
+                        Array.Resize(ref swapped, swapped.Length + 1);
+                        swapped[swapped.Length - 1] = word;
                     }
                 }
 
@@ -245,6 +269,8 @@ public class dragonEnergy : MonoBehaviour {
                 {
                     Word.Swap(purplecyan2[i], greenred2[i]);
                 }
+                Debug.LogFormat("[DragonEnergy #{0}] Swap 2 has occurred! Current position of words: Ambition: {1}; Anger: {2}; Beauty: {3}; Brave: {4}; Courage: {5}; Crisis: {6}; Death: {7}; Destiny: {8}; Devotion: {9}; DoubleHappiness: {10}; Dragon: {11}; Dream: {12}; Energy: {13}; Eternity: {14}; Female: {15}; Fortune: {16}; Freedom: {17}; GoodLuck: {18}; Happiness: {19}; Hate: {20}; Health: {21}; Honor: {22}; Kind: {23}; Life: {24}; Longevity: {25}; Love: {26}; Male: {27}; Soul: {28}; Wisdom: {29}; Wood: {30}.", _moduleId, Ambition.getPosition().getName(), Anger.getPosition().getName(), Beauty.getPosition().getName(), Brave.getPosition().getName(), Courage.getPosition().getName(), Crisis.getPosition().getName(), Death.getPosition().getName(), Destiny.getPosition().getName(), Devotion.getPosition().getName(), DoubleHappiness.getPosition().getName(), Dragon.getPosition().getName(), Dream.getPosition().getName(), Energy.getPosition().getName(), Eternity.getPosition().getName(), Female.getPosition().getName(), Fortune.getPosition().getName(), Freedom.getPosition().getName(), GoodLuck.getPosition().getName(), Happiness.getPosition().getName(), Hate.getPosition().getName(), Health.getPosition().getName(), Honor.getPosition().getName(), Kind.getPosition().getName(), Life.getPosition().getName(), Longevity.getPosition().getName(), Love.getPosition().getName(), Male.getPosition().getName(), Soul.getPosition().getName(), Wisdom.getPosition().getName(), Wood.getPosition().getName());
+
                 break;
             case 3:
                 Word[] greenpurple3 = new Word[] { };
@@ -296,7 +322,8 @@ public class dragonEnergy : MonoBehaviour {
                     }
                     if (!swapped.Contains(word))
                     {
-                        swapped.Concat(temp);
+                        Array.Resize(ref swapped, swapped.Length + 1);
+                        swapped[swapped.Length - 1] = word;
                     }
                 }
 
@@ -319,6 +346,8 @@ public class dragonEnergy : MonoBehaviour {
                 {
                     Word.Swap(purplecyan3[i], red3[i]);
                 }
+                Debug.LogFormat("[DragonEnergy #{0}] Swap 3 has occurred! Current position of words: Ambition: {1}; Anger: {2}; Beauty: {3}; Brave: {4}; Courage: {5}; Crisis: {6}; Death: {7}; Destiny: {8}; Devotion: {9}; DoubleHappiness: {10}; Dragon: {11}; Dream: {12}; Energy: {13}; Eternity: {14}; Female: {15}; Fortune: {16}; Freedom: {17}; GoodLuck: {18}; Happiness: {19}; Hate: {20}; Health: {21}; Honor: {22}; Kind: {23}; Life: {24}; Longevity: {25}; Love: {26}; Male: {27}; Soul: {28}; Wisdom: {29}; Wood: {30}.", _moduleId, Ambition.getPosition().getName(), Anger.getPosition().getName(), Beauty.getPosition().getName(), Brave.getPosition().getName(), Courage.getPosition().getName(), Crisis.getPosition().getName(), Death.getPosition().getName(), Destiny.getPosition().getName(), Devotion.getPosition().getName(), DoubleHappiness.getPosition().getName(), Dragon.getPosition().getName(), Dream.getPosition().getName(), Energy.getPosition().getName(), Eternity.getPosition().getName(), Female.getPosition().getName(), Fortune.getPosition().getName(), Freedom.getPosition().getName(), GoodLuck.getPosition().getName(), Happiness.getPosition().getName(), Hate.getPosition().getName(), Health.getPosition().getName(), Honor.getPosition().getName(), Kind.getPosition().getName(), Life.getPosition().getName(), Longevity.getPosition().getName(), Love.getPosition().getName(), Male.getPosition().getName(), Soul.getPosition().getName(), Wisdom.getPosition().getName(), Wood.getPosition().getName());
+
                 break;
             case 4:
                 Word[] greenpurplered4 = new Word[] { };
@@ -370,7 +399,8 @@ public class dragonEnergy : MonoBehaviour {
                     }
                     if (!swapped.Contains(word))
                     {
-                        swapped.Concat(temp);
+                        Array.Resize(ref swapped, swapped.Length + 1);
+                        swapped[swapped.Length - 1] = word;
                     }
                 }
 
@@ -384,17 +414,38 @@ public class dragonEnergy : MonoBehaviour {
                     Word.Swap(greenpurplecyan4[i], redcyanpurple4[i]);
                 }
 
-                for (int i = 0; i < quarter4.Length; i++)
+                if (quarter4.Length > greenred4.Length)
                 {
-                    Word.Swap(quarter4[i], greenred4[i]);
+                    for (int i = 0; i < greenred4.Length; i++)
+                    {
+                        Word.Swap(greenred4[i], quarter4[i]);
+                    }
+                    quarter4.Last().setPosition(quarter4[0].getPosition());
+                }
+                else if (quarter4.Length < greenred4.Length)
+                {
+                    for (int i = 0; i < quarter4.Length; i++)
+                    {
+                        Word.Swap(greenred4[i], quarter4[i]);
+                    }
+                    greenred4.Last().setPosition(greenred4[0].getPosition());
+                }
+                else
+                {
+                    for (int i = 0; i < quarter4.Length; i++)
+                    {
+                        Word.Swap(greenred4[i], quarter4[i]);
+                    }
                 }
 
                 for (int i = 0; i < purple4.Length; i++)
                 {
                     Word.Swap(purple4[i], cyan4[i]);
                 }
+                Debug.LogFormat("[DragonEnergy #{0}] Swap 4 has occurred! Current position of words: Ambition: {1}; Anger: {2}; Beauty: {3}; Brave: {4}; Courage: {5}; Crisis: {6}; Death: {7}; Destiny: {8}; Devotion: {9}; DoubleHappiness: {10}; Dragon: {11}; Dream: {12}; Energy: {13}; Eternity: {14}; Female: {15}; Fortune: {16}; Freedom: {17}; GoodLuck: {18}; Happiness: {19}; Hate: {20}; Health: {21}; Honor: {22}; Kind: {23}; Life: {24}; Longevity: {25}; Love: {26}; Male: {27}; Soul: {28}; Wisdom: {29}; Wood: {30}.", _moduleId, Ambition.getPosition().getName(), Anger.getPosition().getName(), Beauty.getPosition().getName(), Brave.getPosition().getName(), Courage.getPosition().getName(), Crisis.getPosition().getName(), Death.getPosition().getName(), Destiny.getPosition().getName(), Devotion.getPosition().getName(), DoubleHappiness.getPosition().getName(), Dragon.getPosition().getName(), Dream.getPosition().getName(), Energy.getPosition().getName(), Eternity.getPosition().getName(), Female.getPosition().getName(), Fortune.getPosition().getName(), Freedom.getPosition().getName(), GoodLuck.getPosition().getName(), Happiness.getPosition().getName(), Hate.getPosition().getName(), Health.getPosition().getName(), Honor.getPosition().getName(), Kind.getPosition().getName(), Life.getPosition().getName(), Longevity.getPosition().getName(), Love.getPosition().getName(), Male.getPosition().getName(), Soul.getPosition().getName(), Wisdom.getPosition().getName(), Wood.getPosition().getName());
+
                 break;
-            case 5:
+            case 5:// good
                 Word[] green5 = new Word[] { };
                 Word[] red5 = new Word[] { };
 
@@ -406,137 +457,260 @@ public class dragonEnergy : MonoBehaviour {
 
                 foreach (Word word in words)
                 {
-                    Word[] temp = new Word[] { word };
                     Circle circle = word.getPosition().getCircle();
                     if (circle == Circle.GREENREDBLUEPURPLE)
                     {
-                        quarter5.Concat(temp);
+                        Array.Resize(ref quarter5, quarter5.Length + 1);
+                        quarter5[quarter5.Length - 1] = word;
                     }
                     else if (circle == Circle.GREEN)
                     {
-                        green5.Concat(temp);
+                        Array.Resize(ref green5, green5.Length + 1);
+                        green5[green5.Length - 1] = word;
                     }
                     else if (circle == Circle.BLUERED)
                     {
-                        redcyan5.Concat(temp);
+                        Array.Resize(ref redcyan5, redcyan5.Length + 1);
+                        redcyan5[redcyan5.Length - 1] = word;
                     }
                     else if (circle == Circle.BLUEPURPLE)
                     {
-                        purplecyan5.Concat(temp);
+                        Array.Resize(ref purplecyan5, purplecyan5.Length + 1);
+                        purplecyan5[purplecyan5.Length - 1] = word;
                     }
                     else if (circle == Circle.BLUE)
                     {
-                        cyan5.Concat(temp);
+                        Array.Resize(ref cyan5, cyan5.Length + 1);
+                        cyan5[cyan5.Length - 1] = word;
                     }
                     else if (circle == Circle.RED)
                     {
-                        red5.Concat(temp);
+                        Array.Resize(ref red5, red5.Length + 1);
+                        red5[red5.Length - 1] = word;
                     }
                     if (!swapped.Contains(word))
                     {
-                        swapped.Concat(temp);
+                        Array.Resize(ref swapped, swapped.Length + 1);
+                        swapped[swapped.Length - 1] = word;
                     }
                 }
 
-                for (int i = 0; i < green5.Length; i++)
+                if (green5.Length > red5.Length)
                 {
-                    Word.Swap(green5[i], red5[i]);
+                    for (int i = 0; i < red5.Length; i++)
+                    {
+                        Word.Swap(red5[i], green5[i]);
+                        Debug.Log("Swapped " + red5[i].getWord() + " and " + green5[i].getWord());
+                    }
+                    green5.Last().setPosition(green5[0].getPosition());
+                    Debug.Log(green5.Last().getWord() + " position set to " + green5.Last().getPosition().getName());
+                }
+                else if (green5.Length < red5.Length)
+                {
+                    for (int i = 0; i < green5.Length; i++)
+                    {
+                        Word.Swap(red5[i], green5[i]);
+                        Debug.Log("Swapped " + red5[i].getWord() + " and " + green5[i].getWord());
+                    }
+                    red5.Last().setPosition(red5[0].getPosition());
+                    Debug.Log(red5.Last().getWord() + " position set to " + red5.Last().getPosition().getName());
+                }
+                else
+                {
+                    for (int i = 0; i < green5.Length; i++)
+                    {
+                        Word.Swap(red5[i], green5[i]);
+                        Debug.Log("Swapped " + red5[i].getWord() + " and " + green5[i].getWord());
+                    }
                 }
 
-                for (int i = 0; i < purplecyan5.Length; i++)
+                if (quarter5.Length > purplecyan5.Length)
                 {
-                    Word.Swap(purplecyan5[i], quarter5[i]);
+                    for (int i = 0; i < purplecyan5.Length; i++)
+                    {
+                        Word.Swap(purplecyan5[i], quarter5[i]);
+                        Debug.Log("Swapped " + purplecyan5[i].getWord() + " and " + quarter5[i].getWord());
+                    }
+                    quarter5.Last().setPosition(quarter5[0].getPosition());
+                    Debug.Log(quarter5.Last().getWord() + " position set to " + quarter5.Last().getPosition().getName());
+                }
+                else if (quarter5.Length < purplecyan5.Length)
+                {
+                    for (int i = 0; i < quarter5.Length; i++)
+                    {
+                        Word.Swap(purplecyan5[i], quarter5[i]);
+                        Debug.Log("Swapped " + purplecyan5[i].getWord() + " and " + quarter5[i].getWord());
+                    }
+                    purplecyan5.Last().setPosition(purplecyan5[0].getPosition());
+                    Debug.Log(purplecyan5.Last().getWord() + " position set to " + purplecyan5.Last().getPosition().getName());
+                }
+                else
+                {
+                    for (int i = 0; i < quarter5.Length; i++)
+                    {
+                        Word.Swap(purplecyan5[i], quarter5[i]);
+                        Debug.Log("Swapped " + purplecyan5[i].getWord() + " and " + quarter5[i].getWord());
+                    }
                 }
 
-                for (int i = 0; i < redcyan5.Length; i++)
+                if (cyan5.Length > redcyan5.Length)
                 {
-                    Word.Swap(redcyan5[i], cyan5[i]);
+                    for (int i = 0; i < redcyan5.Length; i++)
+                    {
+                        Word.Swap(redcyan5[i], cyan5[i]);
+                        Debug.Log("Swapped " + redcyan5[i].getWord() + " and " + cyan5[i].getWord());
+                    }
+                    cyan5.Last().setPosition(cyan5[0].getPosition());
+                    Debug.Log(cyan5.Last().getWord() + " position set to " + cyan5.Last().getPosition().getName());
                 }
+                else if (cyan5.Length < redcyan5.Length)
+                {
+                    for (int i = 0; i < cyan5.Length; i++)
+                    {
+                        Word.Swap(redcyan5[i], cyan5[i]);
+                        Debug.Log("Swapped " + redcyan5[i].getWord() + " and " + quarter5[i].getWord());
+                    }
+                    redcyan5.Last().setPosition(redcyan5[0].getPosition());
+                    Debug.Log(redcyan5.Last().getWord() + " position set to " + redcyan5.Last().getPosition().getName());
+                }
+                else
+                {
+                    for (int i = 0; i < cyan5.Length; i++)
+                    {
+                        Word.Swap(redcyan5[i], cyan5[i]);
+                        Debug.Log("Swapped " + redcyan5[i].getWord() + " and " + cyan5[i].getWord());
+                    }
+                }
+                Debug.LogFormat("[DragonEnergy #{0}] Swap 5 has occurred! Current position of words: Ambition: {1}; Anger: {2}; Beauty: {3}; Brave: {4}; Courage: {5}; Crisis: {6}; Death: {7}; Destiny: {8}; Devotion: {9}; DoubleHappiness: {10}; Dragon: {11}; Dream: {12}; Energy: {13}; Eternity: {14}; Female: {15}; Fortune: {16}; Freedom: {17}; GoodLuck: {18}; Happiness: {19}; Hate: {20}; Health: {21}; Honor: {22}; Kind: {23}; Life: {24}; Longevity: {25}; Love: {26}; Male: {27}; Soul: {28}; Wisdom: {29}; Wood: {30}.", _moduleId, Ambition.getPosition().getName(), Anger.getPosition().getName(), Beauty.getPosition().getName(), Brave.getPosition().getName(), Courage.getPosition().getName(), Crisis.getPosition().getName(), Death.getPosition().getName(), Destiny.getPosition().getName(), Devotion.getPosition().getName(), DoubleHappiness.getPosition().getName(), Dragon.getPosition().getName(), Dream.getPosition().getName(), Energy.getPosition().getName(), Eternity.getPosition().getName(), Female.getPosition().getName(), Fortune.getPosition().getName(), Freedom.getPosition().getName(), GoodLuck.getPosition().getName(), Happiness.getPosition().getName(), Hate.getPosition().getName(), Health.getPosition().getName(), Honor.getPosition().getName(), Kind.getPosition().getName(), Life.getPosition().getName(), Longevity.getPosition().getName(), Love.getPosition().getName(), Male.getPosition().getName(), Soul.getPosition().getName(), Wisdom.getPosition().getName(), Wood.getPosition().getName());
+
                 break;
-            case 6:
+            case 6:// good
                 Word[] quarter6 = new Word[] { };
                 Word[] greenpurple6 = new Word[] { };
 
                 foreach (Word word in words)
                 {
-                    Word[] temp = new Word[] { word };
                     Circle circle = word.getPosition().getCircle();
                     if (circle == Circle.GREENREDBLUEPURPLE)
                     {
-                        quarter6.Concat(temp);
+                        Array.Resize(ref quarter6, quarter6.Length + 1);
+                        quarter6[quarter6.Length - 1] = word;
+
                     }
                     else if (circle == Circle.GREENPURPLE)
                     {
-                        greenpurple6.Concat(temp);
+                        Array.Resize(ref greenpurple6, greenpurple6.Length + 1);
+                        greenpurple6[greenpurple6.Length - 1] = word;
+
                     }
                     if (!swapped.Contains(word))
                     {
-                        swapped.Concat(temp);
+                        Array.Resize(ref swapped, swapped.Length + 1);
+                        swapped[swapped.Length - 1] = word;
                     }
                 }
 
-                for (int i = 0; i < quarter6.Length; i++)
+                Debug.Log(quarter6.Length);
+                Debug.Log(greenpurple6.Length);
+
+                if (quarter6.Length > greenpurple6.Length)
                 {
-                    Word.Swap(quarter6[i], greenpurple6[i]);
+                    for (int i = 0; i < greenpurple6.Length; i++)
+                    {
+                        Word.Swap(greenpurple6[i], quarter6[i]);
+                        Debug.Log("Swapped " + greenpurple6[i].getWord() +" and "+quarter6[i].getWord());
+                    }
+                    quarter6.Last().setPosition(quarter6[0].getPosition());
+                    Debug.Log(quarter6.Last().getWord() + " position set to " + quarter6.Last().getPosition().getName());
+                }
+                else if (quarter6.Length < greenpurple6.Length)
+                {
+                    for (int i = 0; i < quarter6.Length; i++)
+                    {
+                        Word.Swap(greenpurple6[i], quarter6[i]);
+                        Debug.Log("Swapped " + greenpurple6[i].getWord() + " and " + quarter6[i].getWord());
+                    }
+                    greenpurple6.Last().setPosition(greenpurple6[0].getPosition());
+                    Debug.Log(greenpurple6.Last().getWord() + " position set to " + greenpurple6.Last().getPosition().getName());
+                }
+                else
+                {
+                    for (int i = 0; i < quarter6.Length; i++)
+                    {
+                        Word.Swap(greenpurple6[i], quarter6[i]);
+                        Debug.Log("Swapped " + greenpurple6[i].getWord() + " and " + quarter6[i].getWord());
+                    }
                 }
 
                 Word.Swap(Wisdom, Love);
 
                 if (!swapped.Contains(Wisdom))
                 {
-                    swapped.Concat(new Word[] { Wisdom });
+                    Array.Resize(ref swapped, swapped.Length + 1);
+                    swapped[swapped.Length - 1] = Wisdom;
                 }
                 if (!swapped.Contains(Love))
                 {
-                    swapped.Concat(new Word[] { Love });
+                    Array.Resize(ref swapped, swapped.Length + 1);
+                    swapped[swapped.Length - 1] = Love;
                 }
+                Debug.LogFormat("[DragonEnergy #{0}] Swap 6 has occurred! Current position of words: Ambition: {1}; Anger: {2}; Beauty: {3}; Brave: {4}; Courage: {5}; Crisis: {6}; Death: {7}; Destiny: {8}; Devotion: {9}; DoubleHappiness: {10}; Dragon: {11}; Dream: {12}; Energy: {13}; Eternity: {14}; Female: {15}; Fortune: {16}; Freedom: {17}; GoodLuck: {18}; Happiness: {19}; Hate: {20}; Health: {21}; Honor: {22}; Kind: {23}; Life: {24}; Longevity: {25}; Love: {26}; Male: {27}; Soul: {28}; Wisdom: {29}; Wood: {30}.", _moduleId, Ambition.getPosition().getName(), Anger.getPosition().getName(), Beauty.getPosition().getName(), Brave.getPosition().getName(), Courage.getPosition().getName(), Crisis.getPosition().getName(), Death.getPosition().getName(), Destiny.getPosition().getName(), Devotion.getPosition().getName(), DoubleHappiness.getPosition().getName(), Dragon.getPosition().getName(), Dream.getPosition().getName(), Energy.getPosition().getName(), Eternity.getPosition().getName(), Female.getPosition().getName(), Fortune.getPosition().getName(), Freedom.getPosition().getName(), GoodLuck.getPosition().getName(), Happiness.getPosition().getName(), Hate.getPosition().getName(), Health.getPosition().getName(), Honor.getPosition().getName(), Kind.getPosition().getName(), Life.getPosition().getName(), Longevity.getPosition().getName(), Love.getPosition().getName(), Male.getPosition().getName(), Soul.getPosition().getName(), Wisdom.getPosition().getName(), Wood.getPosition().getName());
 
                 break;
-            case 7:
+            case 7: // good
 
                 Word.Swap(Wood, Dream);
 
                 if (!swapped.Contains(Wood))
                 {
-                    swapped.Concat(new Word[] { Wood });
+                    Array.Resize(ref swapped, swapped.Length + 1);
+                    swapped[swapped.Length - 1] = Wood;
                 }
                 if (!swapped.Contains(Dream))
                 {
-                    swapped.Concat(new Word[] { Dream });
+                    Array.Resize(ref swapped, swapped.Length + 1);
+                    swapped[swapped.Length - 1] = Dream;
                 }
                 Word.Swap(Courage, Hate);
 
                 if (!swapped.Contains(Courage))
                 {
-                    swapped.Concat(new Word[] { Courage });
+                    Array.Resize(ref swapped, swapped.Length + 1);
+                    swapped[swapped.Length - 1] = Courage;
                 }
                 if (!swapped.Contains(Hate))
                 {
-                    swapped.Concat(new Word[] { Hate });
+                    Array.Resize(ref swapped, swapped.Length + 1);
+                    swapped[swapped.Length - 1] = Hate;
                 }
                 Word.Swap(Freedom, Honor);
 
                 if (!swapped.Contains(Freedom))
                 {
-                    swapped.Concat(new Word[] { Freedom });
+                    Array.Resize(ref swapped, swapped.Length + 1);
+                    swapped[swapped.Length - 1] = Freedom;
                 }
                 if (!swapped.Contains(Honor))
                 {
-                    swapped.Concat(new Word[] { Honor });
+                    Array.Resize(ref swapped, swapped.Length + 1);
+                    swapped[swapped.Length - 1] = Honor;
                 }
                 Word.Swap(Female, Dragon);
 
                 if (!swapped.Contains(Female))
                 {
-                    swapped.Concat(new Word[] { Female });
+                    Array.Resize(ref swapped, swapped.Length + 1);
+                    swapped[swapped.Length - 1] = Female;
                 }
                 if (!swapped.Contains(Dragon))
                 {
-                    swapped.Concat(new Word[] { Dragon });
+                    Array.Resize(ref swapped, swapped.Length + 1);
+                    swapped[swapped.Length - 1] = Dragon;
                 }
                 int last = info.GetSerialNumberNumbers().ToArray()[info.GetSerialNumberNumbers().ToArray().Length - 1];
                 if(last == 0 || last==8 || last == 9 || last == 7) { break; }
                 Swaps(last);
+                Debug.LogFormat("[DragonEnergy #{0}] Swap 7 has occurred! Current position of words: Ambition: {1}; Anger: {2}; Beauty: {3}; Brave: {4}; Courage: {5}; Crisis: {6}; Death: {7}; Destiny: {8}; Devotion: {9}; DoubleHappiness: {10}; Dragon: {11}; Dream: {12}; Energy: {13}; Eternity: {14}; Female: {15}; Fortune: {16}; Freedom: {17}; GoodLuck: {18}; Happiness: {19}; Hate: {20}; Health: {21}; Honor: {22}; Kind: {23}; Life: {24}; Longevity: {25}; Love: {26}; Male: {27}; Soul: {28}; Wisdom: {29}; Wood: {30}.", _moduleId, Ambition.getPosition().getName(), Anger.getPosition().getName(), Beauty.getPosition().getName(), Brave.getPosition().getName(), Courage.getPosition().getName(), Crisis.getPosition().getName(), Death.getPosition().getName(), Destiny.getPosition().getName(), Devotion.getPosition().getName(), DoubleHappiness.getPosition().getName(), Dragon.getPosition().getName(), Dream.getPosition().getName(), Energy.getPosition().getName(), Eternity.getPosition().getName(), Female.getPosition().getName(), Fortune.getPosition().getName(), Freedom.getPosition().getName(), GoodLuck.getPosition().getName(), Happiness.getPosition().getName(), Hate.getPosition().getName(), Health.getPosition().getName(), Honor.getPosition().getName(), Kind.getPosition().getName(), Life.getPosition().getName(), Longevity.getPosition().getName(), Love.getPosition().getName(), Male.getPosition().getName(), Soul.getPosition().getName(), Wisdom.getPosition().getName(), Wood.getPosition().getName());
                 break;
         }
     }
@@ -821,14 +995,15 @@ public class dragonEnergy : MonoBehaviour {
                     break;
             }
         }
-        if(badTimes.Contains((int)((info.GetTime() % 60) % 10)))
+        if(badTimes.Contains((int)(info.GetTime()%10)))
         {
             module.HandleStrike();
-            Debug.LogFormat("[DragonEnergy #{0}] Submit pressed with {1} in last digit of timer.", _moduleId, ((int)(info.GetTime() % 60) % 10));
+            Debug.LogFormat("[DragonEnergy #{0}] Submit pressed with {1} in last digit of timer.", _moduleId, (int)(info.GetTime() % 10));
             setupThreeWords();
             return;
         }
-        else if(correctWords.Contains(words[currentDisplay]))
+        int secondSubmitted = (int)(info.GetTime() % 10);
+        if (correctWords.Contains(words[currentDisplay]))
         {
             stage++;
             switch (stage)
@@ -837,14 +1012,19 @@ public class dragonEnergy : MonoBehaviour {
                     stage1.material = on;
                     setupThreeWords();
                     Debug.LogFormat("[DragonEnergy #{0}] Stage 1 solved, word submitted: {1}.", _moduleId, words[currentDisplay].getWord());
+                    stage1submit = secondSubmitted;
                     break;
                 case 3:
                     stage2.material = on;
                     setupThreeWords();
+                    Debug.LogFormat("[DragonEnergy #{0}] Stage 2 solved, word submitted: {1}.", _moduleId, words[currentDisplay].getWord());
+                    stage2submit = secondSubmitted;
                     break;
                 case 4:
                     stage3.material = on;
                     setupThreeWords();
+                    Debug.LogFormat("[DragonEnergy #{0}] Stage 3 solved, word submitted: {1}.", _moduleId, words[currentDisplay].getWord());
+                    stage3submit = secondSubmitted;
                     break;
                 case 5:
                     stage4.material = on;
@@ -858,14 +1038,16 @@ public class dragonEnergy : MonoBehaviour {
         {
             module.HandleStrike();
             string incorrect = words[currentDisplay].getWord();
-            int correctLength = correctWords.Length-1;
             string correct = "";
             foreach(Word word in correctWords)
             {
                 correct += word.getWord();
                 correct += ", ";
             }
-            correct = correct.Substring(0, correct.Length - 2);
+            if (correct.Length > 2)
+            {
+                correct = correct.Substring(0, correct.Length - 2);
+            }
             Debug.LogFormat("[DragonEnergy #{0}] Incorrect answer submitted. Inputted: {1}. Any of the following are correct: {2}.", _moduleId, incorrect, correct);
             setupThreeWords();
         }
