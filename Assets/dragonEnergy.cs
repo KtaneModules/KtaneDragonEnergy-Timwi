@@ -77,7 +77,6 @@ public class dragonEnergy : MonoBehaviour {
         stage = 1;
         setupWords();
         words = new Word[] { Ambition, Anger, Beauty, Brave, Courage, Crisis, Death, Destiny, Devotion, DoubleHappiness, Dragon, Dream, Energy, Eternity, Female, Fortune, Freedom, GoodLuck, Happiness, Hate, Health, Honor, Kind, Life, Longevity, Love, Male, Soul, Wisdom, Wood };
-        Debug.LogFormat("[DragonEnergy #{0}] Initial position of words: Ambition: {1}; Anger: {2}; Beauty: {3}; Brave: {4}; Courage: {5}; Crisis: {6}; Death: {7}; Destiny: {8}; Devotion: {9}; DoubleHappiness: {10}; Dragon: {11}; Dream: {12}; Energy: {13}; Eternity: {14}; Female: {15}; Fortune: {16}; Freedom: {17}; GoodLuck: {18}; Happiness: {19}; Hate: {20}; Health: {21}; Honor: {22}; Kind: {23}; Life: {24}; Longevity: {25}; Love: {26}; Male: {27}; Soul: {28}; Wisdom: {29}; Wood: {30}.", _moduleId, Ambition.getPosition().getName(), Anger.getPosition().getName(), Beauty.getPosition().getName(), Brave.getPosition().getName(), Courage.getPosition().getName(), Crisis.getPosition().getName(), Death.getPosition().getName(), Destiny.getPosition().getName(), Devotion.getPosition().getName(), DoubleHappiness.getPosition().getName(), Dragon.getPosition().getName(), Dream.getPosition().getName(), Energy.getPosition().getName(), Eternity.getPosition().getName(), Female.getPosition().getName(), Fortune.getPosition().getName(), Freedom.getPosition().getName(), GoodLuck.getPosition().getName(), Happiness.getPosition().getName(), Hate.getPosition().getName(), Health.getPosition().getName(), Honor.getPosition().getName(), Kind.getPosition().getName(), Life.getPosition().getName(), Longevity.getPosition().getName(), Love.getPosition().getName(), Male.getPosition().getName(), Soul.getPosition().getName(), Wisdom.getPosition().getName(), Wood.getPosition().getName());
         stage1.material = off;
         stage2.material = off;
         stage3.material = off;
@@ -150,497 +149,55 @@ public class dragonEnergy : MonoBehaviour {
     {
         switch (swap){
             case 1:
-                Word[] greenpurple1 = new Word[] { };
-                Word[] green1 = new Word[] { };
 
-                Word[] greenred1 = new Word[] { };
-                Word[] red1 = new Word[] { };
+                SwapSet(Circle.GREENPURPLE, Circle.GREEN);
+                SwapSet(Circle.GREENRED, Circle.RED);
+                SwapSet(Circle.CYANRED, Circle.CYAN);
+                SwapSet(Circle.PURPLE, Circle.CYANPURPLE);
 
-                Word[] redcyan1 = new Word[] { };
-                Word[] cyan1 = new Word[] { };
-
-                Word[] purplecyan1 = new Word[] { };
-                Word[] purple1 = new Word[] { };
-                foreach (Word word in words)
-                {
-                    Word[] temp = new Word[] { word };
-                    Circle circle = word.getPosition().getCircle();
-                    if (circle == Circle.GREENRED)
-                    {
-                        greenred1.Concat(temp);
-                    }
-                    else if (circle == Circle.RED)
-                    {
-                        red1.Concat(temp);
-                    }
-                    else if (circle == Circle.GREENPURPLE)
-                    {
-                        greenpurple1.Concat(temp);
-                    }
-                    else if (circle == Circle.GREEN)
-                    {
-                        green1.Concat(temp);
-                    }
-                    else if (circle == Circle.BLUERED)
-                    {
-                        redcyan1.Concat(temp);
-                    }
-                    else if (circle == Circle.BLUE)
-                    {
-                        cyan1.Concat(temp);
-                    }
-                    else if (circle == Circle.BLUEPURPLE)
-                    {
-                        purplecyan1.Concat(temp);
-                    }
-                    else if (circle == Circle.PURPLE)
-                    {
-                        purple1.Concat(temp);
-                    }
-                    if (!swapped.Contains(word))
-                    {
-                        Array.Resize(ref swapped, swapped.Length + 1);
-                        swapped[swapped.Length - 1] = word;
-                    }
-                }
-
-                for (int i = 0; i < greenpurple1.Length; i++)
-                {
-                    Word.Swap(greenpurple1[i], green1[i]);
-                }
-
-                for (int i = 0; i < greenred1.Length; i++)
-                {
-                    Word.Swap(greenred1[i], red1[i]);
-                }
-
-                for (int i = 0; i < redcyan1.Length; i++)
-                {
-                    Word.Swap(redcyan1[i], cyan1[i]);
-                }
-
-                for (int i = 0; i < purplecyan1.Length; i++)
-                {
-                    Word.Swap(purplecyan1[i], purple1[i]);
-                }
-                Debug.LogFormat("[DragonEnergy #{0}] Swap 1 has occurred! Current position of words: Ambition: {1}; Anger: {2}; Beauty: {3}; Brave: {4}; Courage: {5}; Crisis: {6}; Death: {7}; Destiny: {8}; Devotion: {9}; DoubleHappiness: {10}; Dragon: {11}; Dream: {12}; Energy: {13}; Eternity: {14}; Female: {15}; Fortune: {16}; Freedom: {17}; GoodLuck: {18}; Happiness: {19}; Hate: {20}; Health: {21}; Honor: {22}; Kind: {23}; Life: {24}; Longevity: {25}; Love: {26}; Male: {27}; Soul: {28}; Wisdom: {29}; Wood: {30}.", _moduleId, Ambition.getPosition().getName(), Anger.getPosition().getName(), Beauty.getPosition().getName(), Brave.getPosition().getName(), Courage.getPosition().getName(), Crisis.getPosition().getName(), Death.getPosition().getName(), Destiny.getPosition().getName(), Devotion.getPosition().getName(), DoubleHappiness.getPosition().getName(), Dragon.getPosition().getName(), Dream.getPosition().getName(), Energy.getPosition().getName(), Eternity.getPosition().getName(), Female.getPosition().getName(), Fortune.getPosition().getName(), Freedom.getPosition().getName(), GoodLuck.getPosition().getName(), Happiness.getPosition().getName(), Hate.getPosition().getName(), Health.getPosition().getName(), Honor.getPosition().getName(), Kind.getPosition().getName(), Life.getPosition().getName(), Longevity.getPosition().getName(), Love.getPosition().getName(), Male.getPosition().getName(), Soul.getPosition().getName(), Wisdom.getPosition().getName(), Wood.getPosition().getName());
-
+                Debug.LogFormat("[DragonEnergy #{0}] Swap 1 has occurred!", _moduleId);
+                logWordPositions();
                 break;
             case 2:
-                Word[] greenpurple2 = new Word[] { };
-                Word[] redcyan2 = new Word[] { };
 
-                Word[] purplecyan2 = new Word[] { };
-                Word[] greenred2 = new Word[] { };
+                SwapSet(Circle.CYANRED, Circle.GREENPURPLE);
+                SwapSet(Circle.GREENRED, Circle.CYANPURPLE);
 
-                foreach(Word word in words)
-                {
-                    Word[] temp = new Word[] { word };
-                    Circle circle = word.getPosition().getCircle();
-                    if (circle == Circle.GREENRED)
-                    {
-                        greenred2.Concat(temp);
-                    }
-                    else if (circle == Circle.GREENPURPLE)
-                    {
-                        greenpurple2.Concat(temp);
-                    }
-                    else if (circle == Circle.BLUERED)
-                    {
-                        redcyan2.Concat(temp);
-                    }
-                    else if (circle == Circle.BLUEPURPLE)
-                    {
-                        purplecyan2.Concat(temp);
-                    }
-                    if (!swapped.Contains(word))
-                    {
-                        Array.Resize(ref swapped, swapped.Length + 1);
-                        swapped[swapped.Length - 1] = word;
-                    }
-                }
-
-                for (int i = 0; i < greenpurple2.Length; i++)
-                {
-                    Word.Swap(greenpurple2[i], redcyan2[i]);
-                }
-
-                for (int i = 0; i < purplecyan2.Length; i++)
-                {
-                    Word.Swap(purplecyan2[i], greenred2[i]);
-                }
-                Debug.LogFormat("[DragonEnergy #{0}] Swap 2 has occurred! Current position of words: Ambition: {1}; Anger: {2}; Beauty: {3}; Brave: {4}; Courage: {5}; Crisis: {6}; Death: {7}; Destiny: {8}; Devotion: {9}; DoubleHappiness: {10}; Dragon: {11}; Dream: {12}; Energy: {13}; Eternity: {14}; Female: {15}; Fortune: {16}; Freedom: {17}; GoodLuck: {18}; Happiness: {19}; Hate: {20}; Health: {21}; Honor: {22}; Kind: {23}; Life: {24}; Longevity: {25}; Love: {26}; Male: {27}; Soul: {28}; Wisdom: {29}; Wood: {30}.", _moduleId, Ambition.getPosition().getName(), Anger.getPosition().getName(), Beauty.getPosition().getName(), Brave.getPosition().getName(), Courage.getPosition().getName(), Crisis.getPosition().getName(), Death.getPosition().getName(), Destiny.getPosition().getName(), Devotion.getPosition().getName(), DoubleHappiness.getPosition().getName(), Dragon.getPosition().getName(), Dream.getPosition().getName(), Energy.getPosition().getName(), Eternity.getPosition().getName(), Female.getPosition().getName(), Fortune.getPosition().getName(), Freedom.getPosition().getName(), GoodLuck.getPosition().getName(), Happiness.getPosition().getName(), Hate.getPosition().getName(), Health.getPosition().getName(), Honor.getPosition().getName(), Kind.getPosition().getName(), Life.getPosition().getName(), Longevity.getPosition().getName(), Love.getPosition().getName(), Male.getPosition().getName(), Soul.getPosition().getName(), Wisdom.getPosition().getName(), Wood.getPosition().getName());
-
+                Debug.LogFormat("[DragonEnergy #{0}] Swap 2 has occurred!", _moduleId);
+                logWordPositions();
                 break;
             case 3:
-                Word[] greenpurple3 = new Word[] { };
-                Word[] cyan3 = new Word[] { };
 
-                Word[] greenred3 = new Word[] { };
-                Word[] purple3 = new Word[] { };
+                SwapSet(Circle.GREENPURPLE, Circle.CYAN);
+                SwapSet(Circle.GREENRED, Circle.PURPLE);
+                SwapSet(Circle.CYANRED, Circle.GREEN);
+                SwapSet(Circle.RED, Circle.CYANPURPLE);
 
-                Word[] redcyan3 = new Word[] { };
-                Word[] green3 = new Word[] { };
-
-                Word[] purplecyan3 = new Word[] { };
-                Word[] red3 = new Word[] { };
-                foreach (Word word in words)
-                {
-                    Word[] temp = new Word[] { word };
-                    Circle circle = word.getPosition().getCircle();
-                    if (circle == Circle.GREENRED)
-                    {
-                        greenred3.Concat(temp);
-                    }
-                    else if (circle == Circle.RED)
-                    {
-                        red3.Concat(temp);
-                    }
-                    else if (circle == Circle.GREENPURPLE)
-                    {
-                        greenpurple3.Concat(temp);
-                    }
-                    else if (circle == Circle.GREEN)
-                    {
-                        green3.Concat(temp);
-                    }
-                    else if (circle == Circle.BLUERED)
-                    {
-                        redcyan3.Concat(temp);
-                    }
-                    else if (circle == Circle.BLUE)
-                    {
-                        cyan3.Concat(temp);
-                    }
-                    else if (circle == Circle.BLUEPURPLE)
-                    {
-                        purplecyan3.Concat(temp);
-                    }
-                    else if (circle == Circle.PURPLE)
-                    {
-                        purple3.Concat(temp);
-                    }
-                    if (!swapped.Contains(word))
-                    {
-                        Array.Resize(ref swapped, swapped.Length + 1);
-                        swapped[swapped.Length - 1] = word;
-                    }
-                }
-
-                for (int i = 0; i < greenpurple3.Length; i++)
-                {
-                    Word.Swap(greenpurple3[i], cyan3[i]);
-                }
-
-                for (int i = 0; i < greenred3.Length; i++)
-                {
-                    Word.Swap(greenred3[i], purple3[i]);
-                }
-
-                for (int i = 0; i < redcyan3.Length; i++)
-                {
-                    Word.Swap(redcyan3[i], green3[i]);
-                }
-
-                for (int i = 0; i < purplecyan3.Length; i++)
-                {
-                    Word.Swap(purplecyan3[i], red3[i]);
-                }
-                Debug.LogFormat("[DragonEnergy #{0}] Swap 3 has occurred! Current position of words: Ambition: {1}; Anger: {2}; Beauty: {3}; Brave: {4}; Courage: {5}; Crisis: {6}; Death: {7}; Destiny: {8}; Devotion: {9}; DoubleHappiness: {10}; Dragon: {11}; Dream: {12}; Energy: {13}; Eternity: {14}; Female: {15}; Fortune: {16}; Freedom: {17}; GoodLuck: {18}; Happiness: {19}; Hate: {20}; Health: {21}; Honor: {22}; Kind: {23}; Life: {24}; Longevity: {25}; Love: {26}; Male: {27}; Soul: {28}; Wisdom: {29}; Wood: {30}.", _moduleId, Ambition.getPosition().getName(), Anger.getPosition().getName(), Beauty.getPosition().getName(), Brave.getPosition().getName(), Courage.getPosition().getName(), Crisis.getPosition().getName(), Death.getPosition().getName(), Destiny.getPosition().getName(), Devotion.getPosition().getName(), DoubleHappiness.getPosition().getName(), Dragon.getPosition().getName(), Dream.getPosition().getName(), Energy.getPosition().getName(), Eternity.getPosition().getName(), Female.getPosition().getName(), Fortune.getPosition().getName(), Freedom.getPosition().getName(), GoodLuck.getPosition().getName(), Happiness.getPosition().getName(), Hate.getPosition().getName(), Health.getPosition().getName(), Honor.getPosition().getName(), Kind.getPosition().getName(), Life.getPosition().getName(), Longevity.getPosition().getName(), Love.getPosition().getName(), Male.getPosition().getName(), Soul.getPosition().getName(), Wisdom.getPosition().getName(), Wood.getPosition().getName());
-
+                Debug.LogFormat("[DragonEnergy #{0}] Swap 3 has occurred!", _moduleId);
+                logWordPositions();
                 break;
             case 4:
-                Word[] greenpurplered4 = new Word[] { };
-                Word[] greenredcyan4 = new Word[] { };
 
-                Word[] greenpurplecyan4 = new Word[] { };
-                Word[] redcyanpurple4 = new Word[] { };
+                SwapSet(Circle.GREENPURPLERED, Circle.GREENREDCYAN);
+                SwapSet(Circle.CYANPURPLEGREEN, Circle.REDCYANPURPLE);
+                SwapSet(Circle.GREENRED, Circle.GREENREDCYANPURPLE);
+                SwapSet(Circle.PURPLE, Circle.CYAN);
 
-                Word[] quarter4 = new Word[] { };
-                Word[] greenred4 = new Word[] { };
-
-                Word[] purple4 = new Word[] { };
-                Word[] cyan4 = new Word[] { };
-                foreach (Word word in words)
-                {
-                    Word[] temp = new Word[] { word };
-                    Circle circle = word.getPosition().getCircle();
-                    if (circle == Circle.GREENRED)
-                    {
-                        greenred4.Concat(temp);
-                    }
-                    else if (circle == Circle.GREENPURPLERED)
-                    {
-                        greenpurplered4.Concat(temp);
-                    }
-                    else if (circle == Circle.GREENREDBLUE)
-                    {
-                        greenredcyan4.Concat(temp);
-                    }
-                    else if (circle == Circle.BLUEPURPLEGREEN)
-                    {
-                        greenpurplecyan4.Concat(temp);
-                    }
-                    else if (circle == Circle.REDBLUEPURPLE)
-                    {
-                        redcyanpurple4.Concat(temp);
-                    }
-                    else if (circle == Circle.BLUE)
-                    {
-                        cyan4.Concat(temp);
-                    }
-                    else if (circle == Circle.GREENREDBLUEPURPLE)
-                    {
-                        quarter4.Concat(temp);
-                    }
-                    else if (circle == Circle.PURPLE)
-                    {
-                        purple4.Concat(temp);
-                    }
-                    if (!swapped.Contains(word))
-                    {
-                        Array.Resize(ref swapped, swapped.Length + 1);
-                        swapped[swapped.Length - 1] = word;
-                    }
-                }
-
-                for (int i = 0; i < greenpurplered4.Length; i++)
-                {
-                    Word.Swap(greenpurplered4[i], greenredcyan4[i]);
-                }
-
-                for (int i = 0; i < greenpurplecyan4.Length; i++)
-                {
-                    Word.Swap(greenpurplecyan4[i], redcyanpurple4[i]);
-                }
-
-                if (quarter4.Length > greenred4.Length)
-                {
-                    for (int i = 0; i < greenred4.Length; i++)
-                    {
-                        Word.Swap(greenred4[i], quarter4[i]);
-                    }
-                    quarter4.Last().setPosition(quarter4[0].getPosition());
-                }
-                else if (quarter4.Length < greenred4.Length)
-                {
-                    for (int i = 0; i < quarter4.Length; i++)
-                    {
-                        Word.Swap(greenred4[i], quarter4[i]);
-                    }
-                    greenred4.Last().setPosition(greenred4[0].getPosition());
-                }
-                else
-                {
-                    for (int i = 0; i < quarter4.Length; i++)
-                    {
-                        Word.Swap(greenred4[i], quarter4[i]);
-                    }
-                }
-
-                for (int i = 0; i < purple4.Length; i++)
-                {
-                    Word.Swap(purple4[i], cyan4[i]);
-                }
-                Debug.LogFormat("[DragonEnergy #{0}] Swap 4 has occurred! Current position of words: Ambition: {1}; Anger: {2}; Beauty: {3}; Brave: {4}; Courage: {5}; Crisis: {6}; Death: {7}; Destiny: {8}; Devotion: {9}; DoubleHappiness: {10}; Dragon: {11}; Dream: {12}; Energy: {13}; Eternity: {14}; Female: {15}; Fortune: {16}; Freedom: {17}; GoodLuck: {18}; Happiness: {19}; Hate: {20}; Health: {21}; Honor: {22}; Kind: {23}; Life: {24}; Longevity: {25}; Love: {26}; Male: {27}; Soul: {28}; Wisdom: {29}; Wood: {30}.", _moduleId, Ambition.getPosition().getName(), Anger.getPosition().getName(), Beauty.getPosition().getName(), Brave.getPosition().getName(), Courage.getPosition().getName(), Crisis.getPosition().getName(), Death.getPosition().getName(), Destiny.getPosition().getName(), Devotion.getPosition().getName(), DoubleHappiness.getPosition().getName(), Dragon.getPosition().getName(), Dream.getPosition().getName(), Energy.getPosition().getName(), Eternity.getPosition().getName(), Female.getPosition().getName(), Fortune.getPosition().getName(), Freedom.getPosition().getName(), GoodLuck.getPosition().getName(), Happiness.getPosition().getName(), Hate.getPosition().getName(), Health.getPosition().getName(), Honor.getPosition().getName(), Kind.getPosition().getName(), Life.getPosition().getName(), Longevity.getPosition().getName(), Love.getPosition().getName(), Male.getPosition().getName(), Soul.getPosition().getName(), Wisdom.getPosition().getName(), Wood.getPosition().getName());
-
+                Debug.LogFormat("[DragonEnergy #{0}] Swap 4 has occurred!", _moduleId);
+                logWordPositions();
                 break;
-            case 5:// good
-                Word[] green5 = new Word[] { };
-                Word[] red5 = new Word[] { };
+            case 5:
 
-                Word[] purplecyan5 = new Word[] { };
-                Word[] quarter5 = new Word[] { };
+                SwapSet(Circle.GREEN, Circle.RED);
+                SwapSet(Circle.CYANPURPLE, Circle.GREENREDCYANPURPLE);
+                SwapSet(Circle.CYAN, Circle.CYANRED);
 
-                Word[] redcyan5 = new Word[] { };
-                Word[] cyan5 = new Word[] { };
-
-                foreach (Word word in words)
-                {
-                    Circle circle = word.getPosition().getCircle();
-                    if (circle == Circle.GREENREDBLUEPURPLE)
-                    {
-                        Array.Resize(ref quarter5, quarter5.Length + 1);
-                        quarter5[quarter5.Length - 1] = word;
-                    }
-                    else if (circle == Circle.GREEN)
-                    {
-                        Array.Resize(ref green5, green5.Length + 1);
-                        green5[green5.Length - 1] = word;
-                    }
-                    else if (circle == Circle.BLUERED)
-                    {
-                        Array.Resize(ref redcyan5, redcyan5.Length + 1);
-                        redcyan5[redcyan5.Length - 1] = word;
-                    }
-                    else if (circle == Circle.BLUEPURPLE)
-                    {
-                        Array.Resize(ref purplecyan5, purplecyan5.Length + 1);
-                        purplecyan5[purplecyan5.Length - 1] = word;
-                    }
-                    else if (circle == Circle.BLUE)
-                    {
-                        Array.Resize(ref cyan5, cyan5.Length + 1);
-                        cyan5[cyan5.Length - 1] = word;
-                    }
-                    else if (circle == Circle.RED)
-                    {
-                        Array.Resize(ref red5, red5.Length + 1);
-                        red5[red5.Length - 1] = word;
-                    }
-                    if (!swapped.Contains(word))
-                    {
-                        Array.Resize(ref swapped, swapped.Length + 1);
-                        swapped[swapped.Length - 1] = word;
-                    }
-                }
-
-                if (green5.Length > red5.Length)
-                {
-                    for (int i = 0; i < red5.Length; i++)
-                    {
-                        Word.Swap(red5[i], green5[i]);
-                        Debug.Log("Swapped " + red5[i].getWord() + " and " + green5[i].getWord());
-                    }
-                    green5.Last().setPosition(green5[0].getPosition());
-                    Debug.Log(green5.Last().getWord() + " position set to " + green5.Last().getPosition().getName());
-                }
-                else if (green5.Length < red5.Length)
-                {
-                    for (int i = 0; i < green5.Length; i++)
-                    {
-                        Word.Swap(red5[i], green5[i]);
-                        Debug.Log("Swapped " + red5[i].getWord() + " and " + green5[i].getWord());
-                    }
-                    red5.Last().setPosition(red5[0].getPosition());
-                    Debug.Log(red5.Last().getWord() + " position set to " + red5.Last().getPosition().getName());
-                }
-                else
-                {
-                    for (int i = 0; i < green5.Length; i++)
-                    {
-                        Word.Swap(red5[i], green5[i]);
-                        Debug.Log("Swapped " + red5[i].getWord() + " and " + green5[i].getWord());
-                    }
-                }
-
-                if (quarter5.Length > purplecyan5.Length)
-                {
-                    for (int i = 0; i < purplecyan5.Length; i++)
-                    {
-                        Word.Swap(purplecyan5[i], quarter5[i]);
-                        Debug.Log("Swapped " + purplecyan5[i].getWord() + " and " + quarter5[i].getWord());
-                    }
-                    quarter5.Last().setPosition(quarter5[0].getPosition());
-                    Debug.Log(quarter5.Last().getWord() + " position set to " + quarter5.Last().getPosition().getName());
-                }
-                else if (quarter5.Length < purplecyan5.Length)
-                {
-                    for (int i = 0; i < quarter5.Length; i++)
-                    {
-                        Word.Swap(purplecyan5[i], quarter5[i]);
-                        Debug.Log("Swapped " + purplecyan5[i].getWord() + " and " + quarter5[i].getWord());
-                    }
-                    purplecyan5.Last().setPosition(purplecyan5[0].getPosition());
-                    Debug.Log(purplecyan5.Last().getWord() + " position set to " + purplecyan5.Last().getPosition().getName());
-                }
-                else
-                {
-                    for (int i = 0; i < quarter5.Length; i++)
-                    {
-                        Word.Swap(purplecyan5[i], quarter5[i]);
-                        Debug.Log("Swapped " + purplecyan5[i].getWord() + " and " + quarter5[i].getWord());
-                    }
-                }
-
-                if (cyan5.Length > redcyan5.Length)
-                {
-                    for (int i = 0; i < redcyan5.Length; i++)
-                    {
-                        Word.Swap(redcyan5[i], cyan5[i]);
-                        Debug.Log("Swapped " + redcyan5[i].getWord() + " and " + cyan5[i].getWord());
-                    }
-                    cyan5.Last().setPosition(cyan5[0].getPosition());
-                    Debug.Log(cyan5.Last().getWord() + " position set to " + cyan5.Last().getPosition().getName());
-                }
-                else if (cyan5.Length < redcyan5.Length)
-                {
-                    for (int i = 0; i < cyan5.Length; i++)
-                    {
-                        Word.Swap(redcyan5[i], cyan5[i]);
-                        Debug.Log("Swapped " + redcyan5[i].getWord() + " and " + quarter5[i].getWord());
-                    }
-                    redcyan5.Last().setPosition(redcyan5[0].getPosition());
-                    Debug.Log(redcyan5.Last().getWord() + " position set to " + redcyan5.Last().getPosition().getName());
-                }
-                else
-                {
-                    for (int i = 0; i < cyan5.Length; i++)
-                    {
-                        Word.Swap(redcyan5[i], cyan5[i]);
-                        Debug.Log("Swapped " + redcyan5[i].getWord() + " and " + cyan5[i].getWord());
-                    }
-                }
-                Debug.LogFormat("[DragonEnergy #{0}] Swap 5 has occurred! Current position of words: Ambition: {1}; Anger: {2}; Beauty: {3}; Brave: {4}; Courage: {5}; Crisis: {6}; Death: {7}; Destiny: {8}; Devotion: {9}; DoubleHappiness: {10}; Dragon: {11}; Dream: {12}; Energy: {13}; Eternity: {14}; Female: {15}; Fortune: {16}; Freedom: {17}; GoodLuck: {18}; Happiness: {19}; Hate: {20}; Health: {21}; Honor: {22}; Kind: {23}; Life: {24}; Longevity: {25}; Love: {26}; Male: {27}; Soul: {28}; Wisdom: {29}; Wood: {30}.", _moduleId, Ambition.getPosition().getName(), Anger.getPosition().getName(), Beauty.getPosition().getName(), Brave.getPosition().getName(), Courage.getPosition().getName(), Crisis.getPosition().getName(), Death.getPosition().getName(), Destiny.getPosition().getName(), Devotion.getPosition().getName(), DoubleHappiness.getPosition().getName(), Dragon.getPosition().getName(), Dream.getPosition().getName(), Energy.getPosition().getName(), Eternity.getPosition().getName(), Female.getPosition().getName(), Fortune.getPosition().getName(), Freedom.getPosition().getName(), GoodLuck.getPosition().getName(), Happiness.getPosition().getName(), Hate.getPosition().getName(), Health.getPosition().getName(), Honor.getPosition().getName(), Kind.getPosition().getName(), Life.getPosition().getName(), Longevity.getPosition().getName(), Love.getPosition().getName(), Male.getPosition().getName(), Soul.getPosition().getName(), Wisdom.getPosition().getName(), Wood.getPosition().getName());
-
+                Debug.LogFormat("[DragonEnergy #{0}] Swap 5 has occurred!", _moduleId);
+                logWordPositions();
                 break;
-            case 6:// good
-                Word[] quarter6 = new Word[] { };
-                Word[] greenpurple6 = new Word[] { };
+            case 6:
 
-                foreach (Word word in words)
-                {
-                    Circle circle = word.getPosition().getCircle();
-                    if (circle == Circle.GREENREDBLUEPURPLE)
-                    {
-                        Array.Resize(ref quarter6, quarter6.Length + 1);
-                        quarter6[quarter6.Length - 1] = word;
-
-                    }
-                    else if (circle == Circle.GREENPURPLE)
-                    {
-                        Array.Resize(ref greenpurple6, greenpurple6.Length + 1);
-                        greenpurple6[greenpurple6.Length - 1] = word;
-
-                    }
-                    if (!swapped.Contains(word))
-                    {
-                        Array.Resize(ref swapped, swapped.Length + 1);
-                        swapped[swapped.Length - 1] = word;
-                    }
-                }
-
-                Debug.Log(quarter6.Length);
-                Debug.Log(greenpurple6.Length);
-
-                if (quarter6.Length > greenpurple6.Length)
-                {
-                    for (int i = 0; i < greenpurple6.Length; i++)
-                    {
-                        Word.Swap(greenpurple6[i], quarter6[i]);
-                        Debug.Log("Swapped " + greenpurple6[i].getWord() +" and "+quarter6[i].getWord());
-                    }
-                    quarter6.Last().setPosition(quarter6[0].getPosition());
-                    Debug.Log(quarter6.Last().getWord() + " position set to " + quarter6.Last().getPosition().getName());
-                }
-                else if (quarter6.Length < greenpurple6.Length)
-                {
-                    for (int i = 0; i < quarter6.Length; i++)
-                    {
-                        Word.Swap(greenpurple6[i], quarter6[i]);
-                        Debug.Log("Swapped " + greenpurple6[i].getWord() + " and " + quarter6[i].getWord());
-                    }
-                    greenpurple6.Last().setPosition(greenpurple6[0].getPosition());
-                    Debug.Log(greenpurple6.Last().getWord() + " position set to " + greenpurple6.Last().getPosition().getName());
-                }
-                else
-                {
-                    for (int i = 0; i < quarter6.Length; i++)
-                    {
-                        Word.Swap(greenpurple6[i], quarter6[i]);
-                        Debug.Log("Swapped " + greenpurple6[i].getWord() + " and " + quarter6[i].getWord());
-                    }
-                }
+                SwapSet(Circle.GREENPURPLE, Circle.GREENREDCYANPURPLE);
 
                 Word.Swap(Wisdom, Love);
 
@@ -654,10 +211,10 @@ public class dragonEnergy : MonoBehaviour {
                     Array.Resize(ref swapped, swapped.Length + 1);
                     swapped[swapped.Length - 1] = Love;
                 }
-                Debug.LogFormat("[DragonEnergy #{0}] Swap 6 has occurred! Current position of words: Ambition: {1}; Anger: {2}; Beauty: {3}; Brave: {4}; Courage: {5}; Crisis: {6}; Death: {7}; Destiny: {8}; Devotion: {9}; DoubleHappiness: {10}; Dragon: {11}; Dream: {12}; Energy: {13}; Eternity: {14}; Female: {15}; Fortune: {16}; Freedom: {17}; GoodLuck: {18}; Happiness: {19}; Hate: {20}; Health: {21}; Honor: {22}; Kind: {23}; Life: {24}; Longevity: {25}; Love: {26}; Male: {27}; Soul: {28}; Wisdom: {29}; Wood: {30}.", _moduleId, Ambition.getPosition().getName(), Anger.getPosition().getName(), Beauty.getPosition().getName(), Brave.getPosition().getName(), Courage.getPosition().getName(), Crisis.getPosition().getName(), Death.getPosition().getName(), Destiny.getPosition().getName(), Devotion.getPosition().getName(), DoubleHappiness.getPosition().getName(), Dragon.getPosition().getName(), Dream.getPosition().getName(), Energy.getPosition().getName(), Eternity.getPosition().getName(), Female.getPosition().getName(), Fortune.getPosition().getName(), Freedom.getPosition().getName(), GoodLuck.getPosition().getName(), Happiness.getPosition().getName(), Hate.getPosition().getName(), Health.getPosition().getName(), Honor.getPosition().getName(), Kind.getPosition().getName(), Life.getPosition().getName(), Longevity.getPosition().getName(), Love.getPosition().getName(), Male.getPosition().getName(), Soul.getPosition().getName(), Wisdom.getPosition().getName(), Wood.getPosition().getName());
-
+                Debug.LogFormat("[DragonEnergy #{0}] Swap 6 has occurred!", _moduleId);
+                logWordPositions();
                 break;
-            case 7: // good
+            case 7:
 
                 Word.Swap(Wood, Dream);
 
@@ -708,15 +265,17 @@ public class dragonEnergy : MonoBehaviour {
                     swapped[swapped.Length - 1] = Dragon;
                 }
                 int last = info.GetSerialNumberNumbers().ToArray()[info.GetSerialNumberNumbers().ToArray().Length - 1];
-                if(last == 0 || last==8 || last == 9 || last == 7) { break; }
+                if(last == 0 || last == 8 || last == 9 || last == 7) { break; }
                 Swaps(last);
-                Debug.LogFormat("[DragonEnergy #{0}] Swap 7 has occurred! Current position of words: Ambition: {1}; Anger: {2}; Beauty: {3}; Brave: {4}; Courage: {5}; Crisis: {6}; Death: {7}; Destiny: {8}; Devotion: {9}; DoubleHappiness: {10}; Dragon: {11}; Dream: {12}; Energy: {13}; Eternity: {14}; Female: {15}; Fortune: {16}; Freedom: {17}; GoodLuck: {18}; Happiness: {19}; Hate: {20}; Health: {21}; Honor: {22}; Kind: {23}; Life: {24}; Longevity: {25}; Love: {26}; Male: {27}; Soul: {28}; Wisdom: {29}; Wood: {30}.", _moduleId, Ambition.getPosition().getName(), Anger.getPosition().getName(), Beauty.getPosition().getName(), Brave.getPosition().getName(), Courage.getPosition().getName(), Crisis.getPosition().getName(), Death.getPosition().getName(), Destiny.getPosition().getName(), Devotion.getPosition().getName(), DoubleHappiness.getPosition().getName(), Dragon.getPosition().getName(), Dream.getPosition().getName(), Energy.getPosition().getName(), Eternity.getPosition().getName(), Female.getPosition().getName(), Fortune.getPosition().getName(), Freedom.getPosition().getName(), GoodLuck.getPosition().getName(), Happiness.getPosition().getName(), Hate.getPosition().getName(), Health.getPosition().getName(), Honor.getPosition().getName(), Kind.getPosition().getName(), Life.getPosition().getName(), Longevity.getPosition().getName(), Love.getPosition().getName(), Male.getPosition().getName(), Soul.getPosition().getName(), Wisdom.getPosition().getName(), Wood.getPosition().getName());
+                Debug.LogFormat("[DragonEnergy #{0}] Swap 7 has occurred!", _moduleId);
+                logWordPositions();
                 break;
         }
     }
 
     void getCorrectAnswer(int s)
     {
+        correctWords = new Word[] { };
         switch (s)
         {
             case 1:
@@ -735,7 +294,8 @@ public class dragonEnergy : MonoBehaviour {
                             {
                                 if (!correctPrimaries.Contains(three))
                                 {
-                                    correctPrimaries.Concat(new Circle[] { three });
+                                    Array.Resize(ref correctPrimaries, correctPrimaries.Length + 1);
+                                    correctPrimaries[correctPrimaries.Length - 1] = three;
                                 }
                             }
                         }
@@ -751,7 +311,8 @@ public class dragonEnergy : MonoBehaviour {
                             {
                                 if (!correctWords.Contains(word))
                                 {
-                                    correctWords.Concat(new Word[] { word });
+                                    Array.Resize(ref correctWords, correctWords.Length + 1);
+                                    correctWords[correctWords.Length - 1] = word;
                                 }
                             }
                         }
@@ -791,7 +352,8 @@ public class dragonEnergy : MonoBehaviour {
                         {
                             if (!correctWords.Contains(word))
                             {
-                                correctWords.Concat(new Word[] { word });
+                                Array.Resize(ref correctWords, correctWords.Length + 1);
+                                correctWords[correctWords.Length - 1] = word;
                             }
                         }
                     }
@@ -822,7 +384,8 @@ public class dragonEnergy : MonoBehaviour {
                         {
                             if (!correctWords.Contains(word))
                             {
-                                correctWords.Concat(new Word[] { word });
+                                Array.Resize(ref correctWords, correctWords.Length + 1);
+                                correctWords[correctWords.Length - 1] = word;
                             }
                         }
                     }
@@ -834,7 +397,8 @@ public class dragonEnergy : MonoBehaviour {
                     {
                         if (!correctWords.Contains(word))
                         {
-                            correctWords.Concat(new Word[] { word });
+                            Array.Resize(ref correctWords, correctWords.Length + 1);
+                            correctWords[correctWords.Length - 1] = word;
                         }
                     }
                 }
@@ -999,7 +563,7 @@ public class dragonEnergy : MonoBehaviour {
         {
             module.HandleStrike();
             Debug.LogFormat("[DragonEnergy #{0}] Submit pressed with {1} in last digit of timer.", _moduleId, (int)(info.GetTime() % 10));
-            setupThreeWords();
+            reset();
             return;
         }
         int secondSubmitted = (int)(info.GetTime() % 10);
@@ -1011,19 +575,19 @@ public class dragonEnergy : MonoBehaviour {
                 case 2:
                     stage1.material = on;
                     setupThreeWords();
-                    Debug.LogFormat("[DragonEnergy #{0}] Stage 1 solved, word submitted: {1}.", _moduleId, words[currentDisplay].getWord());
+                    Debug.LogFormat("[DragonEnergy #{0}] Stage 1 solved, word submitted: {1}. Second submitted at: {2}", _moduleId, words[currentDisplay].getWord(), secondSubmitted);
                     stage1submit = secondSubmitted;
                     break;
                 case 3:
                     stage2.material = on;
                     setupThreeWords();
-                    Debug.LogFormat("[DragonEnergy #{0}] Stage 2 solved, word submitted: {1}.", _moduleId, words[currentDisplay].getWord());
+                    Debug.LogFormat("[DragonEnergy #{0}] Stage 2 solved, word submitted: {1}. Second submitted at: {2}", _moduleId, words[currentDisplay].getWord(), secondSubmitted);
                     stage2submit = secondSubmitted;
                     break;
                 case 4:
                     stage3.material = on;
                     setupThreeWords();
-                    Debug.LogFormat("[DragonEnergy #{0}] Stage 3 solved, word submitted: {1}.", _moduleId, words[currentDisplay].getWord());
+                    Debug.LogFormat("[DragonEnergy #{0}] Stage 3 solved, word submitted: {1}. Second submitted at: {2}", _moduleId, words[currentDisplay].getWord(), secondSubmitted);
                     stage3submit = secondSubmitted;
                     break;
                 case 5:
@@ -1048,8 +612,8 @@ public class dragonEnergy : MonoBehaviour {
             {
                 correct = correct.Substring(0, correct.Length - 2);
             }
-            Debug.LogFormat("[DragonEnergy #{0}] Incorrect answer submitted. Inputted: {1}. Any of the following are correct: {2}.", _moduleId, incorrect, correct);
-            setupThreeWords();
+            Debug.LogFormat("[DragonEnergy #{0}] Incorrect answer submitted. Inputted: {1}. Any of the following were correct: {2}.", _moduleId, incorrect, correct);
+            reset();
         }
     }
     
@@ -1110,30 +674,30 @@ public class dragonEnergy : MonoBehaviour {
         Ambition = new Word(sprites[0], new Position(Level.EXCLUDED, Circle.GREEN), "Ambition");
         Anger = new Word(sprites[1], new Position(Level.EXCLUDED, Circle.PURPLE), "Anger");
         Beauty = new Word(sprites[2], new Position(Level.EXCLUDED, Circle.RED), "Beauty");
-        Brave = new Word(sprites[3], new Position(Level.EXCLUDED, Circle.BLUE), "Brave");
+        Brave = new Word(sprites[3], new Position(Level.EXCLUDED, Circle.CYAN), "Brave");
         Courage = new Word(sprites[4], new Position(Level.TERTIARY, Circle.GREENPURPLERED), "Courage");
-        Crisis = new Word(sprites[5], new Position(Level.TERTIARY, Circle.GREENREDBLUE), "Crisis");
-        Death = new Word(sprites[6], new Position(Level.TERTIARY, Circle.REDBLUEPURPLE), "Death");
-        Destiny = new Word(sprites[7], new Position(Level.SECONDARY, Circle.BLUERED), "Destiny");
+        Crisis = new Word(sprites[5], new Position(Level.TERTIARY, Circle.GREENREDCYAN), "Crisis");
+        Death = new Word(sprites[6], new Position(Level.TERTIARY, Circle.REDCYANPURPLE), "Death");
+        Destiny = new Word(sprites[7], new Position(Level.SECONDARY, Circle.CYANRED), "Destiny");
         Devotion = new Word(sprites[8], new Position(Level.SECONDARY, Circle.GREENRED), "Devotion");
-        DoubleHappiness = new Word(sprites[9], new Position(Level.SECONDARY, Circle.BLUEPURPLE), "Double Happiness");
-        Dragon = new Word(sprites[10], new Position(Level.QUARTERNARY, Circle.GREENREDBLUEPURPLE), "Dragon");
+        DoubleHappiness = new Word(sprites[9], new Position(Level.SECONDARY, Circle.CYANPURPLE), "Double Happiness");
+        Dragon = new Word(sprites[10], new Position(Level.QUARTERNARY, Circle.GREENREDCYANPURPLE), "Dragon");
         Dream = new Word(sprites[11], new Position(Level.EXCLUDED, Circle.PURPLE), "Dream");
         Energy = new Word(sprites[12], new Position(Level.SECONDARY, Circle.GREENPURPLE), "Energy");
         Eternity = new Word(sprites[13], new Position(Level.SECONDARY, Circle.GREENPURPLE), "Eternity");
         Female = new Word(sprites[14], new Position(Level.EXCLUDED, Circle.GREEN), "Female");
-        Fortune = new Word(sprites[15], new Position(Level.TERTIARY, Circle.BLUEPURPLEGREEN), "Fortune");
-        Freedom = new Word(sprites[16], new Position(Level.SECONDARY, Circle.BLUEPURPLE), "Freedom");
-        GoodLuck = new Word(sprites[17], new Position(Level.SECONDARY, Circle.BLUEPURPLE), "Good Luck");
+        Fortune = new Word(sprites[15], new Position(Level.TERTIARY, Circle.CYANPURPLEGREEN), "Fortune");
+        Freedom = new Word(sprites[16], new Position(Level.SECONDARY, Circle.CYANPURPLE), "Freedom");
+        GoodLuck = new Word(sprites[17], new Position(Level.SECONDARY, Circle.CYANPURPLE), "Good Luck");
         Happiness = new Word(sprites[18], new Position(Level.SECONDARY, Circle.GREENRED), "Happiness");
-        Hate = new Word(sprites[19], new Position(Level.SECONDARY, Circle.BLUERED), "Hate");
-        Health = new Word(sprites[20], new Position(Level.QUARTERNARY, Circle.GREENREDBLUEPURPLE), "Health");
+        Hate = new Word(sprites[19], new Position(Level.SECONDARY, Circle.CYANRED), "Hate");
+        Health = new Word(sprites[20], new Position(Level.QUARTERNARY, Circle.GREENREDCYANPURPLE), "Health");
         Honor = new Word(sprites[21], new Position(Level.SECONDARY, Circle.GREENRED), "Honor");
         Kind = new Word(sprites[22], new Position(Level.EXCLUDED, Circle.RED), "Kind");
         Life = new Word(sprites[23], new Position(Level.SECONDARY, Circle.GREENPURPLE), "Life");
-        Longevity = new Word(sprites[24], new Position(Level.SECONDARY, Circle.BLUERED), "Longevity");
-        Love = new Word(sprites[25], new Position(Level.EXCLUDED, Circle.BLUE), "Love");
-        Male = new Word(sprites[26], new Position(Level.EXCLUDED, Circle.BLUE), "Male");
+        Longevity = new Word(sprites[24], new Position(Level.SECONDARY, Circle.CYANRED), "Longevity");
+        Love = new Word(sprites[25], new Position(Level.EXCLUDED, Circle.CYAN), "Love");
+        Male = new Word(sprites[26], new Position(Level.EXCLUDED, Circle.CYAN), "Male");
         Soul = new Word(sprites[27], new Position(Level.EXCLUDED, Circle.PURPLE), "Soul");
         Wisdom = new Word(sprites[28], new Position(Level.EXCLUDED, Circle.RED), "Wisdom");
         Wood = new Word(sprites[29], new Position(Level.EXCLUDED, Circle.GREEN), "Wood");
@@ -1149,24 +713,24 @@ public class dragonEnergy : MonoBehaviour {
                 return new Circle[] { Circle.GREEN, Circle.RED };
             case Circle.GREENPURPLERED:
                 return new Circle[] { Circle.GREEN, Circle.RED, Circle.PURPLE };
-            case Circle.GREENREDBLUEPURPLE:
-                return new Circle[] { Circle.GREEN, Circle.RED, Circle.PURPLE, Circle.BLUE };
+            case Circle.GREENREDCYANPURPLE:
+                return new Circle[] { Circle.GREEN, Circle.RED, Circle.PURPLE, Circle.CYAN };
             case Circle.RED:
                 return new Circle[] { Circle.RED };
-            case Circle.BLUERED:
-                return new Circle[] { Circle.RED, Circle.BLUE };
-            case Circle.REDBLUEPURPLE:
-                return new Circle[] { Circle.RED, Circle.BLUE, Circle.PURPLE };
-            case Circle.GREENREDBLUE:
-                return new Circle[] { Circle.GREEN, Circle.RED, Circle.BLUE };
-            case Circle.BLUE:
-                return new Circle[] { Circle.BLUE };
+            case Circle.CYANRED:
+                return new Circle[] { Circle.RED, Circle.CYAN };
+            case Circle.REDCYANPURPLE:
+                return new Circle[] { Circle.RED, Circle.CYAN, Circle.PURPLE };
+            case Circle.GREENREDCYAN:
+                return new Circle[] { Circle.GREEN, Circle.RED, Circle.CYAN };
+            case Circle.CYAN:
+                return new Circle[] { Circle.CYAN };
             case Circle.PURPLE:
                 return new Circle[] { Circle.PURPLE };
-            case Circle.BLUEPURPLE:
-                return new Circle[] { Circle.BLUE, Circle.PURPLE };
-            case Circle.BLUEPURPLEGREEN:
-                return new Circle[] { Circle.GREEN, Circle.BLUE, Circle.PURPLE };
+            case Circle.CYANPURPLE:
+                return new Circle[] { Circle.CYAN, Circle.PURPLE };
+            case Circle.CYANPURPLEGREEN:
+                return new Circle[] { Circle.GREEN, Circle.CYAN, Circle.PURPLE };
             case Circle.GREENPURPLE:
                 return new Circle[] { Circle.GREEN, Circle.PURPLE };
         }
@@ -1180,6 +744,255 @@ public class dragonEnergy : MonoBehaviour {
             displaySprites[i].SetActive(false);
         }
         displaySprites[currentDisplay].SetActive(true);
+    }
+
+    void SwapSet(Circle first, Circle second)
+    {
+        Word[] setOne = new Word[] { };
+        Word[] setTwo = new Word[] { };
+
+        foreach (Word word in words)
+        {
+            Circle circle = word.getPosition().getCircle();
+            if (circle == first)
+            {
+                Array.Resize(ref setOne, setOne.Length + 1);
+                setOne[setOne.Length - 1] = word;
+
+            }
+            else if (circle == second)
+            {
+                Array.Resize(ref setTwo, setTwo.Length + 1);
+                setTwo[setTwo.Length - 1] = word;
+
+            }
+            if (!swapped.Contains(word))
+            {
+                Array.Resize(ref swapped, swapped.Length + 1);
+                swapped[swapped.Length - 1] = word;
+            }
+        }
+
+        if (setOne.Length > setTwo.Length)
+        {
+            for (int i = 0; i < setTwo.Length; i++)
+            {
+                Word.Swap(setTwo[i], setOne[i]);
+                Debug.LogFormat("[DragonEnergy #{0}] Swapped " + setTwo[i].getWord() + " and " + setOne[i].getWord(), _moduleId);
+            }
+            setOne.Last().setPosition(setOne[0].getPosition());
+            Debug.LogFormat("[DragonEnergy #{0}] " + setOne.Last().getWord() + " position set to " + setOne.Last().getPosition().getName(), _moduleId);
+        }
+        else if (setOne.Length < setTwo.Length)
+        {
+            for (int i = 0; i < setOne.Length; i++)
+            {
+                Word.Swap(setTwo[i], setOne[i]);
+                Debug.LogFormat("[DragonEnergy #{0}] Swapped " + setTwo[i].getWord() + " and " + setOne[i].getWord(), _moduleId);
+            }
+            setTwo.Last().setPosition(setTwo[0].getPosition());
+            Debug.LogFormat("[DragonEnergy #{0}] " + setTwo.Last().getWord() + " position set to " + setTwo.Last().getPosition().getName(), _moduleId);
+        }
+        else
+        {
+            for (int i = 0; i < setOne.Length; i++)
+            {
+                Word.Swap(setTwo[i], setOne[i]);
+                Debug.LogFormat("[DragonEnergy #{0}] Swapped " + setTwo[i].getWord() + " and " + setOne[i].getWord(), _moduleId);
+            }
+        }
+    }
+
+    void reset()
+    {
+        stage = 1;
+        setupWords();
+        currentDisplay = Random.Range(0, 30);
+        setupThreeWords();
+        DisplayCurrent();
+        setupIndicator();
+        stage1.material = off;
+        stage2.material = off;
+        stage3.material = off;
+        stage4.material = off;
+        Debug.LogFormat("[DragonEnergy #{0}] Words reset.",_moduleId);
+        logWordPositions();
+    }
+
+    void logWordPositions()
+    {
+        String[] prim1 = new String[3] { "", "", "" };
+        String[] prim2 = new String[3] { "", "", "" };
+        String[] prim3 = new String[3] { "", "", "" };
+        String[] prim4 = new String[3] { "", "", "" };
+
+        String[] sec1 = new String[3] { "", "", "" };
+        String[] sec2 = new String[3] { "", "", "" };
+        String[] sec3 = new String[3] { "", "", "" };
+        String[] sec4 = new String[3] { "", "", "" };
+
+        String tert1 = "";
+        String tert2 = "";
+        String tert3 = "";
+        String tert4 = "";
+
+        String[] quart = new String[3] { "", "", "" };
+
+        foreach (Word word in words)
+        {
+            if(word.getPosition().getCircle() == Circle.GREEN)
+            {
+                if(prim1[0] == "")
+                {
+                    prim1[0] = word.getWord();
+                } else if (prim1[1] == "")
+                {
+                    prim1[1] = word.getWord();
+                }
+                else
+                {
+                    prim1[2] = word.getWord();
+                } 
+            } else if (word.getPosition().getCircle() == Circle.PURPLE)
+            {
+                if (prim2[0] == "")
+                {
+                    prim2[0] = word.getWord();
+                }
+                else if (prim2[1] == "")
+                {
+                    prim2[1] = word.getWord();
+                }
+                else
+                {
+                    prim2[2] = word.getWord();
+                }
+            }
+            else if (word.getPosition().getCircle() == Circle.RED)
+            {
+                if (prim3[0] == "")
+                {
+                    prim3[0] = word.getWord();
+                }
+                else if (prim3[1] == "")
+                {
+                    prim3[1] = word.getWord();
+                }
+                else
+                {
+                    prim3[2] = word.getWord();
+                }
+            }
+            else if (word.getPosition().getCircle() == Circle.CYAN)
+            {
+                if (prim4[0] == "")
+                {
+                    prim4[0] = word.getWord();
+                }
+                else if (prim4[1] == "")
+                {
+                    prim4[1] = word.getWord();
+                }
+                else
+                {
+                    prim4[2] = word.getWord();
+                }
+            } else if (word.getPosition().getCircle() == Circle.GREENPURPLE)
+            {
+                if (sec1[0] == "")
+                {
+                    sec1[0] = word.getWord();
+                }
+                else if (sec1[1] == "")
+                {
+                    sec1[1] = word.getWord();
+                }
+                else
+                {
+                    sec1[2] = word.getWord();
+                }
+            }
+            else if (word.getPosition().getCircle() == Circle.CYANPURPLE)
+            {
+                if (sec2[0] == "")
+                {
+                    sec2[0] = word.getWord();
+                }
+                else if (sec2[1] == "")
+                {
+                    sec2[1] = word.getWord();
+                }
+                else
+                {
+                    sec2[2] = word.getWord();
+                }
+            }
+            else if (word.getPosition().getCircle() == Circle.CYANRED)
+            {
+                if (sec3[0] == "")
+                {
+                    sec3[0] = word.getWord();
+                }
+                else if (sec3[1] == "")
+                {
+                    sec3[1] = word.getWord();
+                }
+                else
+                {
+                    sec3[2] = word.getWord();
+                }
+            }
+            else if (word.getPosition().getCircle() == Circle.GREENRED)
+            {
+                if (sec4[0] == "")
+                {
+                    sec4[0] = word.getWord();
+                }
+                else if (sec4[1] == "")
+                {
+                    sec4[1] = word.getWord();
+                }
+                else
+                {
+                    sec4[2] = word.getWord();
+                }
+            }
+            else if (word.getPosition().getCircle() == Circle.GREENPURPLERED)
+            {
+                tert1 = word.getWord();
+            }
+            else if (word.getPosition().getCircle() == Circle.CYANPURPLEGREEN)
+            {
+                tert2 = word.getWord();
+            }
+            else if (word.getPosition().getCircle() == Circle.REDCYANPURPLE)
+            {
+                tert3 = word.getWord();
+            }
+            else if (word.getPosition().getCircle() == Circle.GREENREDCYAN)
+            {
+                tert4 = word.getWord();
+            }
+            else if (word.getPosition().getCircle() == Circle.GREENREDCYANPURPLE)
+            {
+                if (quart[0] == "")
+                {
+                    quart[0] = word.getWord();
+                }
+                else if (quart[1] == "")
+                {
+                    quart[1] = word.getWord();
+                }
+                else
+                {
+                    quart[2] = word.getWord();
+                }
+            }
+
+        }
+
+        String svg = "<svg xmlns:osb='http://www.openswatchbook.org/uri/2009/osb' xmlns:dc='http://purl.org/dc/elements/1.1/' xmlns:cc='http://creativecommons.org/ns#' xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#' xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' xmlns:sodipodi='http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd' xmlns:inkscape='http://www.inkscape.org/namespaces/inkscape' width='7in' height='7in' viewBox='0 0 177.8 177.8' version='1.1' id='svg8' inkscape:version='0.92.3 (2405546, 2018-03-11)' sodipodi:docname='VennDiagramDragon.svg' inkscape:export-xdpi='96' inkscape:export-ydpi='96'>   <defs  id='defs2'> <linearGradient id='linearGradient830' osb:paint='solid'>   <stop style='stop-color:#000000;stop-opacity:1;' offset='0' id='stop828' /> </linearGradient>   </defs>   <sodipodi:namedview  id='base'  pagecolor='#ffffff'  bordercolor='#666666'  borderopacity='1.0'  inkscape:pageopacity='0.0'  inkscape:pageshadow='2'  inkscape:zoom='0.98994949'  inkscape:cx='331.05441'  inkscape:cy='281.47017'  inkscape:document-units='mm'  inkscape:current-layer='layer1'  showgrid='false'  units='in'  height='15.5in'  inkscape:window-width='1145'  inkscape:window-height='900'  inkscape:window-x='1063'  inkscape:window-y='327'  inkscape:window-maximized='0' />   <metadata  id='metadata5'> <rdf:RDF>   <cc:Work rdf:about=''>  <dc:format>image/svg+xml</dc:format>  <dc:type   rdf:resource='http://purl.org/dc/dcmitype/StillImage' />  <dc:title></dc:title>   </cc:Work> </rdf:RDF>   </metadata>   <g  inkscape:label='Layer 1'  inkscape:groupmode='layer'  id='layer1'  transform='translate(0,-119.2)'> <ellipse style='fill:#ff0000;fill-opacity:0.21568627;fill-rule:nonzero;stroke:none;stroke-width:0.06025632;stroke-miterlimit:4;stroke-dasharray:none' id='path2479-7' cx='61.296223' cy='235.54463' rx='60.262226' ry='60.440083' /> <ellipse style='fill:#0000ff;fill-opacity:0.21568627;fill-rule:nonzero;stroke:none;stroke-width:0.06025632;stroke-miterlimit:4;stroke-dasharray:none' id='path2479-7-7' cx='116.13956' cy='180.19061' rx='60.262226' ry='60.440083' /> <ellipse style='opacity:1;fill:#00ff00;fill-opacity:0.19607843;fill-rule:nonzero;stroke:none;stroke-width:0.06016936;stroke-miterlimit:4;stroke-dasharray:none' id='path2479-7-9' cx='61.021038' cy='180.53941' rx='60.088352' ry='60.440083' /> <ellipse style='fill:#03aeff;fill-opacity:0.21568627;fill-rule:nonzero;stroke:none;stroke-width:0.06025632;stroke-miterlimit:4;stroke-dasharray:none' id='path2479-7-2' cx='116.13956' cy='235.64622' rx='60.262226' ry='60.440083' /> <text xml:space='preserve' style='font-style:normal;font-weight:normal;font-size:4.87569237px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' x='34.54678' y='194.01733' id='text2559' transform='scale(0.99852753,1.0014746)'><tspan sodipodi:role='line' id='tspan2557' x='34.54678' y='194.01733' style='stroke-width:0.12189227'>"+sec4[0]+"</tspan></text> <text xml:space='preserve' style='font-style:normal;font-weight:normal;font-size:4.87569237px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' x='42.160892' y='135.13184' id='text2563' transform='scale(0.99852753,1.0014746)'><tspan sodipodi:role='line' id='tspan2561' x='42.160892' y='135.13184' style='stroke-width:0.12189227'>"+prim1[0]+"</tspan><tspan sodipodi:role='line' x='42.160892' y='141.22646' style='stroke-width:0.12189227' id='tspan2565' /></text> <flowRoot xml:space='preserve' id='flowRoot2567' style='font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none' transform='matrix(0.26458333,0,0,0.26458333,0,-84)'><flowRegion id='flowRegion2569'><rect   id='rect2571'   width='88.893425'   height='66.670067'   x='1563.7162'   y='351.05554' /></flowRegion><flowPara id='flowPara2573'>Amger</flowPara></flowRoot> <text xml:space='preserve' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' x='32.930943' y='154.01598' id='text2563-1' transform='scale(0.99852753,1.0014746)'><tspan sodipodi:role='line' id='tspan2918' x='32.930943' y='154.01598' style='stroke-width:0.12189227'>"+prim1[1]+"</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2922' y='169.63661' x='13.849557' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan2924' x='13.849557' y='169.63661' style='stroke-width:0.12189227'>"+prim1[2]+"</tspan></text> <text xml:space='preserve' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' x='23.185192' y='209.85809' id='text2559-1' transform='scale(0.99852753,1.0014746)'><tspan sodipodi:role='line' id='tspan2952' x='23.185192' y='209.85809' style='stroke-width:0.12189227'>"+sec4[1]+"</tspan></text> <text xml:space='preserve' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' x='31.318241' y='223.91666' id='text2559-5' transform='scale(0.99852753,1.0014746)'><tspan sodipodi:role='line' id='tspan2954' x='31.318241' y='223.91666' style='stroke-width:0.12189227'>"+sec4[2]+"</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958' y='249.53448' x='21.621145' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3187' x='21.621145' y='249.53448' style='stroke-width:0.12189227'>"+prim4[0]+"</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-8' y='264.85458' x='33.027348' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3189' x='33.027348' y='264.85458' style='stroke-width:0.12189227'>"+prim4[1]+ "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-7' y='282.97455' x='46.478165' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3191' x='46.478165' y='282.97455' style='stroke-width:0.12189227'>" + prim4[2] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-9' y='249.23396' x='84.015312' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3209' x='84.015312' y='249.23396' style='stroke-width:0.12189227'>" + sec3[0] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-94' y='260.1684' x='86.830597' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3207' x='86.830597' y='260.1684' style='stroke-width:0.12189227'>" + sec3[1] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-2' y='272.04007' x='80.261597' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3205' x='80.261597' y='272.04007' style='stroke-width:0.12189227'>" + sec3[2] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-1' y='248.60912' x='156.89993' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3197' x='156.89993' y='248.60912' style='stroke-width:0.12189227'>" + prim3[0] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-85' y='264.85458' x='139.3826' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3195' x='139.3826' y='264.85458' style='stroke-width:0.12189227'>" + prim3[1] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-4' y='284.22421' x='124.99335' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3193' x='124.99335' y='284.22421' style='stroke-width:0.12189227'>" + prim3[2] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5' y='135.82814' x='126.5574' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3203' x='126.5574' y='135.82814' style='stroke-width:0.12189227'>" + prim2[0] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-3' y='154.88535' x='137.50574' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3201' x='137.50574' y='154.88535' style='stroke-width:0.12189227'>" + prim2[1] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-39' y='173.00525' x='154.08466' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3199' x='154.08466' y='173.00525' style='stroke-width:0.12189227'>" + prim2[2] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-2' y='195.18654' x='128.74707' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3233' x='128.74707' y='195.18654' style='stroke-width:0.12189227'>" + sec2[0] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-28' y='209.24515' x='120.30122' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3231' x='120.30122' y='209.24515' style='stroke-width:0.12189227'>" + sec2[1] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-9' y='223.61612' x='126.24461' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3235' x='126.24461' y='223.61612' style='stroke-width:0.12189227'>" + sec2[2] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-8' y='186.43901' x='99.655792' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3217' x='99.655792' y='186.43901' style='stroke-width:0.12189227'>"+tert2+ "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-0' y='232.36369' x='103.40951' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3211' x='103.40951' y='232.36369' style='stroke-width:0.12189227'>" + tert3 + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-33' y='186.1266' x='58.990543' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3215' x='58.990543' y='186.1266' style='stroke-width:0.12189227'>" + tert1 + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-00' y='196.43623' x='80.887215' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3225' x='80.887215' y='199.43623' style='stroke-width:0.12189227'>"+quart[0]+"</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-00' y='196.43623' x='80.887215' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3225' x='80.887215' y='209.43623' style='stroke-width:0.12189227'>"+quart[1]+ "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-97' y='221.11682' x='84.015305' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3229' x='79.948784' y='219.11682' style='stroke-width:0.12189227'>" + quart[2] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-1' y='231.11401' x='61.180202' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3213' x='61.180202' y='231.11401' style='stroke-width:0.12189227'>" + tert4 + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-22' y='149.2619' x='79.948784' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3221' x='79.948784' y='149.2619' style='stroke-width:0.12189227'>" + sec1[0] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-4' y='159.88393' x='84.64093' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3219' x='84.64093' y='159.88393' style='stroke-width:0.12189227'>" + sec1[1] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-44' y='171.44318' x='81.200035' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3223' x='81.200035' y='171.44318' style='stroke-width:0.12189227'>" + sec1[2] + "</tspan></text></g></svg>";
+        Debug.LogFormat("[DragonEnergy #{0}]=svg[Current word positions:]{1}", _moduleId, svg);
     }
 }
 
@@ -1212,6 +1025,8 @@ public class Word
         first.setPosition(second.getPosition());
         second.setPosition(temp);
     }
+
+    
 
     public void display(int location)
     {
@@ -1286,7 +1101,7 @@ public class Position
                     case Circle.GREEN:
                         name += "Green";
                         break;
-                    case Circle.BLUE:
+                    case Circle.CYAN:
                         name += "Cyan";
                         break;
                     case Circle.PURPLE:
@@ -1301,13 +1116,13 @@ public class Position
                     case Circle.GREENPURPLE:
                         name += "Green + Purple";
                         break;
-                    case Circle.BLUERED:
+                    case Circle.CYANRED:
                         name += "Cyan + Red";
                         break;
                     case Circle.GREENRED:
                         name += "Green + Red";
                         break;
-                    case Circle.BLUEPURPLE:
+                    case Circle.CYANPURPLE:
                         name += "Cyan + Purple";
                         break;
                 }
@@ -1316,22 +1131,22 @@ public class Position
                 name += "Tertiary, ";
                 switch (circle)
                 {
-                    case Circle.BLUEPURPLEGREEN:
+                    case Circle.CYANPURPLEGREEN:
                         name += "Green + Purple + Cyan";
                         break;
                     case Circle.GREENPURPLERED:
                         name += "Green + Purple + Red";
                         break;
-                    case Circle.GREENREDBLUE:
+                    case Circle.GREENREDCYAN:
                         name += "Green + Red + Cyan";
                         break;
-                    case Circle.REDBLUEPURPLE:
+                    case Circle.REDCYANPURPLE:
                         name += "Cyan + Purple + Red";
                         break;
                 }
                 break;
             case Level.QUARTERNARY:
-                name += "Quarternary, Green + Red + Cyan + Purple";
+                name += "Quarternary";
                 break;
 
         }
@@ -1352,14 +1167,14 @@ public enum Circle
     GREEN,
     PURPLE,
     RED,
-    BLUE,
+    CYAN,
     GREENPURPLE,
     GREENRED,
-    BLUERED,
-    BLUEPURPLE,
+    CYANRED,
+    CYANPURPLE,
     GREENPURPLERED,
-    GREENREDBLUE,
-    REDBLUEPURPLE,
-    BLUEPURPLEGREEN,
-    GREENREDBLUEPURPLE
+    GREENREDCYAN,
+    REDCYANPURPLE,
+    CYANPURPLEGREEN,
+    GREENREDCYANPURPLE
 }
