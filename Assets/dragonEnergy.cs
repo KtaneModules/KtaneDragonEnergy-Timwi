@@ -793,6 +793,7 @@ public class dragonEnergy : MonoBehaviour {
                     indicator.material = off;
                     colorblindObj.SetActive(false);
                     module.HandlePass();
+                    _isSolved = true;
                 }
                 else
                 {
@@ -835,6 +836,7 @@ public class dragonEnergy : MonoBehaviour {
                     colorblindObj.SetActive(false);
                     module.HandlePass();
                     Debug.LogFormat("[DragonEnergy #{0}] Module solved!", _moduleId);
+                    _isSolved = true;
                     break;
             }
 
