@@ -765,6 +765,7 @@ public class dragonEnergy : MonoBehaviour {
         {
             module.HandleStrike();
             Debug.LogFormat("[DragonEnergy #{0}] Submit pressed with {1} in last digit of timer.", _moduleId, (int)(info.GetTime() % 10));
+            Debug.LogFormat("[DragonEnergy #{0}] If you feel that this is a mistake, please do not hesitate to contact @AAces#0908 on discord so we can get this sorted out. Be sure to have a copy of this log file handy.", _moduleId);
             reset();
             return;
         }
@@ -782,6 +783,7 @@ public class dragonEnergy : MonoBehaviour {
                     string incorrect = words[currentDisplay].getWord();
                     string correct = "Dragon";
                     Debug.LogFormat("[DragonEnergy #{0}] Incorrect answer submitted. Inputted: {1}. Correct: {2}.", _moduleId, incorrect, correct);
+                    Debug.LogFormat("[DragonEnergy #{0}] If you feel that this is a mistake, please do not hesitate to contact @AAces#0908 on discord so we can get this sorted out. Be sure to have a copy of this log file handy.", _moduleId);
                     reset();
                 }
             } else
@@ -801,6 +803,7 @@ public class dragonEnergy : MonoBehaviour {
                     string incorrect = words[currentDisplay].getWord();
                     string correct = "Energy";
                     Debug.LogFormat("[DragonEnergy #{0}] Incorrect answer submitted. Inputted: {1}. Correct: {2}.", _moduleId, incorrect, correct);
+                    Debug.LogFormat("[DragonEnergy #{0}] If you feel that this is a mistake, please do not hesitate to contact @AAces#0908 on discord so we can get this sorted out. Be sure to have a copy of this log file handy.", _moduleId);
                     reset();
                 }
             }
@@ -855,6 +858,7 @@ public class dragonEnergy : MonoBehaviour {
                 correct = correct.Substring(0, correct.Length - 2);
             }
             Debug.LogFormat("[DragonEnergy #{0}] Incorrect answer submitted. Inputted: {1}. Any of the following were correct: {2}.", _moduleId, incorrect, correct);
+            Debug.LogFormat("[DragonEnergy #{0}] If you feel that this is a mistake, please do not hesitate to contact @AAces#0908 on discord so we can get this sorted out. Be sure to have a copy of this log file handy.", _moduleId);
             reset();
         }
     }
