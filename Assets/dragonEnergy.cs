@@ -1287,6 +1287,7 @@ public class dragonEnergy : MonoBehaviour {
         }
         while (words[currentDisplay].getWord() != inputted.getWord())
         {
+            yield return null;
             left.OnInteract();
         }
         yield return null;
