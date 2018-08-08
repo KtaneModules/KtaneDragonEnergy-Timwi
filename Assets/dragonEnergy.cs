@@ -1442,15 +1442,15 @@ public class Word
     private String name;
     private int swapCount = 0;
 
-    private static float x1 = -0.05256132f;
-    private static float y1 = 0.02664061f;
-    private static float z1 = -0.007111584f;
-    private static float x2 = -0.05256132f;
-    private static float y2 = 0.02664061f;
-    private static float z2 = 0.04768842f;
-    private static float x3 = 0.0014386f;
-    private static float y3 = 0.02664061f;
-    private static float z3 = 0.0476884f;
+    private static float x1 = 0.0453f;
+    private static float y1 = 0.042f;
+    private static float z1 = -0.0114f;
+    private static float x2 = 0.0453f;
+    private static float y2 = 0.042f;
+    private static float z2 = -0.0639f;
+    private static float x3 = -0.0072f;
+    private static float y3 = 0.042f;
+    private static float z3 = -0.0639f;
 
     public Word(GameObject sprite, Position pos, String name)
     {
@@ -1477,13 +1477,13 @@ public class Word
     {
         switch (location) {
             case 1:
-                sprite.transform.position = new Vector3(x1, y1, z1);
+                sprite.transform.localPosition = new Vector3(x1, y1, z1);
                 break;
             case 2:
-                sprite.transform.position = new Vector3(x2, y2, z2);
+                sprite.transform.localPosition = new Vector3(x2, y2, z2);
                 break;
             case 3:
-                sprite.transform.position = new Vector3(x3, y3, z3);
+                sprite.transform.localPosition = new Vector3(x3, y3, z3);
                 break;
         }
         sprite.SetActive(true);
