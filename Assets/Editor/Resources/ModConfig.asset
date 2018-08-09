@@ -13,7 +13,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: dragonEnergy
   title: Dragon Energy
-  description: 
+  description: "Very difficult module that requires perfect communication.\r\n\r\nManual,
+    Design, & Unity: Brandon Doucette\r\nCoding, Manual editor: AAces"
   version: 1.0
   outputFolder: build
   previewImage: {fileID: 2800000, guid: c4cf627f3f3ec1a46901499be92c0416, type: 3}

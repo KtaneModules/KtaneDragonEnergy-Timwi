@@ -536,16 +536,16 @@ public class dragonEnergy : MonoBehaviour {
                         break;
                 }
                 Swaps(swap);
-                bool swapThreeTimes = false;
+                bool swapTwice = false;
                 foreach(Word word in words)
                 {
-                    if(word.getSwapCount() >= 3)
+                    if(word.getSwapCount() >= 2)
                     {
-                        swapThreeTimes = true;
+                        swapTwice = true;
                         break;
                     }
                 }
-                if (swapThreeTimes)
+                if (swapTwice)
                 {
                     foreach (Word word in words)
                     {
