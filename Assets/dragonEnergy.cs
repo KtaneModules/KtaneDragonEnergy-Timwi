@@ -32,8 +32,8 @@ public class dragonEnergy : MonoBehaviour {
     public Material off, on;
     private int indicatorColor;
 
-    public TextMesh colorblindText;
-    public GameObject colorblindObj;
+    public TextMesh colorblindText, TPStageText;
+    public GameObject colorblindObj, TPStageObj;
 
     public MeshRenderer stage1, stage2, stage3, stage4, indicator;
 
@@ -87,6 +87,7 @@ public class dragonEnergy : MonoBehaviour {
         stage3.material = off;
         stage4.material = off;
         indicator.material = off;
+        TPStageObj.SetActive(false);
         setupIndicator();
         currentDisplay = Random.Range(0, 30);
         setupThreeWords();
@@ -222,6 +223,8 @@ public class dragonEnergy : MonoBehaviour {
 
                 Word.Swap(Wisdom, Love);
 
+                Debug.LogFormat("[DragonEnergy #{0}] Swapped Wisdom and Love", _moduleId);
+
                 if (!swapped.Contains(Wisdom))
                 {
                     Array.Resize(ref swapped, swapped.Length + 1);
@@ -239,6 +242,8 @@ public class dragonEnergy : MonoBehaviour {
 
                 Word.Swap(Wood, Dream);
 
+                Debug.LogFormat("[DragonEnergy #{0}] Swapped Wood and Dream", _moduleId);
+
                 if (!swapped.Contains(Wood))
                 {
                     Array.Resize(ref swapped, swapped.Length + 1);
@@ -250,6 +255,8 @@ public class dragonEnergy : MonoBehaviour {
                     swapped[swapped.Length - 1] = Dream;
                 }
                 Word.Swap(Courage, Hate);
+
+                Debug.LogFormat("[DragonEnergy #{0}] Swapped Courage and Hate", _moduleId);
 
                 if (!swapped.Contains(Courage))
                 {
@@ -263,6 +270,8 @@ public class dragonEnergy : MonoBehaviour {
                 }
                 Word.Swap(Freedom, Honor);
 
+                Debug.LogFormat("[DragonEnergy #{0}] Swapped Freedom and Honor", _moduleId);
+
                 if (!swapped.Contains(Freedom))
                 {
                     Array.Resize(ref swapped, swapped.Length + 1);
@@ -274,6 +283,8 @@ public class dragonEnergy : MonoBehaviour {
                     swapped[swapped.Length - 1] = Honor;
                 }
                 Word.Swap(Female, Dragon);
+
+                Debug.LogFormat("[DragonEnergy #{0}] Swapped Female and Dragon", _moduleId);
 
                 if (!swapped.Contains(Female))
                 {
@@ -536,29 +547,23 @@ public class dragonEnergy : MonoBehaviour {
                         break;
                 }
                 Swaps(swap);
-                bool swapTwice = false;
                 foreach(Word word in words)
                 {
                     if(word.getSwapCount() >= 2)
                     {
-                        swapTwice = true;
-                        break;
-                    }
-                }
-                if (swapTwice)
-                {
-                    foreach (Word word in words)
-                    {
-                        if (word.getPosition().getLevel() == Level.TERTIARY)
+                        foreach (Word wordX in words)
                         {
-                            if (!correctWords.Contains(word))
+                            if (wordX.getPosition().getLevel() == Level.TERTIARY)
                             {
-                                Array.Resize(ref correctWords, correctWords.Length + 1);
-                                correctWords[correctWords.Length - 1] = word;
+                                if (!correctWords.Contains(wordX))
+                                {
+                                    Array.Resize(ref correctWords, correctWords.Length + 1);
+                                    correctWords[correctWords.Length - 1] = wordX;
+                                }
                             }
                         }
+                        return;
                     }
-                    return;
                 }
                 foreach (Word word in words)
                 {
@@ -619,148 +624,7 @@ public class dragonEnergy : MonoBehaviour {
         {
             getCorrectAnswer(stage);
         }
-        if(info.GetBatteryHolderCount() == info.GetPortPlateCount())
-        {
-            switch (indicatorColor)
-            {
-                case 0:
-                    switch (info.GetStrikes())
-                    {
-                        case 0:
-                            badTimes = new int[] { 0, 1, 5, 9 };
-                            break;
-                        case 1:
-                            badTimes = new int[] { 0, 3, 4, 6 };
-                            break;
-                        default:
-                            badTimes = new int[] { 0, 2, 7, 8 };
-                            break;
-                    }
-                    break;
-                case 1:
-                    switch (info.GetStrikes())
-                    {
-                        case 0:
-                            badTimes = new int[] { 0, 1, 2, 3, 6 };
-                            break;
-                        case 1:
-                            badTimes = new int[] { 0, 2, 5, 6, 7 };
-                            break;
-                        default:
-                            badTimes = new int[] { 1, 3, 4, 7 };
-                            break;
-                    }
-                    break;
-                case 2:
-                    switch (info.GetStrikes())
-                    {
-                        case 0:
-                            badTimes = new int[] { 3, 4, 7, 9 };
-                            break;
-                        case 1:
-                            badTimes = new int[] { 5, 6, 8, 9 };
-                            break;
-                        default:
-                            badTimes = new int[] { 0, 1, 2, 9 };
-                            break;
-                    }
-                    break;
-            }
-        } else if(info.GetBatteryHolderCount() > info.GetPortPlateCount())
-        {
-            switch (indicatorColor)
-            {
-                case 0:
-                    switch (info.GetStrikes())
-                    {
-                        case 0:
-                            badTimes = new int[] { 0, 2, 4, 6, 8 };
-                            break;
-                        case 1:
-                            badTimes = new int[] { 3, 4, 6 };
-                            break;
-                        default:
-                            badTimes = new int[] { 0, 2, 7, 8 };
-                            break;
-                    }
-                    break;
-                case 1:
-                    switch (info.GetStrikes())
-                    {
-                        case 0:
-                            badTimes = new int[] { 1, 3, 5, 7, 9 };
-                            break;
-                        case 1:
-                            badTimes = new int[] { 5, 8, 9 };
-                            break;
-                        default:
-                            badTimes = new int[] { 1, 3, 4, 7 };
-                            break;
-                    }
-                    break;
-                case 2:
-                    switch (info.GetStrikes())
-                    {
-                        case 0:
-                            badTimes = new int[] { 0, 1, 2, 3, 4, 5 };
-                            break;
-                        case 1:
-                            badTimes = new int[] { 5, 6, 8, 9 };
-                            break;
-                        default:
-                            badTimes = new int[] { 0, 1, 2 };
-                            break;
-                    }
-                    break;
-            }
-        } else
-        {
-            switch (indicatorColor)
-            {
-                case 0:
-                    switch (info.GetStrikes())
-                    {
-                        case 0:
-                            badTimes = new int[] { 0, 1, 2, 7, 8, 9 };
-                            break;
-                        case 1:
-                            badTimes = new int[] { 0, 1, 2, 4, 5, 7, 8 };
-                            break;
-                        default:
-                            badTimes = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-                            break;
-                    }
-                    break;
-                case 1:
-                    switch (info.GetStrikes())
-                    {
-                        case 0:
-                            badTimes = new int[] { 4, 5, 6, 7, 8 };
-                            break;
-                        case 1:
-                            badTimes = new int[] { 0, 4, 6, 7, 9 };
-                            break;
-                        default:
-                            badTimes = new int[] { 0, 1, 2, 3, 4, 5, 7, 8, 9 };
-                            break;
-                    }
-                    break;
-                case 2:
-                    switch (info.GetStrikes())
-                    {
-                        case 0:
-                            badTimes = new int[] { 1, 3, 4, 6, 7, 9 };
-                            break;
-                        case 1:
-                            badTimes = new int[] { 0, 4, 5, 6, 7 };
-                            break;
-                        default:
-                            badTimes = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-                            break;
-                    }
-                    break;
-            }
-        }
+        getBadTimes();
         if(badTimes.Contains((int)(info.GetTime()%10)))
         {
             module.HandleStrike();
@@ -860,6 +724,154 @@ public class dragonEnergy : MonoBehaviour {
             Debug.LogFormat("[DragonEnergy #{0}] Incorrect answer submitted. Inputted: {1}. Any of the following were correct: {2}.", _moduleId, incorrect, correct);
             Debug.LogFormat("[DragonEnergy #{0}] If you feel that this is a mistake, please do not hesitate to contact @AAces#0908 on discord so we can get this sorted out. Be sure to have a copy of this log file handy.", _moduleId);
             reset();
+        }
+    }
+
+    void getBadTimes()
+    {
+        if (info.GetBatteryHolderCount() == info.GetPortPlateCount())
+        {
+            switch (indicatorColor)
+            {
+                case 0:
+                    switch (info.GetStrikes())
+                    {
+                        case 0:
+                            badTimes = new int[] { 0, 1, 5, 9 };
+                            break;
+                        case 1:
+                            badTimes = new int[] { 0, 3, 4, 6 };
+                            break;
+                        default:
+                            badTimes = new int[] { 0, 2, 7, 8 };
+                            break;
+                    }
+                    break;
+                case 1:
+                    switch (info.GetStrikes())
+                    {
+                        case 0:
+                            badTimes = new int[] { 0, 1, 2, 3, 6 };
+                            break;
+                        case 1:
+                            badTimes = new int[] { 0, 2, 5, 6, 7 };
+                            break;
+                        default:
+                            badTimes = new int[] { 1, 3, 4, 7 };
+                            break;
+                    }
+                    break;
+                case 2:
+                    switch (info.GetStrikes())
+                    {
+                        case 0:
+                            badTimes = new int[] { 3, 4, 7, 9 };
+                            break;
+                        case 1:
+                            badTimes = new int[] { 5, 6, 8, 9 };
+                            break;
+                        default:
+                            badTimes = new int[] { 0, 1, 2, 9 };
+                            break;
+                    }
+                    break;
+            }
+        }
+        else if (info.GetBatteryHolderCount() > info.GetPortPlateCount())
+        {
+            switch (indicatorColor)
+            {
+                case 0:
+                    switch (info.GetStrikes())
+                    {
+                        case 0:
+                            badTimes = new int[] { 0, 2, 4, 6, 8 };
+                            break;
+                        case 1:
+                            badTimes = new int[] { 3, 4, 6 };
+                            break;
+                        default:
+                            badTimes = new int[] { 0, 2, 7, 8 };
+                            break;
+                    }
+                    break;
+                case 1:
+                    switch (info.GetStrikes())
+                    {
+                        case 0:
+                            badTimes = new int[] { 1, 3, 5, 7, 9 };
+                            break;
+                        case 1:
+                            badTimes = new int[] { 5, 8, 9 };
+                            break;
+                        default:
+                            badTimes = new int[] { 1, 3, 4, 7 };
+                            break;
+                    }
+                    break;
+                case 2:
+                    switch (info.GetStrikes())
+                    {
+                        case 0:
+                            badTimes = new int[] { 0, 1, 2, 3, 4, 5 };
+                            break;
+                        case 1:
+                            badTimes = new int[] { 5, 6, 8, 9 };
+                            break;
+                        default:
+                            badTimes = new int[] { 0, 1, 2 };
+                            break;
+                    }
+                    break;
+            }
+        }
+        else
+        {
+            switch (indicatorColor)
+            {
+                case 0:
+                    switch (info.GetStrikes())
+                    {
+                        case 0:
+                            badTimes = new int[] { 0, 1, 2, 7, 8, 9 };
+                            break;
+                        case 1:
+                            badTimes = new int[] { 0, 1, 2, 4, 5, 7, 8 };
+                            break;
+                        default:
+                            badTimes = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+                            break;
+                    }
+                    break;
+                case 1:
+                    switch (info.GetStrikes())
+                    {
+                        case 0:
+                            badTimes = new int[] { 4, 5, 6, 7, 8 };
+                            break;
+                        case 1:
+                            badTimes = new int[] { 0, 4, 6, 7, 9 };
+                            break;
+                        default:
+                            badTimes = new int[] { 0, 1, 2, 3, 4, 5, 7, 8, 9 };
+                            break;
+                    }
+                    break;
+                case 2:
+                    switch (info.GetStrikes())
+                    {
+                        case 0:
+                            badTimes = new int[] { 1, 3, 4, 6, 7, 9 };
+                            break;
+                        case 1:
+                            badTimes = new int[] { 0, 4, 5, 6, 7 };
+                            break;
+                        default:
+                            badTimes = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+                            break;
+                    }
+                    break;
+            }
         }
     }
     
@@ -1054,17 +1066,51 @@ public class dragonEnergy : MonoBehaviour {
     void reset()
     {
         stage = 1;
-        setupWords();
         currentDisplay = Random.Range(0, 30);
         setupThreeWords();
         DisplayCurrent();
         setupIndicator();
         specialFourthDragon = false;
         specialFourth = false;
+        TPStageObj.SetActive(false);
         stage1.material = off;
         stage2.material = off;
         stage3.material = off;
         stage4.material = off;
+        foreach(Word word in words)
+        {
+            word.resetSwapCount();
+        }
+        Ambition.setPosition(new Position(Level.EXCLUDED, Circle.GREEN));
+        Anger.setPosition(new Position(Level.EXCLUDED, Circle.PURPLE));
+        Beauty.setPosition(new Position(Level.EXCLUDED, Circle.RED));
+        Brave.setPosition(new Position(Level.EXCLUDED, Circle.CYAN));
+        Courage.setPosition(new Position(Level.TERTIARY, Circle.GREENPURPLERED));
+        Crisis.setPosition(new Position(Level.TERTIARY, Circle.GREENREDCYAN));
+        Death.setPosition(new Position(Level.TERTIARY, Circle.REDCYANPURPLE));
+        Destiny.setPosition(new Position(Level.SECONDARY, Circle.CYANRED));
+        Devotion.setPosition(new Position(Level.SECONDARY, Circle.GREENRED));
+        DoubleHappiness.setPosition(new Position(Level.SECONDARY, Circle.CYANPURPLE));
+        Dragon.setPosition(new Position(Level.QUATERNARY, Circle.GREENREDCYANPURPLE));
+        Dream.setPosition(new Position(Level.EXCLUDED, Circle.PURPLE));
+        Energy.setPosition(new Position(Level.SECONDARY, Circle.GREENPURPLE));
+        Eternity.setPosition(new Position(Level.SECONDARY, Circle.GREENPURPLE));
+        Female.setPosition(new Position(Level.EXCLUDED, Circle.GREEN));
+        Fortune.setPosition(new Position(Level.TERTIARY, Circle.CYANPURPLEGREEN));
+        Freedom.setPosition(new Position(Level.SECONDARY, Circle.CYANPURPLE));
+        GoodLuck.setPosition(new Position(Level.SECONDARY, Circle.CYANPURPLE));
+        Happiness.setPosition(new Position(Level.SECONDARY, Circle.GREENRED));
+        Hate.setPosition(new Position(Level.SECONDARY, Circle.CYANRED));
+        Health.setPosition(new Position(Level.QUATERNARY, Circle.GREENREDCYANPURPLE));
+        Honor.setPosition(new Position(Level.SECONDARY, Circle.GREENRED));
+        Kind.setPosition(new Position(Level.EXCLUDED, Circle.RED));
+        Life.setPosition(new Position(Level.SECONDARY, Circle.GREENPURPLE));
+        Longevity.setPosition(new Position(Level.SECONDARY, Circle.CYANRED));
+        Love.setPosition(new Position(Level.EXCLUDED, Circle.CYAN));
+        Male.setPosition(new Position(Level.EXCLUDED, Circle.CYAN));
+        Soul.setPosition(new Position(Level.EXCLUDED, Circle.PURPLE));
+        Wisdom.setPosition(new Position(Level.EXCLUDED, Circle.RED));
+        Wood.setPosition(new Position(Level.EXCLUDED, Circle.GREEN));
         Debug.LogFormat("[DragonEnergy #{0}] Words reset.",_moduleId);
         logWordPositions();
     }
@@ -1257,7 +1303,7 @@ public class dragonEnergy : MonoBehaviour {
 
 #pragma warning disable 414
 
-    private string TwitchHelpMessage = "Submit a word with !{0} [word]. Use !{0} colorblind to turn on colorblind mode.";
+    private string TwitchHelpMessage = "Submit a word with !{0} [word]. Use !{0} colorblind to turn on colorblind mode. NOTE: The number that appears near the status light after submitting stage 2 is the number that was in the seconds place on the timer when stage one was submitted. This is needed for stage 3.";
 
 #pragma warning restore 414
     IEnumerator ProcessTwitchCommand(string input)
@@ -1270,6 +1316,11 @@ public class dragonEnergy : MonoBehaviour {
             manualColorblindMode = true;
             yield break;
         }
+        if (stage == 2)
+        {
+            TPStageText.text = stage1submit.ToString();
+            TPStageObj.SetActive(true);
+        }
         bool found = false;
         Word inputted = Ambition;
         foreach (Word word in words)
@@ -1278,7 +1329,6 @@ public class dragonEnergy : MonoBehaviour {
                 inputted = word;
                 found = true;
             }
-            
         }
         if (!found)
         {
@@ -1289,152 +1339,10 @@ public class dragonEnergy : MonoBehaviour {
         {
             yield return null;
             left.OnInteract();
+            yield return new WaitForSeconds(0.1f);
         }
+        getBadTimes();
         yield return null;
-        if (info.GetBatteryHolderCount() == info.GetPortPlateCount())
-        {
-            switch (indicatorColor)
-            {
-                case 0:
-                    switch (info.GetStrikes())
-                    {
-                        case 0:
-                            badTimes = new int[] { 0, 1, 5, 9 };
-                            break;
-                        case 1:
-                            badTimes = new int[] { 0, 3, 4, 6 };
-                            break;
-                        default:
-                            badTimes = new int[] { 0, 2, 7, 8 };
-                            break;
-                    }
-                    break;
-                case 1:
-                    switch (info.GetStrikes())
-                    {
-                        case 0:
-                            badTimes = new int[] { 0, 1, 2, 3, 6 };
-                            break;
-                        case 1:
-                            badTimes = new int[] { 0, 2, 5, 6, 7 };
-                            break;
-                        default:
-                            badTimes = new int[] { 1, 3, 4, 7 };
-                            break;
-                    }
-                    break;
-                case 2:
-                    switch (info.GetStrikes())
-                    {
-                        case 0:
-                            badTimes = new int[] { 3, 4, 7, 9 };
-                            break;
-                        case 1:
-                            badTimes = new int[] { 5, 6, 8, 9 };
-                            break;
-                        default:
-                            badTimes = new int[] { 0, 1, 2, 9 };
-                            break;
-                    }
-                    break;
-            }
-        }
-        else if (info.GetBatteryHolderCount() > info.GetPortPlateCount())
-        {
-            switch (indicatorColor)
-            {
-                case 0:
-                    switch (info.GetStrikes())
-                    {
-                        case 0:
-                            badTimes = new int[] { 0, 2, 4, 6, 8 };
-                            break;
-                        case 1:
-                            badTimes = new int[] { 3, 4, 6 };
-                            break;
-                        default:
-                            badTimes = new int[] { 0, 2, 7, 8 };
-                            break;
-                    }
-                    break;
-                case 1:
-                    switch (info.GetStrikes())
-                    {
-                        case 0:
-                            badTimes = new int[] { 1, 3, 5, 7, 9 };
-                            break;
-                        case 1:
-                            badTimes = new int[] { 5, 8, 9 };
-                            break;
-                        default:
-                            badTimes = new int[] { 1, 3, 4, 7 };
-                            break;
-                    }
-                    break;
-                case 2:
-                    switch (info.GetStrikes())
-                    {
-                        case 0:
-                            badTimes = new int[] { 0, 1, 2, 3, 4, 5 };
-                            break;
-                        case 1:
-                            badTimes = new int[] { 5, 6, 8, 9 };
-                            break;
-                        default:
-                            badTimes = new int[] { 0, 1, 2 };
-                            break;
-                    }
-                    break;
-            }
-        }
-        else
-        {
-            switch (indicatorColor)
-            {
-                case 0:
-                    switch (info.GetStrikes())
-                    {
-                        case 0:
-                            badTimes = new int[] { 0, 1, 2, 7, 8, 9 };
-                            break;
-                        case 1:
-                            badTimes = new int[] { 0, 1, 2, 4, 5, 7, 8 };
-                            break;
-                        default:
-                            badTimes = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-                            break;
-                    }
-                    break;
-                case 1:
-                    switch (info.GetStrikes())
-                    {
-                        case 0:
-                            badTimes = new int[] { 4, 5, 6, 7, 8 };
-                            break;
-                        case 1:
-                            badTimes = new int[] { 0, 4, 6, 7, 9 };
-                            break;
-                        default:
-                            badTimes = new int[] { 0, 1, 2, 3, 4, 5, 7, 8, 9 };
-                            break;
-                    }
-                    break;
-                case 2:
-                    switch (info.GetStrikes())
-                    {
-                        case 0:
-                            badTimes = new int[] { 1, 3, 4, 6, 7, 9 };
-                            break;
-                        case 1:
-                            badTimes = new int[] { 0, 4, 5, 6, 7 };
-                            break;
-                        default:
-                            badTimes = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-                            break;
-                    }
-                    break;
-            }
-        }
         while (badTimes.Contains((int)(info.GetTime() % 10))) yield return "trycancel Submit wasn't pressed due to request to cancel.";
         submit.OnInteract();
     }
@@ -1517,6 +1425,11 @@ public class Word
     public void setPosition(Position pos)
     {
         this.position = pos;
+    }
+
+    public void resetSwapCount()
+    {
+        this.swapCount = 0;
     }
 }
 
