@@ -438,7 +438,6 @@ public class dragonEnergy : MonoBehaviour {
             case 2:
                 int q = 0;
                 int t = 0;
-                Position tPos;
                 int se = 0;
                 Position pos1 = displayed[0].getPosition();
                 Position pos2 = displayed[1].getPosition();
@@ -451,10 +450,6 @@ public class dragonEnergy : MonoBehaviour {
                     }
                     else if (word.getPosition().getLevel() == Level.TERTIARY)
                     {
-                        if (t == 0)
-                        {
-                            tPos = word.getPosition();
-                        }
                         t++; 
                     } else if (word.getPosition().getLevel() == Level.SECONDARY)
                     {
@@ -465,7 +460,7 @@ public class dragonEnergy : MonoBehaviour {
                 {
                     foreach (Word word in words)
                     {
-                        if (word.getPosition().getLevel() == Level.TERTIARY /*word.getPosition() == tPos*/)
+                        if (word.getPosition().getLevel() == Level.TERTIARY)
                         {
                             if (!correctWords.Contains(word))
                             {
@@ -547,7 +542,7 @@ public class dragonEnergy : MonoBehaviour {
                         break;
                 }
                 Swaps(swap);
-                foreach(Word word in words)
+                foreach(Word word in displayed)
                 {
                     if(word.getSwapCount() >= 2)
                     {
@@ -1303,7 +1298,7 @@ public class dragonEnergy : MonoBehaviour {
 
 #pragma warning disable 414
 
-    private string TwitchHelpMessage = "Submit a word with !{0} [word]. Use !{0} colorblind to turn on colorblind mode. NOTE: The number that appears near the status light after submitting stage 2 is the number that was in the seconds place on the timer when stage one was submitted. This is needed for stage 3.";
+    private string TwitchHelpMessage = "Submit a word with !{0} [word] [digit to submit at]. Use !{0} colorblind to turn on colorblind mode. NOTE: The number that appears near the status light after submitting stage 2 is the number that was in the seconds place on the timer when stage one was submitted. This is needed for stage 3.";
 
 #pragma warning restore 414
     IEnumerator ProcessTwitchCommand(string input)
@@ -1323,27 +1318,36 @@ public class dragonEnergy : MonoBehaviour {
         }
         bool found = false;
         Word inputted = Ambition;
+        String[] inputtedArray = input.ToLowerInvariant().Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries).ToArray();
+        if(inputtedArray.Length != 2)
+        {
+            yield break;
+        }
         foreach (Word word in words)
         {
-            if (input.ToLowerInvariant() == word.getWord().ToLowerInvariant()){
+            if (inputtedArray[0] == word.getWord().ToLowerInvariant()){
                 inputted = word;
                 found = true;
             }
         }
         if (!found)
         {
-            yield return "sendtochaterror Invalid word entered: " + input + "!";
+            yield return "sendtochaterror Invalid word entered: " + inputtedArray[0] + "!";
             yield break;
         }
+        if(inputtedArray[1] != "0" && inputtedArray[1] != "1" && inputtedArray[1] != "2" && inputtedArray[1] != "3" && inputtedArray[1] != "4" && inputtedArray[1] != "5" && inputtedArray[1] != "6" && inputtedArray[1] != "7" && inputtedArray[1] != "8" && inputtedArray[1] != "9")
+        {
+            yield break;
+        }
+        int time = Int32.Parse(inputtedArray[1]);
         while (words[currentDisplay].getWord() != inputted.getWord())
         {
             yield return null;
             left.OnInteract();
             yield return new WaitForSeconds(0.1f);
         }
-        getBadTimes();
         yield return null;
-        while (badTimes.Contains((int)(info.GetTime() % 10))) yield return "trycancel Submit wasn't pressed due to request to cancel.";
+        while (time != (int)(info.GetTime() % 10)) yield return "trycancel Submit wasn't pressed due to request to cancel.";
         submit.OnInteract();
     }
 }
