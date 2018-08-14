@@ -97,7 +97,7 @@ public class dragonEnergy : MonoBehaviour {
         {
             logWordPositions();
         }
-        Debug.LogFormat("[DragonEnergy #{0}] Note: Answer is not calculated until submit is pressed.", _moduleId);
+        Debug.LogFormat("[Dragon Energy #{0}] Note: Answer is not calculated until submit is pressed.", _moduleId);
     }
 
     void setupIndicator()
@@ -107,22 +107,22 @@ public class dragonEnergy : MonoBehaviour {
         switch (indicatorColor)
         {
             case 0:
-                Debug.LogFormat("[DragonEnergy #{0}] Indicator color: Orange.", _moduleId);
+                Debug.LogFormat("[Dragon Energy #{0}] Indicator color: Orange.", _moduleId);
                 colorblindText.text = "Orange";
                 break;
             case 1:
-                Debug.LogFormat("[DragonEnergy #{0}] Indicator color: Cyan.", _moduleId);
+                Debug.LogFormat("[Dragon Energy #{0}] Indicator color: Cyan.", _moduleId);
                 colorblindText.text = "Cyan";
                 break;
             case 2:
-                Debug.LogFormat("[DragonEnergy #{0}] Indicator color: Purple.", _moduleId);
+                Debug.LogFormat("[Dragon Energy #{0}] Indicator color: Purple.", _moduleId);
                 colorblindText.text = "Purple";
                 break;
         }
         if(GetComponent<KMColorblindMode>().ColorblindModeActive || manualColorblindMode)
         {
             colorblindObj.SetActive(true);
-            Debug.LogFormat("[DragonEnergy #{0}] Colorblind Mode enabled.", _moduleId);
+            Debug.LogFormat("[Dragon Energy #{0}] Colorblind Mode enabled.", _moduleId);
         }
         else
         {
@@ -177,7 +177,7 @@ public class dragonEnergy : MonoBehaviour {
                 SwapSet(Circle.CYANRED, Circle.CYAN);
                 SwapSet(Circle.PURPLE, Circle.CYANPURPLE);
 
-                Debug.LogFormat("[DragonEnergy #{0}] Swap 1 has occurred!", _moduleId);
+                Debug.LogFormat("[Dragon Energy #{0}] Swap 1 has occurred!", _moduleId);
                 logWordPositions();
                 break;
             case 2:
@@ -185,7 +185,7 @@ public class dragonEnergy : MonoBehaviour {
                 SwapSet(Circle.CYANRED, Circle.GREENPURPLE);
                 SwapSet(Circle.GREENRED, Circle.CYANPURPLE);
 
-                Debug.LogFormat("[DragonEnergy #{0}] Swap 2 has occurred!", _moduleId);
+                Debug.LogFormat("[Dragon Energy #{0}] Swap 2 has occurred!", _moduleId);
                 logWordPositions();
                 break;
             case 3:
@@ -195,7 +195,7 @@ public class dragonEnergy : MonoBehaviour {
                 SwapSet(Circle.CYANRED, Circle.GREEN);
                 SwapSet(Circle.RED, Circle.CYANPURPLE);
 
-                Debug.LogFormat("[DragonEnergy #{0}] Swap 3 has occurred!", _moduleId);
+                Debug.LogFormat("[Dragon Energy #{0}] Swap 3 has occurred!", _moduleId);
                 logWordPositions();
                 break;
             case 4:
@@ -205,7 +205,7 @@ public class dragonEnergy : MonoBehaviour {
                 SwapSet(Circle.GREENRED, Circle.GREENREDCYANPURPLE);
                 SwapSet(Circle.PURPLE, Circle.CYAN);
 
-                Debug.LogFormat("[DragonEnergy #{0}] Swap 4 has occurred!", _moduleId);
+                Debug.LogFormat("[Dragon Energy #{0}] Swap 4 has occurred!", _moduleId);
                 logWordPositions();
                 break;
             case 5:
@@ -214,7 +214,7 @@ public class dragonEnergy : MonoBehaviour {
                 SwapSet(Circle.CYANPURPLE, Circle.GREENREDCYANPURPLE);
                 SwapSet(Circle.CYAN, Circle.CYANRED);
 
-                Debug.LogFormat("[DragonEnergy #{0}] Swap 5 has occurred!", _moduleId);
+                Debug.LogFormat("[Dragon Energy #{0}] Swap 5 has occurred!", _moduleId);
                 logWordPositions();
                 break;
             case 6:
@@ -223,7 +223,7 @@ public class dragonEnergy : MonoBehaviour {
 
                 Word.Swap(Wisdom, Love);
 
-                Debug.LogFormat("[DragonEnergy #{0}] Swapped Wisdom and Love", _moduleId);
+                Debug.LogFormat("[Dragon Energy #{0}] Swapped Wisdom and Love", _moduleId);
 
                 if (!swapped.Contains(Wisdom))
                 {
@@ -235,14 +235,14 @@ public class dragonEnergy : MonoBehaviour {
                     Array.Resize(ref swapped, swapped.Length + 1);
                     swapped[swapped.Length - 1] = Love;
                 }
-                Debug.LogFormat("[DragonEnergy #{0}] Swap 6 has occurred!", _moduleId);
+                Debug.LogFormat("[Dragon Energy #{0}] Swap 6 has occurred!", _moduleId);
                 logWordPositions();
                 break;
             case 7:
 
                 Word.Swap(Wood, Dream);
 
-                Debug.LogFormat("[DragonEnergy #{0}] Swapped Wood and Dream", _moduleId);
+                Debug.LogFormat("[Dragon Energy #{0}] Swapped Wood and Dream", _moduleId);
 
                 if (!swapped.Contains(Wood))
                 {
@@ -256,7 +256,7 @@ public class dragonEnergy : MonoBehaviour {
                 }
                 Word.Swap(Courage, Hate);
 
-                Debug.LogFormat("[DragonEnergy #{0}] Swapped Courage and Hate", _moduleId);
+                Debug.LogFormat("[Dragon Energy #{0}] Swapped Courage and Hate", _moduleId);
 
                 if (!swapped.Contains(Courage))
                 {
@@ -270,7 +270,7 @@ public class dragonEnergy : MonoBehaviour {
                 }
                 Word.Swap(Freedom, Honor);
 
-                Debug.LogFormat("[DragonEnergy #{0}] Swapped Freedom and Honor", _moduleId);
+                Debug.LogFormat("[Dragon Energy #{0}] Swapped Freedom and Honor", _moduleId);
 
                 if (!swapped.Contains(Freedom))
                 {
@@ -284,7 +284,7 @@ public class dragonEnergy : MonoBehaviour {
                 }
                 Word.Swap(Female, Dragon);
 
-                Debug.LogFormat("[DragonEnergy #{0}] Swapped Female and Dragon", _moduleId);
+                Debug.LogFormat("[Dragon Energy #{0}] Swapped Female and Dragon", _moduleId);
 
                 if (!swapped.Contains(Female))
                 {
@@ -297,7 +297,7 @@ public class dragonEnergy : MonoBehaviour {
                     swapped[swapped.Length - 1] = Dragon;
                 }
                 int last = info.GetSerialNumberNumbers().ToArray()[info.GetSerialNumberNumbers().ToArray().Length - 1];
-                Debug.LogFormat("[DragonEnergy #{0}] Swap 7 has occurred!", _moduleId);
+                Debug.LogFormat("[Dragon Energy #{0}] Swap 7 has occurred!", _moduleId);
                 logWordPositions();
                 if (last == 0 || last == 8 || last == 9 || last == 7) { break; }
                 Swaps(last);
@@ -623,8 +623,8 @@ public class dragonEnergy : MonoBehaviour {
         if(badTimes.Contains((int)(info.GetTime()%10)))
         {
             module.HandleStrike();
-            Debug.LogFormat("[DragonEnergy #{0}] Submit pressed with {1} in last digit of timer.", _moduleId, (int)(info.GetTime() % 10));
-            Debug.LogFormat("[DragonEnergy #{0}] If you feel that this is a mistake, please do not hesitate to contact @AAces#0908 on discord so we can get this sorted out. Be sure to have a copy of this log file handy.", _moduleId);
+            Debug.LogFormat("[Dragon Energy #{0}] Submit pressed with {1} in last digit of timer.", _moduleId, (int)(info.GetTime() % 10));
+            Debug.LogFormat("[Dragon Energy #{0}] If you feel that this is a mistake, please do not hesitate to contact @AAces#0908 on discord so we can get this sorted out. Be sure to have a copy of this log file handy.", _moduleId);
             reset();
             return;
         }
@@ -634,22 +634,22 @@ public class dragonEnergy : MonoBehaviour {
             {
                 if (words[currentDisplay].getWord().Equals(Dragon.getWord()))
                 {
-                    Debug.LogFormat("[DragonEnergy #{0}] Special 4th rule in play, Dragon submitted.", _moduleId);
+                    Debug.LogFormat("[Dragon Energy #{0}] Special 4th rule in play, Dragon submitted.", _moduleId);
                     specialFourthDragon = true;
                 } else
                 {
                     module.HandleStrike();
                     string incorrect = words[currentDisplay].getWord();
                     string correct = "Dragon";
-                    Debug.LogFormat("[DragonEnergy #{0}] Incorrect answer submitted. Inputted: {1}. Correct: {2}.", _moduleId, incorrect, correct);
-                    Debug.LogFormat("[DragonEnergy #{0}] If you feel that this is a mistake, please do not hesitate to contact @AAces#0908 on discord so we can get this sorted out. Be sure to have a copy of this log file handy.", _moduleId);
+                    Debug.LogFormat("[Dragon Energy #{0}] Incorrect answer submitted. Inputted: {1}. Correct: {2}.", _moduleId, incorrect, correct);
+                    Debug.LogFormat("[Dragon Energy #{0}] If you feel that this is a mistake, please do not hesitate to contact @AAces#0908 on discord so we can get this sorted out. Be sure to have a copy of this log file handy.", _moduleId);
                     reset();
                 }
             } else
             {
                 if (words[currentDisplay].getWord().Equals(Energy.getWord()))
                 {
-                    Debug.LogFormat("[DragonEnergy #{0}] Special 4th rule in play, Energy submitted. Module Solved!", _moduleId);
+                    Debug.LogFormat("[Dragon Energy #{0}] Special 4th rule in play, Energy submitted. Module Solved!", _moduleId);
                     stage4.material = on;
                     indicator.material = off;
                     colorblindObj.SetActive(false);
@@ -661,8 +661,8 @@ public class dragonEnergy : MonoBehaviour {
                     module.HandleStrike();
                     string incorrect = words[currentDisplay].getWord();
                     string correct = "Energy";
-                    Debug.LogFormat("[DragonEnergy #{0}] Incorrect answer submitted. Inputted: {1}. Correct: {2}.", _moduleId, incorrect, correct);
-                    Debug.LogFormat("[DragonEnergy #{0}] If you feel that this is a mistake, please do not hesitate to contact @AAces#0908 on discord so we can get this sorted out. Be sure to have a copy of this log file handy.", _moduleId);
+                    Debug.LogFormat("[Dragon Energy #{0}] Incorrect answer submitted. Inputted: {1}. Correct: {2}.", _moduleId, incorrect, correct);
+                    Debug.LogFormat("[Dragon Energy #{0}] If you feel that this is a mistake, please do not hesitate to contact @AAces#0908 on discord so we can get this sorted out. Be sure to have a copy of this log file handy.", _moduleId);
                     reset();
                 }
             }
@@ -677,19 +677,19 @@ public class dragonEnergy : MonoBehaviour {
                 case 2:
                     stage1.material = on;
                     setupThreeWords();
-                    Debug.LogFormat("[DragonEnergy #{0}] Stage 1 solved, word submitted: {1}. Second submitted at: {2}", _moduleId, words[currentDisplay].getWord(), secondSubmitted);
+                    Debug.LogFormat("[Dragon Energy #{0}] Stage 1 solved, word submitted: {1}. Second submitted at: {2}", _moduleId, words[currentDisplay].getWord(), secondSubmitted);
                     stage1submit = secondSubmitted;
                     break;
                 case 3:
                     stage2.material = on;
                     setupThreeWords();
-                    Debug.LogFormat("[DragonEnergy #{0}] Stage 2 solved, word submitted: {1}. Second submitted at: {2}", _moduleId, words[currentDisplay].getWord(), secondSubmitted);
+                    Debug.LogFormat("[Dragon Energy #{0}] Stage 2 solved, word submitted: {1}. Second submitted at: {2}", _moduleId, words[currentDisplay].getWord(), secondSubmitted);
                     stage2submit = secondSubmitted;
                     break;
                 case 4:
                     stage3.material = on;
                     setupThreeWords();
-                    Debug.LogFormat("[DragonEnergy #{0}] Stage 3 solved, word submitted: {1}. Second submitted at: {2}", _moduleId, words[currentDisplay].getWord(), secondSubmitted);
+                    Debug.LogFormat("[Dragon Energy #{0}] Stage 3 solved, word submitted: {1}. Second submitted at: {2}", _moduleId, words[currentDisplay].getWord(), secondSubmitted);
                     stage3submit = secondSubmitted;
                     break;
                 case 5:
@@ -697,7 +697,7 @@ public class dragonEnergy : MonoBehaviour {
                     indicator.material = off;
                     colorblindObj.SetActive(false);
                     module.HandlePass();
-                    Debug.LogFormat("[DragonEnergy #{0}] Module solved!", _moduleId);
+                    Debug.LogFormat("[Dragon Energy #{0}] Module solved!", _moduleId);
                     _isSolved = true;
                     break;
             }
@@ -716,8 +716,8 @@ public class dragonEnergy : MonoBehaviour {
             {
                 correct = correct.Substring(0, correct.Length - 2);
             }
-            Debug.LogFormat("[DragonEnergy #{0}] Incorrect answer submitted. Inputted: {1}. Any of the following were correct: {2}.", _moduleId, incorrect, correct);
-            Debug.LogFormat("[DragonEnergy #{0}] If you feel that this is a mistake, please do not hesitate to contact @AAces#0908 on discord so we can get this sorted out. Be sure to have a copy of this log file handy.", _moduleId);
+            Debug.LogFormat("[Dragon Energy #{0}] Incorrect answer submitted. Inputted: {1}. Any of the following were correct: {2}.", _moduleId, incorrect, correct);
+            Debug.LogFormat("[Dragon Energy #{0}] If you feel that this is a mistake, please do not hesitate to contact @AAces#0908 on discord so we can get this sorted out. Be sure to have a copy of this log file handy.", _moduleId);
             reset();
         }
     }
@@ -894,7 +894,7 @@ public class dragonEnergy : MonoBehaviour {
         words[two].display(2);
         words[three].display(3);
 
-        Debug.LogFormat("[DragonEnergy #{0}] The words displayed are: BL: {1}, TL: {2}, TR: {3}.", _moduleId, words[one].getWord(), words[two].getWord(), words[three].getWord());
+        Debug.LogFormat("[Dragon Energy #{0}] The words displayed are: BL: {1}, TL: {2}, TR: {3}.", _moduleId, words[one].getWord(), words[two].getWord(), words[three].getWord());
     }
 
     void handleLeft()
@@ -1031,29 +1031,29 @@ public class dragonEnergy : MonoBehaviour {
             for (int i = 0; i < setTwo.Length; i++)
             {
                 Word.Swap(setTwo[i], setOne[i]);
-                Debug.LogFormat("[DragonEnergy #{0}] Swapped " + setTwo[i].getWord() + " and " + setOne[i].getWord(), _moduleId);
+                Debug.LogFormat("[Dragon Energy #{0}] Swapped " + setTwo[i].getWord() + " and " + setOne[i].getWord(), _moduleId);
             }
             setOne.Last().setPosition(setOne[0].getPosition());
             setOne.Last().wordSwapped();
-            Debug.LogFormat("[DragonEnergy #{0}] " + setOne.Last().getWord() + " position set to " + setOne.Last().getPosition().getName(), _moduleId);
+            Debug.LogFormat("[Dragon Energy #{0}] " + setOne.Last().getWord() + " position set to " + setOne.Last().getPosition().getName(), _moduleId);
         }
         else if (setOne.Length < setTwo.Length)
         {
             for (int i = 0; i < setOne.Length; i++)
             {
                 Word.Swap(setTwo[i], setOne[i]);
-                Debug.LogFormat("[DragonEnergy #{0}] Swapped " + setTwo[i].getWord() + " and " + setOne[i].getWord(), _moduleId);
+                Debug.LogFormat("[Dragon Energy #{0}] Swapped " + setTwo[i].getWord() + " and " + setOne[i].getWord(), _moduleId);
             }
             setTwo.Last().setPosition(setTwo[0].getPosition());
             setTwo.Last().wordSwapped();
-            Debug.LogFormat("[DragonEnergy #{0}] " + setTwo.Last().getWord() + " position set to " + setTwo.Last().getPosition().getName(), _moduleId);
+            Debug.LogFormat("[Dragon Energy #{0}] " + setTwo.Last().getWord() + " position set to " + setTwo.Last().getPosition().getName(), _moduleId);
         }
         else
         {
             for (int i = 0; i < setOne.Length; i++)
             {
                 Word.Swap(setTwo[i], setOne[i]);
-                Debug.LogFormat("[DragonEnergy #{0}] Swapped " + setTwo[i].getWord() + " and " + setOne[i].getWord(), _moduleId);
+                Debug.LogFormat("[Dragon Energy #{0}] Swapped " + setTwo[i].getWord() + " and " + setOne[i].getWord(), _moduleId);
             }
         }
     }
@@ -1106,7 +1106,7 @@ public class dragonEnergy : MonoBehaviour {
         Soul.setPosition(new Position(Level.EXCLUDED, Circle.PURPLE));
         Wisdom.setPosition(new Position(Level.EXCLUDED, Circle.RED));
         Wood.setPosition(new Position(Level.EXCLUDED, Circle.GREEN));
-        Debug.LogFormat("[DragonEnergy #{0}] Words reset.",_moduleId);
+        Debug.LogFormat("[Dragon Energy #{0}] Words reset.",_moduleId);
         logWordPositions();
     }
 
@@ -1289,10 +1289,10 @@ public class dragonEnergy : MonoBehaviour {
             }
 
             String svg = "<svg xmlns:osb='http://www.openswatchbook.org/uri/2009/osb' xmlns:dc='http://purl.org/dc/elements/1.1/' xmlns:cc='http://creativecommons.org/ns#' xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#' xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' xmlns:sodipodi='http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd' xmlns:inkscape='http://www.inkscape.org/namespaces/inkscape' width='7in' height='7in' viewBox='0 0 177.8 177.8' version='1.1' id='svg8' inkscape:version='0.92.3 (2405546, 2018-03-11)' sodipodi:docname='VennDiagramDragon.svg' inkscape:export-xdpi='96' inkscape:export-ydpi='96'>   <defs  id='defs2'> <linearGradient id='linearGradient830' osb:paint='solid'>   <stop style='stop-color:#000000;stop-opacity:1;' offset='0' id='stop828' /> </linearGradient>   </defs>   <sodipodi:namedview  id='base'  pagecolor='#ffffff'  bordercolor='#666666'  borderopacity='1.0'  inkscape:pageopacity='0.0'  inkscape:pageshadow='2'  inkscape:zoom='0.98994949'  inkscape:cx='331.05441'  inkscape:cy='281.47017'  inkscape:document-units='mm'  inkscape:current-layer='layer1'  showgrid='false'  units='in'  height='15.5in'  inkscape:window-width='1145'  inkscape:window-height='900'  inkscape:window-x='1063'  inkscape:window-y='327'  inkscape:window-maximized='0' />   <metadata  id='metadata5'> <rdf:RDF>   <cc:Work rdf:about=''>  <dc:format>image/svg+xml</dc:format>  <dc:type   rdf:resource='http://purl.org/dc/dcmitype/StillImage' />  <dc:title></dc:title>   </cc:Work> </rdf:RDF>   </metadata>   <g  inkscape:label='Layer 1'  inkscape:groupmode='layer'  id='layer1'  transform='translate(0,-119.2)'> <ellipse style='fill:#ff0000;fill-opacity:0.21568627;fill-rule:nonzero;stroke:none;stroke-width:0.06025632;stroke-miterlimit:4;stroke-dasharray:none' id='path2479-7' cx='61.296223' cy='235.54463' rx='60.262226' ry='60.440083' /> <ellipse style='fill:#0000ff;fill-opacity:0.21568627;fill-rule:nonzero;stroke:none;stroke-width:0.06025632;stroke-miterlimit:4;stroke-dasharray:none' id='path2479-7-7' cx='116.13956' cy='180.19061' rx='60.262226' ry='60.440083' /> <ellipse style='opacity:1;fill:#00ff00;fill-opacity:0.19607843;fill-rule:nonzero;stroke:none;stroke-width:0.06016936;stroke-miterlimit:4;stroke-dasharray:none' id='path2479-7-9' cx='61.021038' cy='180.53941' rx='60.088352' ry='60.440083' /> <ellipse style='fill:#03aeff;fill-opacity:0.21568627;fill-rule:nonzero;stroke:none;stroke-width:0.06025632;stroke-miterlimit:4;stroke-dasharray:none' id='path2479-7-2' cx='116.13956' cy='235.64622' rx='60.262226' ry='60.440083' /> <text xml:space='preserve' style='font-style:normal;font-weight:normal;font-size:4.87569237px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' x='34.54678' y='194.01733' id='text2559' transform='scale(0.99852753,1.0014746)'><tspan sodipodi:role='line' id='tspan2557' x='34.54678' y='194.01733' style='stroke-width:0.12189227'>" + sec4[0] + "</tspan></text> <text xml:space='preserve' style='font-style:normal;font-weight:normal;font-size:4.87569237px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' x='42.160892' y='135.13184' id='text2563' transform='scale(0.99852753,1.0014746)'><tspan sodipodi:role='line' id='tspan2561' x='42.160892' y='135.13184' style='stroke-width:0.12189227'>" + prim1[0] + "</tspan><tspan sodipodi:role='line' x='42.160892' y='141.22646' style='stroke-width:0.12189227' id='tspan2565' /></text> <flowRoot xml:space='preserve' id='flowRoot2567' style='font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none' transform='matrix(0.26458333,0,0,0.26458333,0,-84)'><flowRegion id='flowRegion2569'><rect   id='rect2571'   width='88.893425'   height='66.670067'   x='1563.7162'   y='351.05554' /></flowRegion><flowPara id='flowPara2573'>Amger</flowPara></flowRoot> <text xml:space='preserve' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' x='32.930943' y='154.01598' id='text2563-1' transform='scale(0.99852753,1.0014746)'><tspan sodipodi:role='line' id='tspan2918' x='32.930943' y='154.01598' style='stroke-width:0.12189227'>" + prim1[1] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2922' y='169.63661' x='13.849557' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan2924' x='13.849557' y='169.63661' style='stroke-width:0.12189227'>" + prim1[2] + "</tspan></text> <text xml:space='preserve' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' x='23.185192' y='209.85809' id='text2559-1' transform='scale(0.99852753,1.0014746)'><tspan sodipodi:role='line' id='tspan2952' x='23.185192' y='209.85809' style='stroke-width:0.12189227'>" + sec4[1] + "</tspan></text> <text xml:space='preserve' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' x='31.318241' y='223.91666' id='text2559-5' transform='scale(0.99852753,1.0014746)'><tspan sodipodi:role='line' id='tspan2954' x='31.318241' y='223.91666' style='stroke-width:0.12189227'>" + sec4[2] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958' y='249.53448' x='21.621145' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3187' x='21.621145' y='249.53448' style='stroke-width:0.12189227'>" + prim4[0] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-8' y='264.85458' x='33.027348' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3189' x='33.027348' y='264.85458' style='stroke-width:0.12189227'>" + prim4[1] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-7' y='282.97455' x='46.478165' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3191' x='46.478165' y='282.97455' style='stroke-width:0.12189227'>" + prim4[2] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-9' y='249.23396' x='84.015312' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3209' x='84.015312' y='249.23396' style='stroke-width:0.12189227'>" + sec3[0] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-94' y='260.1684' x='86.830597' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3207' x='86.830597' y='260.1684' style='stroke-width:0.12189227'>" + sec3[1] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-2' y='272.04007' x='80.261597' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3205' x='80.261597' y='272.04007' style='stroke-width:0.12189227'>" + sec3[2] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-1' y='248.60912' x='156.89993' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3197' x='156.89993' y='248.60912' style='stroke-width:0.12189227'>" + prim3[0] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-85' y='264.85458' x='139.3826' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3195' x='139.3826' y='264.85458' style='stroke-width:0.12189227'>" + prim3[1] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-4' y='284.22421' x='124.99335' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3193' x='124.99335' y='284.22421' style='stroke-width:0.12189227'>" + prim3[2] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5' y='135.82814' x='126.5574' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3203' x='126.5574' y='135.82814' style='stroke-width:0.12189227'>" + prim2[0] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-3' y='154.88535' x='137.50574' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3201' x='137.50574' y='154.88535' style='stroke-width:0.12189227'>" + prim2[1] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-39' y='173.00525' x='154.08466' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3199' x='154.08466' y='173.00525' style='stroke-width:0.12189227'>" + prim2[2] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-2' y='195.18654' x='128.74707' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3233' x='128.74707' y='195.18654' style='stroke-width:0.12189227'>" + sec2[0] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-28' y='209.24515' x='120.30122' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3231' x='120.30122' y='209.24515' style='stroke-width:0.12189227'>" + sec2[1] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-9' y='223.61612' x='126.24461' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3235' x='126.24461' y='223.61612' style='stroke-width:0.12189227'>" + sec2[2] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-8' y='186.43901' x='99.655792' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3217' x='99.655792' y='186.43901' style='stroke-width:0.12189227'>" + tert2 + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-0' y='232.36369' x='103.40951' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3211' x='103.40951' y='232.36369' style='stroke-width:0.12189227'>" + tert3 + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-33' y='186.1266' x='58.990543' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3215' x='58.990543' y='186.1266' style='stroke-width:0.12189227'>" + tert1 + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-00' y='196.43623' x='80.887215' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3225' x='80.887215' y='199.43623' style='stroke-width:0.12189227'>" + quart[0] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-00' y='196.43623' x='80.887215' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3225' x='80.887215' y='209.43623' style='stroke-width:0.12189227'>" + quart[1] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-97' y='221.11682' x='84.015305' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3229' x='79.948784' y='219.11682' style='stroke-width:0.12189227'>" + quart[2] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-1' y='231.11401' x='61.180202' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3213' x='61.180202' y='231.11401' style='stroke-width:0.12189227'>" + tert4 + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-22' y='149.2619' x='79.948784' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3221' x='79.948784' y='149.2619' style='stroke-width:0.12189227'>" + sec1[0] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-4' y='159.88393' x='84.64093' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3219' x='84.64093' y='159.88393' style='stroke-width:0.12189227'>" + sec1[1] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-44' y='171.44318' x='81.200035' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3223' x='81.200035' y='171.44318' style='stroke-width:0.12189227'>" + sec1[2] + "</tspan></text></g></svg>";
-            Debug.LogFormat("[DragonEnergy #{0}]=svg[Current word positions:]{1}", _moduleId, svg);
+            Debug.LogFormat("[Dragon Energy #{0}]=svg[Current word positions:]{1}", _moduleId, svg);
         } else
         {
-            Debug.LogFormat("[DragonEnergy #{0}] Current position of words: Ambition: {1}; Anger: {2}; Beauty: {3}; Brave: {4}; Courage: {5}; Crisis: {6}; Death: {7}; Destiny: {8}; Devotion: {9}; DoubleHappiness: {10}; Dragon: {11}; Dream: {12}; Energy: {13}; Eternity: {14}; Female: {15}; Fortune: {16}; Freedom: {17}; GoodLuck: {18}; Happiness: {19}; Hate: {20}; Health: {21}; Honor: {22}; Kind: {23}; Life: {24}; Longevity: {25}; Love: {26}; Male: {27}; Soul: {28}; Wisdom: {29}; Wood: {30}.", _moduleId, Ambition.getPosition().getName(), Anger.getPosition().getName(), Beauty.getPosition().getName(), Brave.getPosition().getName(), Courage.getPosition().getName(), Crisis.getPosition().getName(), Death.getPosition().getName(), Destiny.getPosition().getName(), Devotion.getPosition().getName(), DoubleHappiness.getPosition().getName(), Dragon.getPosition().getName(), Dream.getPosition().getName(), Energy.getPosition().getName(), Eternity.getPosition().getName(), Female.getPosition().getName(), Fortune.getPosition().getName(), Freedom.getPosition().getName(), GoodLuck.getPosition().getName(), Happiness.getPosition().getName(), Hate.getPosition().getName(), Health.getPosition().getName(), Honor.getPosition().getName(), Kind.getPosition().getName(), Life.getPosition().getName(), Longevity.getPosition().getName(), Love.getPosition().getName(), Male.getPosition().getName(), Soul.getPosition().getName(), Wisdom.getPosition().getName(), Wood.getPosition().getName());
+            Debug.LogFormat("[Dragon Energy #{0}] Current position of words: Ambition: {1}; Anger: {2}; Beauty: {3}; Brave: {4}; Courage: {5}; Crisis: {6}; Death: {7}; Destiny: {8}; Devotion: {9}; DoubleHappiness: {10}; Dragon: {11}; Dream: {12}; Energy: {13}; Eternity: {14}; Female: {15}; Fortune: {16}; Freedom: {17}; GoodLuck: {18}; Happiness: {19}; Hate: {20}; Health: {21}; Honor: {22}; Kind: {23}; Life: {24}; Longevity: {25}; Love: {26}; Male: {27}; Soul: {28}; Wisdom: {29}; Wood: {30}.", _moduleId, Ambition.getPosition().getName(), Anger.getPosition().getName(), Beauty.getPosition().getName(), Brave.getPosition().getName(), Courage.getPosition().getName(), Crisis.getPosition().getName(), Death.getPosition().getName(), Destiny.getPosition().getName(), Devotion.getPosition().getName(), DoubleHappiness.getPosition().getName(), Dragon.getPosition().getName(), Dream.getPosition().getName(), Energy.getPosition().getName(), Eternity.getPosition().getName(), Female.getPosition().getName(), Fortune.getPosition().getName(), Freedom.getPosition().getName(), GoodLuck.getPosition().getName(), Happiness.getPosition().getName(), Hate.getPosition().getName(), Health.getPosition().getName(), Honor.getPosition().getName(), Kind.getPosition().getName(), Life.getPosition().getName(), Longevity.getPosition().getName(), Love.getPosition().getName(), Male.getPosition().getName(), Soul.getPosition().getName(), Wisdom.getPosition().getName(), Wood.getPosition().getName());
         }
     }
 
@@ -1307,7 +1307,7 @@ public class dragonEnergy : MonoBehaviour {
         {
             yield return null;
             colorblindObj.SetActive(true);
-            Debug.LogFormat("[Double Color #{0}] Colorblind mode enabled via TP.", _moduleId);
+            Debug.LogFormat("[Dragon Energy #{0}] Colorblind mode enabled via TP.", _moduleId);
             manualColorblindMode = true;
             yield break;
         }
