@@ -400,7 +400,7 @@ public class dragonEnergy : MonoBehaviour {
                         Circle two = nextCircle;
                         foreach (Circle lastCircle in getPrimarys(displayed[2]))
                         {
-                            Circle three = nextCircle;
+                            Circle three = lastCircle;
                             if (one == two || one == three || two == three)
                             {
                                 sharePrimary = true;
