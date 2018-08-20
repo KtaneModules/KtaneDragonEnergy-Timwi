@@ -34,13 +34,23 @@ public class dragonEnergy : MonoBehaviour
     public GameObject colorblindObj;
     public MeshRenderer indicator;
 
-    private Word Ambition, Anger, Beauty, Brave, Courage, Crisis, Death, Destiny, Devotion, DoubleHappiness, Dragon, Dream, Energy, Eternity, Female, Fortune, Freedom, GoodLuck, Happiness, Hate, Health, Honor, Kind, Life, Longevity, Love, Male, Soul, Wisdom, Wood;
+    private Word Angry, Blessing, Child, Curse, Heaven, Delight, Dragon, Dream, Energy, Female, Force, Forest, Friend, Hate, Hope, Kind, Longevity, Love, Loyal, Magic, Male, Mountain, Night, Pure, Heart, River, Emotion, Soul, Urgency, Wind;
     private Word[] words;
     private int currentDisplay;
 
     private Word[] correctWords = new Word[] { };
 
     private List<string> modules;
+
+    [UnityEditor.MenuItem("Keep Talking ModKit/Rename Sprites", priority = 1)]
+    public static void RenameSprites()
+    {
+        var obj = FindObjectOfType<dragonEnergy>();
+        for (int i = 0; i < obj.displaySprites.Length; i++)
+        {
+            obj.displaySprites[i].name = obj.displaySprites[i].GetComponent<SpriteRenderer>().sprite.name;
+        }
+    }
 
     void Start()
     {
@@ -65,37 +75,38 @@ public class dragonEnergy : MonoBehaviour
 
     void Init()
     {
-        Ambition = new Word(sprites[0], new Position(Level.EXCLUDED, Circle.GREEN), "Ambition");
-        Anger = new Word(sprites[1], new Position(Level.EXCLUDED, Circle.PURPLE), "Anger");
-        Beauty = new Word(sprites[2], new Position(Level.EXCLUDED, Circle.RED), "Beauty");
-        Brave = new Word(sprites[3], new Position(Level.EXCLUDED, Circle.CYAN), "Brave");
-        Courage = new Word(sprites[4], new Position(Level.TERTIARY, Circle.GREENPURPLERED), "Courage");
-        Crisis = new Word(sprites[5], new Position(Level.TERTIARY, Circle.GREENREDCYAN), "Crisis");
-        Death = new Word(sprites[6], new Position(Level.TERTIARY, Circle.REDCYANPURPLE), "Death");
-        Destiny = new Word(sprites[7], new Position(Level.SECONDARY, Circle.CYANRED), "Destiny");
-        Devotion = new Word(sprites[8], new Position(Level.SECONDARY, Circle.GREENRED), "Devotion");
-        DoubleHappiness = new Word(sprites[9], new Position(Level.SECONDARY, Circle.CYANPURPLE), "Double Happiness");
-        Dragon = new Word(sprites[10], new Position(Level.QUATERNARY, Circle.GREENREDCYANPURPLE), "Dragon");
-        Dream = new Word(sprites[11], new Position(Level.EXCLUDED, Circle.PURPLE), "Dream");
-        Energy = new Word(sprites[12], new Position(Level.SECONDARY, Circle.GREENPURPLE), "Energy");
-        Eternity = new Word(sprites[13], new Position(Level.SECONDARY, Circle.GREENPURPLE), "Eternity");
-        Female = new Word(sprites[14], new Position(Level.EXCLUDED, Circle.GREEN), "Female");
-        Fortune = new Word(sprites[15], new Position(Level.TERTIARY, Circle.CYANPURPLEGREEN), "Fortune");
-        Freedom = new Word(sprites[16], new Position(Level.SECONDARY, Circle.CYANPURPLE), "Freedom");
-        GoodLuck = new Word(sprites[17], new Position(Level.SECONDARY, Circle.CYANPURPLE), "Good Luck");
-        Happiness = new Word(sprites[18], new Position(Level.SECONDARY, Circle.GREENRED), "Happiness");
-        Hate = new Word(sprites[19], new Position(Level.SECONDARY, Circle.CYANRED), "Hate");
-        Health = new Word(sprites[20], new Position(Level.QUATERNARY, Circle.GREENREDCYANPURPLE), "Health");
-        Honor = new Word(sprites[21], new Position(Level.SECONDARY, Circle.GREENRED), "Honor");
-        Kind = new Word(sprites[22], new Position(Level.EXCLUDED, Circle.RED), "Kind");
-        Life = new Word(sprites[23], new Position(Level.SECONDARY, Circle.GREENPURPLE), "Life");
-        Longevity = new Word(sprites[24], new Position(Level.SECONDARY, Circle.CYANRED), "Longevity");
-        Love = new Word(sprites[25], new Position(Level.EXCLUDED, Circle.CYAN), "Love");
-        Male = new Word(sprites[26], new Position(Level.EXCLUDED, Circle.CYAN), "Male");
-        Soul = new Word(sprites[27], new Position(Level.EXCLUDED, Circle.PURPLE), "Soul");
-        Wisdom = new Word(sprites[28], new Position(Level.EXCLUDED, Circle.RED), "Wisdom");
-        Wood = new Word(sprites[29], new Position(Level.EXCLUDED, Circle.GREEN), "Wood");
-        words = new Word[] { Ambition, Anger, Beauty, Brave, Courage, Crisis, Death, Destiny, Devotion, DoubleHappiness, Dragon, Dream, Energy, Eternity, Female, Fortune, Freedom, GoodLuck, Happiness, Hate, Health, Honor, Kind, Life, Longevity, Love, Male, Soul, Wisdom, Wood };
+        Angry = new Word(sprites[0], new Position(Level.EXCLUDED, Circle.GREEN));
+        Blessing = new Word(sprites[1], new Position(Level.EXCLUDED, Circle.PURPLE));
+        Child = new Word(sprites[2], new Position(Level.EXCLUDED, Circle.RED));
+        Curse = new Word(sprites[3], new Position(Level.EXCLUDED, Circle.CYAN));
+        Heaven = new Word(sprites[4], new Position(Level.TERTIARY, Circle.GREENPURPLERED));
+        Delight = new Word(sprites[5], new Position(Level.TERTIARY, Circle.GREENREDCYAN));
+        Dragon = new Word(sprites[6], new Position(Level.TERTIARY, Circle.REDCYANPURPLE));
+        Dream = new Word(sprites[7], new Position(Level.SECONDARY, Circle.CYANRED));
+        Energy = new Word(sprites[8], new Position(Level.SECONDARY, Circle.GREENRED));
+        Female = new Word(sprites[9], new Position(Level.SECONDARY, Circle.CYANPURPLE));
+        Force = new Word(sprites[10], new Position(Level.QUATERNARY, Circle.GREENREDCYANPURPLE));
+        Forest = new Word(sprites[11], new Position(Level.EXCLUDED, Circle.PURPLE));
+        Friend = new Word(sprites[12], new Position(Level.SECONDARY, Circle.GREENPURPLE));
+        Hate = new Word(sprites[13], new Position(Level.SECONDARY, Circle.GREENPURPLE));
+        Hope = new Word(sprites[14], new Position(Level.EXCLUDED, Circle.GREEN));
+        Kind = new Word(sprites[15], new Position(Level.TERTIARY, Circle.CYANPURPLEGREEN));
+        Longevity = new Word(sprites[16], new Position(Level.SECONDARY, Circle.CYANPURPLE));
+        Love = new Word(sprites[17], new Position(Level.SECONDARY, Circle.CYANPURPLE));
+        Loyal = new Word(sprites[18], new Position(Level.SECONDARY, Circle.GREENRED));
+        Magic = new Word(sprites[19], new Position(Level.SECONDARY, Circle.CYANRED));
+        Male = new Word(sprites[20], new Position(Level.QUATERNARY, Circle.GREENREDCYANPURPLE));
+        Mountain = new Word(sprites[21], new Position(Level.SECONDARY, Circle.GREENRED));
+        Night = new Word(sprites[22], new Position(Level.EXCLUDED, Circle.RED));
+        Pure = new Word(sprites[23], new Position(Level.SECONDARY, Circle.GREENPURPLE));
+        Heart = new Word(sprites[24], new Position(Level.SECONDARY, Circle.CYANRED));
+        River = new Word(sprites[25], new Position(Level.EXCLUDED, Circle.CYAN));
+        Emotion = new Word(sprites[26], new Position(Level.EXCLUDED, Circle.CYAN));
+        Soul = new Word(sprites[27], new Position(Level.EXCLUDED, Circle.PURPLE));
+        Urgency = new Word(sprites[28], new Position(Level.EXCLUDED, Circle.RED));
+        Wind = new Word(sprites[29], new Position(Level.EXCLUDED, Circle.GREEN));
+
+        words = new Word[] { Angry, Blessing, Child, Curse, Heaven, Delight, Dragon, Dream, Energy, Female, Force, Forest, Friend, Hate, Hope, Kind, Longevity, Love, Loyal, Magic, Male, Mountain, Night, Pure, Heart, River, Emotion, Soul, Urgency, Wind };
 
         indicator.material = off;
         setup();
@@ -211,20 +222,15 @@ public class dragonEnergy : MonoBehaviour
                 break;
             case 6:
                 SwapSet(Circle.GREENPURPLE, Circle.GREENREDCYANPURPLE);
-                Word.Swap(Wisdom, Love);
-                Debug.LogFormat("[Dragon Energy #{0}] Swapped Wisdom and Love", _moduleId);
+                SwapWords(Urgency, River);
                 Debug.LogFormat("[Dragon Energy #{0}] Swap 6 has occurred!", _moduleId);
                 logWordPositions();
                 break;
             case 7:
-                Word.Swap(Wood, Dream);
-                Debug.LogFormat("[Dragon Energy #{0}] Swapped Wood and Dream", _moduleId);
-                Word.Swap(Courage, Hate);
-                Debug.LogFormat("[Dragon Energy #{0}] Swapped Courage and Hate", _moduleId);
-                Word.Swap(Freedom, Honor);
-                Debug.LogFormat("[Dragon Energy #{0}] Swapped Freedom and Honor", _moduleId);
-                Word.Swap(Female, Dragon);
-                Debug.LogFormat("[Dragon Energy #{0}] Swapped Female and Dragon", _moduleId);
+                SwapWords(Wind, Forest);
+                SwapWords(Heaven, Magic);
+                SwapWords(Longevity, Mountain);
+                SwapWords(Hope, Force);
                 int last = info.GetSerialNumberNumbers().ToArray()[info.GetSerialNumberNumbers().ToArray().Length - 1];
                 Debug.LogFormat("[Dragon Energy #{0}] Swap 7 has occurred!", _moduleId);
                 logWordPositions();
@@ -232,6 +238,16 @@ public class dragonEnergy : MonoBehaviour
                 Swaps(last);
                 break;
         }
+    }
+
+    void SwapWords(Word first, Word second)
+    {
+        Position temp = first.getPosition();
+        first.setPosition(second.getPosition());
+        second.setPosition(temp);
+        first.wordSwapped();
+        second.wordSwapped();
+        Debug.LogFormat("[Dragon Energy #{0}] Swapped {1} and {2}.", _moduleId, first.getWord(), second.getWord());
     }
 
     void getCorrectAnswer()
@@ -637,16 +653,13 @@ public class dragonEnergy : MonoBehaviour
             case Circle.GREENPURPLE:
                 return new Circle[] { Circle.GREEN, Circle.PURPLE };
         }
-        return new Circle[] { };
+        return null;
     }
 
     void DisplayCurrent()
     {
         for (int i = 0; i < 30; i++)
-        {
-            displaySprites[i].SetActive(false);
-        }
-        displaySprites[currentDisplay].SetActive(true);
+            displaySprites[i].SetActive(i == currentDisplay);
     }
 
     void SwapSet(Circle first, Circle second)
@@ -673,32 +686,23 @@ public class dragonEnergy : MonoBehaviour
         if (setOne.Length > setTwo.Length)
         {
             for (int i = 0; i < setTwo.Length; i++)
-            {
-                Word.Swap(setTwo[i], setOne[i]);
-                Debug.LogFormat("[Dragon Energy #{0}] Swapped " + setTwo[i].getWord() + " and " + setOne[i].getWord(), _moduleId);
-            }
+                SwapWords(setTwo[i], setOne[i]);
             setOne.Last().setPosition(setOne[0].getPosition());
             setOne.Last().wordSwapped();
-            Debug.LogFormat("[Dragon Energy #{0}] " + setOne.Last().getWord() + " position set to " + setOne.Last().getPosition().getName(), _moduleId);
+            Debug.LogFormat("[Dragon Energy #{0}] {1} position set to {2}", _moduleId, setOne.Last().getWord(), setOne.Last().getPosition().getName());
         }
         else if (setOne.Length < setTwo.Length)
         {
             for (int i = 0; i < setOne.Length; i++)
-            {
-                Word.Swap(setTwo[i], setOne[i]);
-                Debug.LogFormat("[Dragon Energy #{0}] Swapped " + setTwo[i].getWord() + " and " + setOne[i].getWord(), _moduleId);
-            }
+                SwapWords(setTwo[i], setOne[i]);
             setTwo.Last().setPosition(setTwo[0].getPosition());
             setTwo.Last().wordSwapped();
-            Debug.LogFormat("[Dragon Energy #{0}] " + setTwo.Last().getWord() + " position set to " + setTwo.Last().getPosition().getName(), _moduleId);
+            Debug.LogFormat("[Dragon Energy #{0}] {1} position set to {2}", _moduleId, setTwo.Last().getWord(), setTwo.Last().getPosition().getName());
         }
         else
         {
             for (int i = 0; i < setOne.Length; i++)
-            {
-                Word.Swap(setTwo[i], setOne[i]);
-                Debug.LogFormat("[Dragon Energy #{0}] Swapped " + setTwo[i].getWord() + " and " + setOne[i].getWord(), _moduleId);
-            }
+                SwapWords(setTwo[i], setOne[i]);
         }
     }
 
@@ -706,46 +710,44 @@ public class dragonEnergy : MonoBehaviour
     {
         setup();
         foreach (Word word in words)
-        {
             word.resetSwapCount();
-        }
-        Ambition.setPosition(new Position(Level.EXCLUDED, Circle.GREEN));
-        Anger.setPosition(new Position(Level.EXCLUDED, Circle.PURPLE));
-        Beauty.setPosition(new Position(Level.EXCLUDED, Circle.RED));
-        Brave.setPosition(new Position(Level.EXCLUDED, Circle.CYAN));
-        Courage.setPosition(new Position(Level.TERTIARY, Circle.GREENPURPLERED));
-        Crisis.setPosition(new Position(Level.TERTIARY, Circle.GREENREDCYAN));
-        Death.setPosition(new Position(Level.TERTIARY, Circle.REDCYANPURPLE));
-        Destiny.setPosition(new Position(Level.SECONDARY, Circle.CYANRED));
-        Devotion.setPosition(new Position(Level.SECONDARY, Circle.GREENRED));
-        DoubleHappiness.setPosition(new Position(Level.SECONDARY, Circle.CYANPURPLE));
-        Dragon.setPosition(new Position(Level.QUATERNARY, Circle.GREENREDCYANPURPLE));
-        Dream.setPosition(new Position(Level.EXCLUDED, Circle.PURPLE));
-        Energy.setPosition(new Position(Level.SECONDARY, Circle.GREENPURPLE));
-        Eternity.setPosition(new Position(Level.SECONDARY, Circle.GREENPURPLE));
-        Female.setPosition(new Position(Level.EXCLUDED, Circle.GREEN));
-        Fortune.setPosition(new Position(Level.TERTIARY, Circle.CYANPURPLEGREEN));
-        Freedom.setPosition(new Position(Level.SECONDARY, Circle.CYANPURPLE));
-        GoodLuck.setPosition(new Position(Level.SECONDARY, Circle.CYANPURPLE));
-        Happiness.setPosition(new Position(Level.SECONDARY, Circle.GREENRED));
-        Hate.setPosition(new Position(Level.SECONDARY, Circle.CYANRED));
-        Health.setPosition(new Position(Level.QUATERNARY, Circle.GREENREDCYANPURPLE));
-        Honor.setPosition(new Position(Level.SECONDARY, Circle.GREENRED));
-        Kind.setPosition(new Position(Level.EXCLUDED, Circle.RED));
-        Life.setPosition(new Position(Level.SECONDARY, Circle.GREENPURPLE));
-        Longevity.setPosition(new Position(Level.SECONDARY, Circle.CYANRED));
-        Love.setPosition(new Position(Level.EXCLUDED, Circle.CYAN));
-        Male.setPosition(new Position(Level.EXCLUDED, Circle.CYAN));
+
+        Angry.setPosition(new Position(Level.EXCLUDED, Circle.GREEN));
+        Blessing.setPosition(new Position(Level.EXCLUDED, Circle.PURPLE));
+        Child.setPosition(new Position(Level.EXCLUDED, Circle.RED));
+        Curse.setPosition(new Position(Level.EXCLUDED, Circle.CYAN));
+        Heaven.setPosition(new Position(Level.TERTIARY, Circle.GREENPURPLERED));
+        Delight.setPosition(new Position(Level.TERTIARY, Circle.GREENREDCYAN));
+        Dragon.setPosition(new Position(Level.TERTIARY, Circle.REDCYANPURPLE));
+        Dream.setPosition(new Position(Level.SECONDARY, Circle.CYANRED));
+        Energy.setPosition(new Position(Level.SECONDARY, Circle.GREENRED));
+        Female.setPosition(new Position(Level.SECONDARY, Circle.CYANPURPLE));
+        Force.setPosition(new Position(Level.QUATERNARY, Circle.GREENREDCYANPURPLE));
+        Forest.setPosition(new Position(Level.EXCLUDED, Circle.PURPLE));
+        Friend.setPosition(new Position(Level.SECONDARY, Circle.GREENPURPLE));
+        Hate.setPosition(new Position(Level.SECONDARY, Circle.GREENPURPLE));
+        Hope.setPosition(new Position(Level.EXCLUDED, Circle.GREEN));
+        Kind.setPosition(new Position(Level.TERTIARY, Circle.CYANPURPLEGREEN));
+        Longevity.setPosition(new Position(Level.SECONDARY, Circle.CYANPURPLE));
+        Love.setPosition(new Position(Level.SECONDARY, Circle.CYANPURPLE));
+        Loyal.setPosition(new Position(Level.SECONDARY, Circle.GREENRED));
+        Magic.setPosition(new Position(Level.SECONDARY, Circle.CYANRED));
+        Male.setPosition(new Position(Level.QUATERNARY, Circle.GREENREDCYANPURPLE));
+        Mountain.setPosition(new Position(Level.SECONDARY, Circle.GREENRED));
+        Night.setPosition(new Position(Level.EXCLUDED, Circle.RED));
+        Pure.setPosition(new Position(Level.SECONDARY, Circle.GREENPURPLE));
+        Heart.setPosition(new Position(Level.SECONDARY, Circle.CYANRED));
+        River.setPosition(new Position(Level.EXCLUDED, Circle.CYAN));
+        Emotion.setPosition(new Position(Level.EXCLUDED, Circle.CYAN));
         Soul.setPosition(new Position(Level.EXCLUDED, Circle.PURPLE));
-        Wisdom.setPosition(new Position(Level.EXCLUDED, Circle.RED));
-        Wood.setPosition(new Position(Level.EXCLUDED, Circle.GREEN));
+        Urgency.setPosition(new Position(Level.EXCLUDED, Circle.RED));
+        Wind.setPosition(new Position(Level.EXCLUDED, Circle.GREEN));
         Debug.LogFormat("[Dragon Energy #{0}] Words reset.", _moduleId);
         logWordPositions();
     }
 
     void logWordPositions()
     {
-
         if (logSVG == true)
         {
             string[] prim1 = new string[3] { "", "", "" };
@@ -926,7 +928,7 @@ public class dragonEnergy : MonoBehaviour
         }
         else
         {
-            Debug.LogFormat("[Dragon Energy #{0}] Current position of words: Ambition: {1}; Anger: {2}; Beauty: {3}; Brave: {4}; Courage: {5}; Crisis: {6}; Death: {7}; Destiny: {8}; Devotion: {9}; DoubleHappiness: {10}; Dragon: {11}; Dream: {12}; Energy: {13}; Eternity: {14}; Female: {15}; Fortune: {16}; Freedom: {17}; GoodLuck: {18}; Happiness: {19}; Hate: {20}; Health: {21}; Honor: {22}; Kind: {23}; Life: {24}; Longevity: {25}; Love: {26}; Male: {27}; Soul: {28}; Wisdom: {29}; Wood: {30}.", _moduleId, Ambition.getPosition().getName(), Anger.getPosition().getName(), Beauty.getPosition().getName(), Brave.getPosition().getName(), Courage.getPosition().getName(), Crisis.getPosition().getName(), Death.getPosition().getName(), Destiny.getPosition().getName(), Devotion.getPosition().getName(), DoubleHappiness.getPosition().getName(), Dragon.getPosition().getName(), Dream.getPosition().getName(), Energy.getPosition().getName(), Eternity.getPosition().getName(), Female.getPosition().getName(), Fortune.getPosition().getName(), Freedom.getPosition().getName(), GoodLuck.getPosition().getName(), Happiness.getPosition().getName(), Hate.getPosition().getName(), Health.getPosition().getName(), Honor.getPosition().getName(), Kind.getPosition().getName(), Life.getPosition().getName(), Longevity.getPosition().getName(), Love.getPosition().getName(), Male.getPosition().getName(), Soul.getPosition().getName(), Wisdom.getPosition().getName(), Wood.getPosition().getName());
+            Debug.LogFormat("[Dragon Energy #{0}] Current position of words: {1}", _moduleId, string.Join("; ", words.Select(w => string.Format("{0}: {1}", w.getWord(), w.getPosition().getName())).ToArray()));
         }
     }
 
@@ -944,7 +946,7 @@ public class dragonEnergy : MonoBehaviour
             yield break;
         }
         bool found = false;
-        Word inputted = Ambition;
+        Word inputted = Angry;
         string[] inputtedArray = input.ToLowerInvariant().Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries).ToArray();
         if (inputtedArray.Length != 2)
         {
@@ -984,7 +986,6 @@ public class Word
 {
     private GameObject sprite;
     private Position position;
-    private readonly string name;
     private int swapCount = 0;
 
     const float x1 = 0.0453f;
@@ -997,20 +998,10 @@ public class Word
     const float y3 = 0.042f;
     const float z3 = -0.0639f;
 
-    public Word(GameObject sprite, Position pos, string name)
+    public Word(GameObject sprite, Position pos)
     {
         this.sprite = sprite;
         this.position = pos;
-        this.name = name;
-    }
-
-    public static void Swap(Word first, Word second)
-    {
-        Position temp = first.getPosition();
-        first.setPosition(second.getPosition());
-        second.setPosition(temp);
-        first.wordSwapped();
-        second.wordSwapped();
     }
 
     public void wordSwapped()
@@ -1047,7 +1038,7 @@ public class Word
 
     public string getWord()
     {
-        return this.name;
+        return this.sprite.name;
     }
 
     public int getSwapCount()
