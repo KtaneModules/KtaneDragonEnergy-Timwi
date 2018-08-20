@@ -1070,7 +1070,6 @@ GameObject:
   - component: {fileID: 4195917209066634}
   - component: {fileID: 33506003487661554}
   - component: {fileID: 23115885700105914}
-  - component: {fileID: 95347276505335496}
   - component: {fileID: 114666581421227162}
   m_Layer: 0
   m_Name: Component_PuzzleBackground
@@ -2710,7 +2709,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: a3b512a6196926249a3cc15dbb9b8ca8, type: 2}
+  - {fileID: 2100000, guid: 26cdee844cb231740941635a5e5962c7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3304,23 +3303,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1144154485814436}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!95 &95347276505335496
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1702007532255832}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 1c46642b7f907d844bcdfcca8625afdd, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!102 &102442111243071242
 TextMesh:
   serializedVersion: 3
