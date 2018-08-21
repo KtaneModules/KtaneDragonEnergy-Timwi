@@ -945,39 +945,31 @@ public class dragonEnergy : MonoBehaviour
             colorblindObj.SetActive(true);
             yield break;
         }
-        bool found = false;
-        Word inputted = Angry;
-        string[] inputtedArray = input.ToLowerInvariant().Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries).ToArray();
+
+        var inputtedArray = input.ToLowerInvariant().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToArray();
         if (inputtedArray.Length != 2)
+            yield break;
+
+        if (inputtedArray[1].Length != 1 || !"0123456789".Contains(inputtedArray[1]))
         {
+            yield return string.Format("sendtochaterror “{0}” is not a valid digit.", inputtedArray[1]);
             yield break;
         }
-        foreach (Word word in words)
-        {
-            if (inputtedArray[0] == word.getWord().ToLowerInvariant())
-            {
-                inputted = word;
-                found = true;
-            }
-        }
-        if (!found)
-        {
-            yield return "sendtochaterror Invalid word entered: " + inputtedArray[0] + "!";
-            yield break;
-        }
-        if (inputtedArray[1] != "0" && inputtedArray[1] != "1" && inputtedArray[1] != "2" && inputtedArray[1] != "3" && inputtedArray[1] != "4" && inputtedArray[1] != "5" && inputtedArray[1] != "6" && inputtedArray[1] != "7" && inputtedArray[1] != "8" && inputtedArray[1] != "9")
-        {
-            yield break;
-        }
+
+        yield return null;
         int time = int.Parse(inputtedArray[1]);
-        while (words[currentDisplay].getWord() != inputted.getWord())
+        for (int i = 0; i < words.Length && words[currentDisplay].getWord().ToLowerInvariant() != inputtedArray[0]; i++)
         {
-            yield return null;
             left.OnInteract();
             yield return new WaitForSeconds(0.1f);
         }
-        yield return null;
-        while (time != (int) (info.GetTime() % 10)) yield return "trycancel Submit wasn't pressed due to request to cancel.";
+        if (words[currentDisplay].getWord().ToLowerInvariant() != inputtedArray[0])
+        {
+            yield return string.Format("sendtochaterror “{0}” is not a valid word.", inputtedArray[0]);
+            yield break;
+        }
+        while (time != (int) info.GetTime() % 10)
+            yield return "trycancel Submit wasn’t pressed due to request to cancel.";
         submit.OnInteract();
     }
 }
