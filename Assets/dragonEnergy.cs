@@ -42,16 +42,6 @@ public class dragonEnergy : MonoBehaviour
 
     private List<string> modules;
 
-    [UnityEditor.MenuItem("Keep Talking ModKit/Rename Sprites", priority = 1)]
-    public static void RenameSprites()
-    {
-        var obj = FindObjectOfType<dragonEnergy>();
-        for (int i = 0; i < obj.displaySprites.Length; i++)
-        {
-            obj.displaySprites[i].name = obj.displaySprites[i].GetComponent<SpriteRenderer>().sprite.name;
-        }
-    }
-
     void Start()
     {
         _moduleId = _moduleIdCounter++;
