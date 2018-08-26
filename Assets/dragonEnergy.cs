@@ -38,7 +38,7 @@ public class dragonEnergy : MonoBehaviour
     private Word[] words;
     private int currentDisplay;
 
-    private Word[] correctWords = new Word[] { };
+    private HashSet<Word> correctWords = new HashSet<Word>();
 
     private List<string> modules;
 
@@ -65,55 +65,52 @@ public class dragonEnergy : MonoBehaviour
 
     void Init()
     {
-        Angry = new Word(sprites[0], new Position(Level.EXCLUDED, Circle.GREEN));
-        Blessing = new Word(sprites[1], new Position(Level.EXCLUDED, Circle.PURPLE));
-        Child = new Word(sprites[2], new Position(Level.EXCLUDED, Circle.RED));
-        Curse = new Word(sprites[3], new Position(Level.EXCLUDED, Circle.CYAN));
-        Heaven = new Word(sprites[4], new Position(Level.TERTIARY, Circle.GREENPURPLERED));
-        Delight = new Word(sprites[5], new Position(Level.TERTIARY, Circle.GREENREDCYAN));
-        Dragon = new Word(sprites[6], new Position(Level.TERTIARY, Circle.REDCYANPURPLE));
-        Dream = new Word(sprites[7], new Position(Level.SECONDARY, Circle.CYANRED));
-        Energy = new Word(sprites[8], new Position(Level.SECONDARY, Circle.GREENRED));
-        Female = new Word(sprites[9], new Position(Level.SECONDARY, Circle.CYANPURPLE));
-        Force = new Word(sprites[10], new Position(Level.QUATERNARY, Circle.GREENREDCYANPURPLE));
-        Forest = new Word(sprites[11], new Position(Level.EXCLUDED, Circle.PURPLE));
-        Friend = new Word(sprites[12], new Position(Level.SECONDARY, Circle.GREENPURPLE));
-        Hate = new Word(sprites[13], new Position(Level.SECONDARY, Circle.GREENPURPLE));
-        Hope = new Word(sprites[14], new Position(Level.EXCLUDED, Circle.GREEN));
-        Kind = new Word(sprites[15], new Position(Level.TERTIARY, Circle.CYANPURPLEGREEN));
-        Longevity = new Word(sprites[16], new Position(Level.SECONDARY, Circle.CYANPURPLE));
-        Love = new Word(sprites[17], new Position(Level.SECONDARY, Circle.CYANPURPLE));
-        Loyal = new Word(sprites[18], new Position(Level.SECONDARY, Circle.GREENRED));
-        Magic = new Word(sprites[19], new Position(Level.SECONDARY, Circle.CYANRED));
-        Male = new Word(sprites[20], new Position(Level.QUATERNARY, Circle.GREENREDCYANPURPLE));
-        Mountain = new Word(sprites[21], new Position(Level.SECONDARY, Circle.GREENRED));
-        Night = new Word(sprites[22], new Position(Level.EXCLUDED, Circle.RED));
-        Pure = new Word(sprites[23], new Position(Level.SECONDARY, Circle.GREENPURPLE));
-        Heart = new Word(sprites[24], new Position(Level.SECONDARY, Circle.CYANRED));
-        River = new Word(sprites[25], new Position(Level.EXCLUDED, Circle.CYAN));
-        Emotion = new Word(sprites[26], new Position(Level.EXCLUDED, Circle.CYAN));
-        Soul = new Word(sprites[27], new Position(Level.EXCLUDED, Circle.PURPLE));
-        Urgency = new Word(sprites[28], new Position(Level.EXCLUDED, Circle.RED));
-        Wind = new Word(sprites[29], new Position(Level.EXCLUDED, Circle.GREEN));
+        Angry = new Word(sprites[0], new Position(Level.Excluded, Circle.Green));
+        Blessing = new Word(sprites[1], new Position(Level.Excluded, Circle.Purple));
+        Child = new Word(sprites[2], new Position(Level.Excluded, Circle.Red));
+        Curse = new Word(sprites[3], new Position(Level.Excluded, Circle.Cyan));
+        Heaven = new Word(sprites[4], new Position(Level.Tertiary, Circle.GreenPurpleRed));
+        Delight = new Word(sprites[5], new Position(Level.Tertiary, Circle.GreenRedCyan));
+        Dragon = new Word(sprites[6], new Position(Level.Tertiary, Circle.RedCyanPurple));
+        Dream = new Word(sprites[7], new Position(Level.Secondary, Circle.CyanRed));
+        Energy = new Word(sprites[8], new Position(Level.Secondary, Circle.GreenRed));
+        Female = new Word(sprites[9], new Position(Level.Secondary, Circle.CyanPurple));
+        Force = new Word(sprites[10], new Position(Level.Quaternary, Circle.GreenRedCyanPurple));
+        Forest = new Word(sprites[11], new Position(Level.Excluded, Circle.Purple));
+        Friend = new Word(sprites[12], new Position(Level.Secondary, Circle.GreenPurple));
+        Hate = new Word(sprites[13], new Position(Level.Secondary, Circle.GreenPurple));
+        Hope = new Word(sprites[14], new Position(Level.Excluded, Circle.Green));
+        Kind = new Word(sprites[15], new Position(Level.Tertiary, Circle.CyanPurpleGreen));
+        Longevity = new Word(sprites[16], new Position(Level.Secondary, Circle.CyanPurple));
+        Love = new Word(sprites[17], new Position(Level.Secondary, Circle.CyanPurple));
+        Loyal = new Word(sprites[18], new Position(Level.Secondary, Circle.GreenRed));
+        Magic = new Word(sprites[19], new Position(Level.Secondary, Circle.CyanRed));
+        Male = new Word(sprites[20], new Position(Level.Quaternary, Circle.GreenRedCyanPurple));
+        Mountain = new Word(sprites[21], new Position(Level.Secondary, Circle.GreenRed));
+        Night = new Word(sprites[22], new Position(Level.Excluded, Circle.Red));
+        Pure = new Word(sprites[23], new Position(Level.Secondary, Circle.GreenPurple));
+        Heart = new Word(sprites[24], new Position(Level.Secondary, Circle.CyanRed));
+        River = new Word(sprites[25], new Position(Level.Excluded, Circle.Cyan));
+        Emotion = new Word(sprites[26], new Position(Level.Excluded, Circle.Cyan));
+        Soul = new Word(sprites[27], new Position(Level.Excluded, Circle.Purple));
+        Urgency = new Word(sprites[28], new Position(Level.Excluded, Circle.Red));
+        Wind = new Word(sprites[29], new Position(Level.Excluded, Circle.Green));
 
         words = new Word[] { Angry, Blessing, Child, Curse, Heaven, Delight, Dragon, Dream, Energy, Female, Force, Forest, Friend, Hate, Hope, Kind, Longevity, Love, Loyal, Magic, Male, Mountain, Night, Pure, Heart, River, Emotion, Soul, Urgency, Wind };
 
         indicator.material = off;
-        setup();
         modules = info.GetModuleNames();
-        if (!logSVG)
-        {
-            logWordPositions();
-        }
-        Debug.LogFormat("[Dragon Energy #{0}] Note: Answer is not calculated until submit is pressed.", _moduleId);
+        setup();
     }
 
     private void setup()
     {
         currentDisplay = Random.Range(0, 30);
         setupIndicator();
+        getBadTimes();
         setupThreeWords();
         DisplayCurrent();
+        getCorrectAnswer();
     }
 
     void setupIndicator()
@@ -129,6 +126,10 @@ public class dragonEnergy : MonoBehaviour
 
     void InitSwaps()
     {
+        Debug.LogFormat("[Dragon Energy #{0}] Before swapping, the displayed words are:", _moduleId);
+        for (int i = 0; i < displayed.Length; i++)
+            Debug.LogFormat("[Dragon Energy #{0}] {1} = {2}", _moduleId, displayed[i].getWord(), displayed[i].getPosition().getCircle().ToReadable());
+
         char[] letters = info.GetSerialNumberLetters().ToArray();
         int vowelCount = 0;
         foreach (char letter in letters)
@@ -167,6 +168,10 @@ public class dragonEnergy : MonoBehaviour
         {
             Swaps(7);
         }
+
+        Debug.LogFormat("[Dragon Energy #{0}] After swapping, the displayed words are:", _moduleId);
+        for (int i = 0; i < displayed.Length; i++)
+            Debug.LogFormat("[Dragon Energy #{0}] {1} = {2}", _moduleId, displayed[i].getWord(), displayed[i].getPosition().getCircle().ToReadable());
     }
 
     void Swaps(int swap)
@@ -174,47 +179,41 @@ public class dragonEnergy : MonoBehaviour
         switch (swap)
         {
             case 1:
-                SwapSet(Circle.GREENPURPLE, Circle.GREEN);
-                SwapSet(Circle.GREENRED, Circle.RED);
-                SwapSet(Circle.CYANRED, Circle.CYAN);
-                SwapSet(Circle.PURPLE, Circle.CYANPURPLE);
-                Debug.LogFormat("[Dragon Energy #{0}] Swap 1 has occurred!", _moduleId);
-                logWordPositions();
+                SwapSet(Circle.GreenPurple, Circle.Green);
+                SwapSet(Circle.GreenRed, Circle.Red);
+                SwapSet(Circle.CyanRed, Circle.Cyan);
+                SwapSet(Circle.Purple, Circle.CyanPurple);
+                Debug.LogFormat("[Dragon Energy #{0}] Swap 1 has occurred: GP ↔ G, GR ↔ R, CR ↔ C, P ↔ CP", _moduleId);
                 break;
             case 2:
-                SwapSet(Circle.CYANRED, Circle.GREENPURPLE);
-                SwapSet(Circle.GREENRED, Circle.CYANPURPLE);
-                Debug.LogFormat("[Dragon Energy #{0}] Swap 2 has occurred!", _moduleId);
-                logWordPositions();
+                SwapSet(Circle.CyanRed, Circle.GreenPurple);
+                SwapSet(Circle.GreenRed, Circle.CyanPurple);
+                Debug.LogFormat("[Dragon Energy #{0}] Swap 2 has occurred: CR ↔ GP, GR ↔ CP", _moduleId);
                 break;
             case 3:
-                SwapSet(Circle.GREENPURPLE, Circle.CYAN);
-                SwapSet(Circle.GREENRED, Circle.PURPLE);
-                SwapSet(Circle.CYANRED, Circle.GREEN);
-                SwapSet(Circle.RED, Circle.CYANPURPLE);
-                Debug.LogFormat("[Dragon Energy #{0}] Swap 3 has occurred!", _moduleId);
-                logWordPositions();
+                SwapSet(Circle.GreenPurple, Circle.Cyan);
+                SwapSet(Circle.GreenRed, Circle.Purple);
+                SwapSet(Circle.CyanRed, Circle.Green);
+                SwapSet(Circle.Red, Circle.CyanPurple);
+                Debug.LogFormat("[Dragon Energy #{0}] Swap 3 has occurred: GP ↔ C, GR ↔ P, CR ↔ G, R ↔ CP", _moduleId);
                 break;
             case 4:
-                SwapSet(Circle.GREENPURPLERED, Circle.GREENREDCYAN);
-                SwapSet(Circle.CYANPURPLEGREEN, Circle.REDCYANPURPLE);
-                SwapSet(Circle.GREENRED, Circle.GREENREDCYANPURPLE);
-                SwapSet(Circle.PURPLE, Circle.CYAN);
-                Debug.LogFormat("[Dragon Energy #{0}] Swap 4 has occurred!", _moduleId);
-                logWordPositions();
+                SwapSet(Circle.GreenPurpleRed, Circle.GreenRedCyan);
+                SwapSet(Circle.CyanPurpleGreen, Circle.RedCyanPurple);
+                SwapSet(Circle.GreenRed, Circle.GreenRedCyanPurple);
+                SwapSet(Circle.Purple, Circle.Cyan);
+                Debug.LogFormat("[Dragon Energy #{0}] Swap 4 has occurred: GPR ↔ GRC, CPG ↔ RCP, P ↔ C", _moduleId);
                 break;
             case 5:
-                SwapSet(Circle.GREEN, Circle.RED);
-                SwapSet(Circle.CYANPURPLE, Circle.GREENREDCYANPURPLE);
-                SwapSet(Circle.CYAN, Circle.CYANRED);
-                Debug.LogFormat("[Dragon Energy #{0}] Swap 5 has occurred!", _moduleId);
-                logWordPositions();
+                SwapSet(Circle.Green, Circle.Red);
+                SwapSet(Circle.CyanPurple, Circle.GreenRedCyanPurple);
+                SwapSet(Circle.Cyan, Circle.CyanRed);
+                Debug.LogFormat("[Dragon Energy #{0}] Swap 5 has occurred: G ↔ R, CP ↔ GRCP, C ↔ CR", _moduleId);
                 break;
             case 6:
-                SwapSet(Circle.GREENPURPLE, Circle.GREENREDCYANPURPLE);
+                SwapSet(Circle.GreenPurple, Circle.GreenRedCyanPurple);
                 SwapWords(Urgency, River);
-                Debug.LogFormat("[Dragon Energy #{0}] Swap 6 has occurred!", _moduleId);
-                logWordPositions();
+                Debug.LogFormat("[Dragon Energy #{0}] Swap 6 has occurred: GP ↔ GRCP, Urgency ↔ River", _moduleId);
                 break;
             case 7:
                 SwapWords(Wind, Forest);
@@ -222,10 +221,9 @@ public class dragonEnergy : MonoBehaviour
                 SwapWords(Longevity, Mountain);
                 SwapWords(Hope, Force);
                 int last = info.GetSerialNumberNumbers().ToArray()[info.GetSerialNumberNumbers().ToArray().Length - 1];
-                Debug.LogFormat("[Dragon Energy #{0}] Swap 7 has occurred!", _moduleId);
-                logWordPositions();
-                if (last == 0 || last == 8 || last == 9 || last == 7) { break; }
-                Swaps(last);
+                Debug.LogFormat("[Dragon Energy #{0}] Swap 7 has occurred: Wind ↔ Forest, Heaven ↔ Magic, Longevity ↔ Mountain, Hope ↔ Force", _moduleId);
+                if (last != 0 && last != 7 && last != 8 && last != 9)
+                    Swaps(last);
                 break;
         }
     }
@@ -237,178 +235,105 @@ public class dragonEnergy : MonoBehaviour
         second.setPosition(temp);
         first.wordSwapped();
         second.wordSwapped();
-        Debug.LogFormat("[Dragon Energy #{0}] Swapped {1} and {2}.", _moduleId, first.getWord(), second.getWord());
     }
 
     void getCorrectAnswer()
     {
-        correctWords = new Word[] { };
+        correctWords.Clear();
         InitSwaps();
-        Circle[] correctPrimaries = new Circle[] { };
-        foreach (Circle circle in getPrimarys(displayed[0]))
+
+        // If all three words on the module are in the same primary section, submit a word from the same primary section.
+        var correctPrimaries = new HashSet<Circle>();
+        foreach (Circle one in getPrimaries(displayed[0]))
+            foreach (Circle two in getPrimaries(displayed[1]))
+                if (one == two)
+                    foreach (Circle three in getPrimaries(displayed[2]))
+                        if (one == three)
+                            correctPrimaries.Add(three);
+        if (correctPrimaries.Count > 0)
         {
-            Circle one = circle;
-            foreach (Circle nextCircle in getPrimarys(displayed[1]))
-            {
-                Circle two = nextCircle;
-                foreach (Circle lastCircle in getPrimarys(displayed[2]))
-                {
-                    Circle three = nextCircle;
-                    if (one == two && one == three)
-                    {
-                        if (!correctPrimaries.Contains(three))
-                        {
-                            Array.Resize(ref correctPrimaries, correctPrimaries.Length + 1);
-                            correctPrimaries[correctPrimaries.Length - 1] = three;
-                        }
-                    }
-                }
-            }
-        }
-        if (correctPrimaries.Length > 0)
-        {
+            Debug.LogFormat(@"[Dragon Energy #{0}] All three words are in the same primary section ({1}) → submit a word from the same primary section.", _moduleId, string.Join(", ", correctPrimaries.Select(c => c.ToString()).ToArray()));
             foreach (Circle primary in correctPrimaries)
-            {
                 foreach (Word word in words)
-                {
-                    if (getPrimarys(word).Contains(primary))
-                    {
-                        if (!correctWords.Contains(word))
-                        {
-                            Array.Resize(ref correctWords, correctWords.Length + 1);
-                            correctWords[correctWords.Length - 1] = word;
-                        }
-                    }
-                }
-            }
-            return;
+                    if (getPrimaries(word).Contains(primary))
+                        correctWords.Add(word);
         }
-        int secondary = 0;
-        foreach (Word word in displayed)
+        else
         {
-            if (word.getPosition().getLevel() == Level.SECONDARY)
+            // Otherwise, if two words are in the same secondary section, submit a word from any secondary section.
+            Circle? secondary = null;
+            for (int a = 0; a < displayed.Length; a++)
+                if (displayed[a].getPosition().getLevel() == Level.Secondary)
+                    for (int b = a + 1; b < displayed.Length; b++)
+                        if (displayed[b].getPosition().getLevel() == Level.Secondary && displayed[a].getPosition().getCircle() == displayed[b].getPosition().getCircle())
+                            secondary = displayed[a].getPosition().getCircle();
+
+            if (secondary != null)
             {
-                secondary++;
+                Debug.LogFormat(@"[Dragon Energy #{0}] Two words are in the same secondary section ({1}) → submit a word from any secondary section.", _moduleId, secondary);
+                foreach (Word word in words)
+                    if (word.getPosition().getLevel() == Level.Secondary)
+                        correctWords.Add(word);
             }
-        }
-        bool second = false;
-        if (secondary > 1)
-        {
-            if (displayed[0].getPosition().getLevel() == Level.SECONDARY)
+            else
             {
-                if (displayed[0].getPosition().getCircle() == displayed[1].getPosition().getCircle())
+                // Otherwise, if no words share a primary, submit a word from a quaternary section.
+                bool noSharePrimary = true;
+                for (int a = 0; a < displayed.Length; a++)
+                    for (int b = a + 1; b < displayed.Length; b++)
+                        if (getPrimaries(displayed[a]).Intersect(getPrimaries(displayed[b])).Any())
+                            noSharePrimary = false;
+
+                if (noSharePrimary)
                 {
-                    second = true;
+                    Debug.LogFormat(@"[Dragon Energy #{0}] No words share a primary → submit a word from a quaternary section.", _moduleId);
+                    foreach (Word word in words)
+                        if (word.getPosition().getLevel() == Level.Quaternary)
+                            correctWords.Add(word);
                 }
-                else if (displayed[0].getPosition().getCircle() == displayed[2].getPosition().getCircle())
+                else
                 {
-                    second = true;
-                }
-                else if (displayed[1].getPosition().getLevel() == Level.SECONDARY && displayed[1].getPosition().getCircle() == displayed[2].getPosition().getCircle())
-                {
-                    second = true;
-                }
-            }
-        }
-        if (second)
-        {
-            foreach (Word word in words)
-            {
-                if (word.getPosition().getLevel() == Level.SECONDARY)
-                {
-                    if (!correctWords.Contains(word))
-                    {
-                        Array.Resize(ref correctWords, correctWords.Length + 1);
-                        correctWords[correctWords.Length - 1] = word;
-                    }
-                }
-            }
-            return;
-        }
-        bool sharePrimary = false;
-        foreach (Circle circle in getPrimarys(displayed[0]))
-        {
-            Circle one = circle;
-            foreach (Circle nextCircle in getPrimarys(displayed[1]))
-            {
-                Circle two = nextCircle;
-                foreach (Circle lastCircle in getPrimarys(displayed[2]))
-                {
-                    Circle three = lastCircle;
-                    if (one == two || one == three || two == three)
-                    {
-                        sharePrimary = true;
-                    }
+                    // Otherwise, submit a word from a tertiary section.
+                    Debug.LogFormat(@"[Dragon Energy #{0}] Otherwise rule → submit a word from a tertiary section.", _moduleId);
+                    foreach (Word word in words)
+                        if (word.getPosition().getLevel() == Level.Tertiary)
+                            correctWords.Add(word);
                 }
             }
         }
-        if (!sharePrimary)
-        {
-            foreach (Word word in words)
-            {
-                if (word.getPosition().getLevel() == Level.QUATERNARY)
-                {
-                    if (!correctWords.Contains(word))
-                    {
-                        Array.Resize(ref correctWords, correctWords.Length + 1);
-                        correctWords[correctWords.Length - 1] = word;
-                    }
-                }
-            }
-            return;
-        }
-        foreach (Word word in words)
-        {
-            if (word.getPosition().getLevel() == Level.TERTIARY)
-            {
-                if (!correctWords.Contains(word))
-                {
-                    Array.Resize(ref correctWords, correctWords.Length + 1);
-                    correctWords[correctWords.Length - 1] = word;
-                }
-            }
-        }
+
+        Debug.LogFormat("[Dragon Energy #{0}] Any of the following would be a correct answer: {1}.", _moduleId, string.Join(", ", correctWords.Select(w => w.getWord()).ToArray()));
     }
 
     void handleSubmit()
     {
         newAudio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.ButtonPress, submit.transform);
         if (_isSolved) return;
-        getCorrectAnswer();
-        getBadTimes();
-        if (badTimes.Contains((int) (info.GetTime() % 10)))
+
+        var time = (int) (info.GetTime() % 10);
+        Debug.LogFormat("[Dragon Energy #{0}] You submitted {1} (which is in {2}) when the last digit of the timer was {3}.", _moduleId, words[currentDisplay].getWord(), words[currentDisplay].getPosition(), time);
+
+        if (badTimes.Contains(time))
         {
             module.HandleStrike();
-            Debug.LogFormat("[Dragon Energy #{0}] Submit pressed with {1} in last digit of timer, when forbidden digits were: {2}.", _moduleId, (int) (info.GetTime() % 10), string.Join(", ", badTimes.Select(t => t.ToString()).ToArray()));
-            Debug.LogFormat("[Dragon Energy #{0}] If you feel that this is a mistake, please do not hesitate to contact @AAces#0908 on discord so we can get this sorted out. Be sure to have a copy of this log file handy.", _moduleId);
+            Debug.LogFormat("[Dragon Energy #{0}] That last digit is forbidden. Strike.", _moduleId);
+            Debug.LogFormat("[Dragon Energy #{0}] If you feel that this is a bug, please do not hesitate to contact @AAces#0908 on discord so we can get this sorted out. Be sure to send along a copy of this logfile.", _moduleId);
             reset();
-            return;
         }
-        if (correctWords.Contains(words[currentDisplay]))
+        else if (!correctWords.Contains(words[currentDisplay]))
+        {
+            module.HandleStrike();
+            Debug.LogFormat("[Dragon Energy #{0}] Incorrect answer submitted.", _moduleId);
+            Debug.LogFormat("[Dragon Energy #{0}] If you feel that this is a bug, please do not hesitate to contact @AAces#0908 on Discord so we can get this sorted out. Be sure to send along a copy of this logfile.", _moduleId);
+            reset();
+        }
+        else
         {
             indicator.material = off;
             colorblindObj.SetActive(false);
             module.HandlePass();
             Debug.LogFormat("[Dragon Energy #{0}] Module solved!", _moduleId);
             _isSolved = true;
-        }
-        else
-        {
-            module.HandleStrike();
-            string incorrect = words[currentDisplay].getWord();
-            string correct = "";
-            foreach (Word word in correctWords)
-            {
-                correct += word.getWord();
-                correct += ", ";
-            }
-            if (correct.Length > 2)
-            {
-                correct = correct.Substring(0, correct.Length - 2);
-            }
-            Debug.LogFormat("[Dragon Energy #{0}] Incorrect answer submitted. Inputted: {1}. Any of the following were correct: {2}.", _moduleId, incorrect, correct);
-            Debug.LogFormat("[Dragon Energy #{0}] If you feel that this is a mistake, please do not hesitate to contact @AAces#0908 on Discord so we can get this sorted out. Be sure to send along a copy of this logfile.", _moduleId);
-            reset();
         }
     }
 
@@ -558,6 +483,7 @@ public class dragonEnergy : MonoBehaviour
                     break;
             }
         }
+        Debug.LogFormat("[Dragon Energy #{0}] Forbidden digits for submitting are: {1}.", _moduleId, string.Join(", ", badTimes.Select(t => t.ToString()).ToArray()));
     }
 
     void setupThreeWords()
@@ -583,8 +509,6 @@ public class dragonEnergy : MonoBehaviour
         words[one].display(1);
         words[two].display(2);
         words[three].display(3);
-
-        Debug.LogFormat("[Dragon Energy #{0}] The words displayed are: BL: {1}, TL: {2}, TR: {3}.", _moduleId, words[one].getWord(), words[two].getWord(), words[three].getWord());
     }
 
     void handleLeft()
@@ -612,36 +536,36 @@ public class dragonEnergy : MonoBehaviour
         DisplayCurrent();
     }
 
-    public Circle[] getPrimarys(Word word)
+    Circle[] getPrimaries(Word word)
     {
         switch (word.getPosition().getCircle())
         {
-            case Circle.GREEN:
-                return new Circle[] { Circle.GREEN };
-            case Circle.GREENRED:
-                return new Circle[] { Circle.GREEN, Circle.RED };
-            case Circle.GREENPURPLERED:
-                return new Circle[] { Circle.GREEN, Circle.RED, Circle.PURPLE };
-            case Circle.GREENREDCYANPURPLE:
-                return new Circle[] { Circle.GREEN, Circle.RED, Circle.PURPLE, Circle.CYAN };
-            case Circle.RED:
-                return new Circle[] { Circle.RED };
-            case Circle.CYANRED:
-                return new Circle[] { Circle.RED, Circle.CYAN };
-            case Circle.REDCYANPURPLE:
-                return new Circle[] { Circle.RED, Circle.CYAN, Circle.PURPLE };
-            case Circle.GREENREDCYAN:
-                return new Circle[] { Circle.GREEN, Circle.RED, Circle.CYAN };
-            case Circle.CYAN:
-                return new Circle[] { Circle.CYAN };
-            case Circle.PURPLE:
-                return new Circle[] { Circle.PURPLE };
-            case Circle.CYANPURPLE:
-                return new Circle[] { Circle.CYAN, Circle.PURPLE };
-            case Circle.CYANPURPLEGREEN:
-                return new Circle[] { Circle.GREEN, Circle.CYAN, Circle.PURPLE };
-            case Circle.GREENPURPLE:
-                return new Circle[] { Circle.GREEN, Circle.PURPLE };
+            case Circle.Green:
+                return new Circle[] { Circle.Green };
+            case Circle.GreenRed:
+                return new Circle[] { Circle.Green, Circle.Red };
+            case Circle.GreenPurpleRed:
+                return new Circle[] { Circle.Green, Circle.Red, Circle.Purple };
+            case Circle.GreenRedCyanPurple:
+                return new Circle[] { Circle.Green, Circle.Red, Circle.Purple, Circle.Cyan };
+            case Circle.Red:
+                return new Circle[] { Circle.Red };
+            case Circle.CyanRed:
+                return new Circle[] { Circle.Red, Circle.Cyan };
+            case Circle.RedCyanPurple:
+                return new Circle[] { Circle.Red, Circle.Cyan, Circle.Purple };
+            case Circle.GreenRedCyan:
+                return new Circle[] { Circle.Green, Circle.Red, Circle.Cyan };
+            case Circle.Cyan:
+                return new Circle[] { Circle.Cyan };
+            case Circle.Purple:
+                return new Circle[] { Circle.Purple };
+            case Circle.CyanPurple:
+                return new Circle[] { Circle.Cyan, Circle.Purple };
+            case Circle.CyanPurpleGreen:
+                return new Circle[] { Circle.Green, Circle.Cyan, Circle.Purple };
+            case Circle.GreenPurple:
+                return new Circle[] { Circle.Green, Circle.Purple };
         }
         return null;
     }
@@ -679,7 +603,6 @@ public class dragonEnergy : MonoBehaviour
                 SwapWords(setTwo[i], setOne[i]);
             setOne.Last().setPosition(setOne[0].getPosition());
             setOne.Last().wordSwapped();
-            Debug.LogFormat("[Dragon Energy #{0}] {1} position set to {2}", _moduleId, setOne.Last().getWord(), setOne.Last().getPosition().getName());
         }
         else if (setOne.Length < setTwo.Length)
         {
@@ -687,7 +610,6 @@ public class dragonEnergy : MonoBehaviour
                 SwapWords(setTwo[i], setOne[i]);
             setTwo.Last().setPosition(setTwo[0].getPosition());
             setTwo.Last().wordSwapped();
-            Debug.LogFormat("[Dragon Energy #{0}] {1} position set to {2}", _moduleId, setTwo.Last().getWord(), setTwo.Last().getPosition().getName());
         }
         else
         {
@@ -698,228 +620,42 @@ public class dragonEnergy : MonoBehaviour
 
     void reset()
     {
-        setup();
         foreach (Word word in words)
             word.resetSwapCount();
 
-        Angry.setPosition(new Position(Level.EXCLUDED, Circle.GREEN));
-        Blessing.setPosition(new Position(Level.EXCLUDED, Circle.PURPLE));
-        Child.setPosition(new Position(Level.EXCLUDED, Circle.RED));
-        Curse.setPosition(new Position(Level.EXCLUDED, Circle.CYAN));
-        Heaven.setPosition(new Position(Level.TERTIARY, Circle.GREENPURPLERED));
-        Delight.setPosition(new Position(Level.TERTIARY, Circle.GREENREDCYAN));
-        Dragon.setPosition(new Position(Level.TERTIARY, Circle.REDCYANPURPLE));
-        Dream.setPosition(new Position(Level.SECONDARY, Circle.CYANRED));
-        Energy.setPosition(new Position(Level.SECONDARY, Circle.GREENRED));
-        Female.setPosition(new Position(Level.SECONDARY, Circle.CYANPURPLE));
-        Force.setPosition(new Position(Level.QUATERNARY, Circle.GREENREDCYANPURPLE));
-        Forest.setPosition(new Position(Level.EXCLUDED, Circle.PURPLE));
-        Friend.setPosition(new Position(Level.SECONDARY, Circle.GREENPURPLE));
-        Hate.setPosition(new Position(Level.SECONDARY, Circle.GREENPURPLE));
-        Hope.setPosition(new Position(Level.EXCLUDED, Circle.GREEN));
-        Kind.setPosition(new Position(Level.TERTIARY, Circle.CYANPURPLEGREEN));
-        Longevity.setPosition(new Position(Level.SECONDARY, Circle.CYANPURPLE));
-        Love.setPosition(new Position(Level.SECONDARY, Circle.CYANPURPLE));
-        Loyal.setPosition(new Position(Level.SECONDARY, Circle.GREENRED));
-        Magic.setPosition(new Position(Level.SECONDARY, Circle.CYANRED));
-        Male.setPosition(new Position(Level.QUATERNARY, Circle.GREENREDCYANPURPLE));
-        Mountain.setPosition(new Position(Level.SECONDARY, Circle.GREENRED));
-        Night.setPosition(new Position(Level.EXCLUDED, Circle.RED));
-        Pure.setPosition(new Position(Level.SECONDARY, Circle.GREENPURPLE));
-        Heart.setPosition(new Position(Level.SECONDARY, Circle.CYANRED));
-        River.setPosition(new Position(Level.EXCLUDED, Circle.CYAN));
-        Emotion.setPosition(new Position(Level.EXCLUDED, Circle.CYAN));
-        Soul.setPosition(new Position(Level.EXCLUDED, Circle.PURPLE));
-        Urgency.setPosition(new Position(Level.EXCLUDED, Circle.RED));
-        Wind.setPosition(new Position(Level.EXCLUDED, Circle.GREEN));
-        Debug.LogFormat("[Dragon Energy #{0}] Words reset.", _moduleId);
-        logWordPositions();
-    }
+        Angry.setPosition(new Position(Level.Excluded, Circle.Green));
+        Blessing.setPosition(new Position(Level.Excluded, Circle.Purple));
+        Child.setPosition(new Position(Level.Excluded, Circle.Red));
+        Curse.setPosition(new Position(Level.Excluded, Circle.Cyan));
+        Heaven.setPosition(new Position(Level.Tertiary, Circle.GreenPurpleRed));
+        Delight.setPosition(new Position(Level.Tertiary, Circle.GreenRedCyan));
+        Dragon.setPosition(new Position(Level.Tertiary, Circle.RedCyanPurple));
+        Dream.setPosition(new Position(Level.Secondary, Circle.CyanRed));
+        Energy.setPosition(new Position(Level.Secondary, Circle.GreenRed));
+        Female.setPosition(new Position(Level.Secondary, Circle.CyanPurple));
+        Force.setPosition(new Position(Level.Quaternary, Circle.GreenRedCyanPurple));
+        Forest.setPosition(new Position(Level.Excluded, Circle.Purple));
+        Friend.setPosition(new Position(Level.Secondary, Circle.GreenPurple));
+        Hate.setPosition(new Position(Level.Secondary, Circle.GreenPurple));
+        Hope.setPosition(new Position(Level.Excluded, Circle.Green));
+        Kind.setPosition(new Position(Level.Tertiary, Circle.CyanPurpleGreen));
+        Longevity.setPosition(new Position(Level.Secondary, Circle.CyanPurple));
+        Love.setPosition(new Position(Level.Secondary, Circle.CyanPurple));
+        Loyal.setPosition(new Position(Level.Secondary, Circle.GreenRed));
+        Magic.setPosition(new Position(Level.Secondary, Circle.CyanRed));
+        Male.setPosition(new Position(Level.Quaternary, Circle.GreenRedCyanPurple));
+        Mountain.setPosition(new Position(Level.Secondary, Circle.GreenRed));
+        Night.setPosition(new Position(Level.Excluded, Circle.Red));
+        Pure.setPosition(new Position(Level.Secondary, Circle.GreenPurple));
+        Heart.setPosition(new Position(Level.Secondary, Circle.CyanRed));
+        River.setPosition(new Position(Level.Excluded, Circle.Cyan));
+        Emotion.setPosition(new Position(Level.Excluded, Circle.Cyan));
+        Soul.setPosition(new Position(Level.Excluded, Circle.Purple));
+        Urgency.setPosition(new Position(Level.Excluded, Circle.Red));
+        Wind.setPosition(new Position(Level.Excluded, Circle.Green));
+        Debug.LogFormat("[Dragon Energy #{0}] Module reset.", _moduleId);
 
-    void logWordPositions()
-    {
-        if (logSVG == true)
-        {
-            string[] prim1 = new string[3] { "", "", "" };
-            string[] prim2 = new string[3] { "", "", "" };
-            string[] prim3 = new string[3] { "", "", "" };
-            string[] prim4 = new string[3] { "", "", "" };
-
-            string[] sec1 = new string[3] { "", "", "" };
-            string[] sec2 = new string[3] { "", "", "" };
-            string[] sec3 = new string[3] { "", "", "" };
-            string[] sec4 = new string[3] { "", "", "" };
-
-            string tert1 = "";
-            string tert2 = "";
-            string tert3 = "";
-            string tert4 = "";
-
-            string[] quart = new string[3] { "", "", "" };
-
-            foreach (Word word in words)
-            {
-                if (word.getPosition().getCircle() == Circle.GREEN)
-                {
-                    if (prim1[0] == "")
-                    {
-                        prim1[0] = word.getWord();
-                    }
-                    else if (prim1[1] == "")
-                    {
-                        prim1[1] = word.getWord();
-                    }
-                    else
-                    {
-                        prim1[2] = word.getWord();
-                    }
-                }
-                else if (word.getPosition().getCircle() == Circle.PURPLE)
-                {
-                    if (prim2[0] == "")
-                    {
-                        prim2[0] = word.getWord();
-                    }
-                    else if (prim2[1] == "")
-                    {
-                        prim2[1] = word.getWord();
-                    }
-                    else
-                    {
-                        prim2[2] = word.getWord();
-                    }
-                }
-                else if (word.getPosition().getCircle() == Circle.RED)
-                {
-                    if (prim3[0] == "")
-                    {
-                        prim3[0] = word.getWord();
-                    }
-                    else if (prim3[1] == "")
-                    {
-                        prim3[1] = word.getWord();
-                    }
-                    else
-                    {
-                        prim3[2] = word.getWord();
-                    }
-                }
-                else if (word.getPosition().getCircle() == Circle.CYAN)
-                {
-                    if (prim4[0] == "")
-                    {
-                        prim4[0] = word.getWord();
-                    }
-                    else if (prim4[1] == "")
-                    {
-                        prim4[1] = word.getWord();
-                    }
-                    else
-                    {
-                        prim4[2] = word.getWord();
-                    }
-                }
-                else if (word.getPosition().getCircle() == Circle.GREENPURPLE)
-                {
-                    if (sec1[0] == "")
-                    {
-                        sec1[0] = word.getWord();
-                    }
-                    else if (sec1[1] == "")
-                    {
-                        sec1[1] = word.getWord();
-                    }
-                    else
-                    {
-                        sec1[2] = word.getWord();
-                    }
-                }
-                else if (word.getPosition().getCircle() == Circle.CYANPURPLE)
-                {
-                    if (sec2[0] == "")
-                    {
-                        sec2[0] = word.getWord();
-                    }
-                    else if (sec2[1] == "")
-                    {
-                        sec2[1] = word.getWord();
-                    }
-                    else
-                    {
-                        sec2[2] = word.getWord();
-                    }
-                }
-                else if (word.getPosition().getCircle() == Circle.CYANRED)
-                {
-                    if (sec3[0] == "")
-                    {
-                        sec3[0] = word.getWord();
-                    }
-                    else if (sec3[1] == "")
-                    {
-                        sec3[1] = word.getWord();
-                    }
-                    else
-                    {
-                        sec3[2] = word.getWord();
-                    }
-                }
-                else if (word.getPosition().getCircle() == Circle.GREENRED)
-                {
-                    if (sec4[0] == "")
-                    {
-                        sec4[0] = word.getWord();
-                    }
-                    else if (sec4[1] == "")
-                    {
-                        sec4[1] = word.getWord();
-                    }
-                    else
-                    {
-                        sec4[2] = word.getWord();
-                    }
-                }
-                else if (word.getPosition().getCircle() == Circle.GREENPURPLERED)
-                {
-                    tert1 = word.getWord();
-                }
-                else if (word.getPosition().getCircle() == Circle.CYANPURPLEGREEN)
-                {
-                    tert2 = word.getWord();
-                }
-                else if (word.getPosition().getCircle() == Circle.REDCYANPURPLE)
-                {
-                    tert3 = word.getWord();
-                }
-                else if (word.getPosition().getCircle() == Circle.GREENREDCYAN)
-                {
-                    tert4 = word.getWord();
-                }
-                else if (word.getPosition().getCircle() == Circle.GREENREDCYANPURPLE)
-                {
-                    if (quart[0] == "")
-                    {
-                        quart[0] = word.getWord();
-                    }
-                    else if (quart[1] == "")
-                    {
-                        quart[1] = word.getWord();
-                    }
-                    else
-                    {
-                        quart[2] = word.getWord();
-                    }
-                }
-
-            }
-
-            string svg = "<svg xmlns:osb='http://www.openswatchbook.org/uri/2009/osb' xmlns:dc='http://purl.org/dc/elements/1.1/' xmlns:cc='http://creativecommons.org/ns#' xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#' xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' xmlns:sodipodi='http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd' xmlns:inkscape='http://www.inkscape.org/namespaces/inkscape' width='7in' height='7in' viewBox='0 0 177.8 177.8' version='1.1' id='svg8' inkscape:version='0.92.3 (2405546, 2018-03-11)' sodipodi:docname='VennDiagramDragon.svg' inkscape:export-xdpi='96' inkscape:export-ydpi='96'>   <defs  id='defs2'> <linearGradient id='linearGradient830' osb:paint='solid'>   <stop style='stop-color:#000000;stop-opacity:1;' offset='0' id='stop828' /> </linearGradient>   </defs>   <sodipodi:namedview  id='base'  pagecolor='#ffffff'  bordercolor='#666666'  borderopacity='1.0'  inkscape:pageopacity='0.0'  inkscape:pageshadow='2'  inkscape:zoom='0.98994949'  inkscape:cx='331.05441'  inkscape:cy='281.47017'  inkscape:document-units='mm'  inkscape:current-layer='layer1'  showgrid='false'  units='in'  height='15.5in'  inkscape:window-width='1145'  inkscape:window-height='900'  inkscape:window-x='1063'  inkscape:window-y='327'  inkscape:window-maximized='0' />   <metadata  id='metadata5'> <rdf:RDF>   <cc:Work rdf:about=''>  <dc:format>image/svg+xml</dc:format>  <dc:type   rdf:resource='http://purl.org/dc/dcmitype/StillImage' />  <dc:title></dc:title>   </cc:Work> </rdf:RDF>   </metadata>   <g  inkscape:label='Layer 1'  inkscape:groupmode='layer'  id='layer1'  transform='translate(0,-119.2)'> <ellipse style='fill:#ff0000;fill-opacity:0.21568627;fill-rule:nonzero;stroke:none;stroke-width:0.06025632;stroke-miterlimit:4;stroke-dasharray:none' id='path2479-7' cx='61.296223' cy='235.54463' rx='60.262226' ry='60.440083' /> <ellipse style='fill:#0000ff;fill-opacity:0.21568627;fill-rule:nonzero;stroke:none;stroke-width:0.06025632;stroke-miterlimit:4;stroke-dasharray:none' id='path2479-7-7' cx='116.13956' cy='180.19061' rx='60.262226' ry='60.440083' /> <ellipse style='opacity:1;fill:#00ff00;fill-opacity:0.19607843;fill-rule:nonzero;stroke:none;stroke-width:0.06016936;stroke-miterlimit:4;stroke-dasharray:none' id='path2479-7-9' cx='61.021038' cy='180.53941' rx='60.088352' ry='60.440083' /> <ellipse style='fill:#03aeff;fill-opacity:0.21568627;fill-rule:nonzero;stroke:none;stroke-width:0.06025632;stroke-miterlimit:4;stroke-dasharray:none' id='path2479-7-2' cx='116.13956' cy='235.64622' rx='60.262226' ry='60.440083' /> <text xml:space='preserve' style='font-style:normal;font-weight:normal;font-size:4.87569237px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' x='34.54678' y='194.01733' id='text2559' transform='scale(0.99852753,1.0014746)'><tspan sodipodi:role='line' id='tspan2557' x='34.54678' y='194.01733' style='stroke-width:0.12189227'>" + sec4[0] + "</tspan></text> <text xml:space='preserve' style='font-style:normal;font-weight:normal;font-size:4.87569237px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' x='42.160892' y='135.13184' id='text2563' transform='scale(0.99852753,1.0014746)'><tspan sodipodi:role='line' id='tspan2561' x='42.160892' y='135.13184' style='stroke-width:0.12189227'>" + prim1[0] + "</tspan><tspan sodipodi:role='line' x='42.160892' y='141.22646' style='stroke-width:0.12189227' id='tspan2565' /></text> <flowRoot xml:space='preserve' id='flowRoot2567' style='font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none' transform='matrix(0.26458333,0,0,0.26458333,0,-84)'><flowRegion id='flowRegion2569'><rect   id='rect2571'   width='88.893425'   height='66.670067'   x='1563.7162'   y='351.05554' /></flowRegion><flowPara id='flowPara2573'>Amger</flowPara></flowRoot> <text xml:space='preserve' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' x='32.930943' y='154.01598' id='text2563-1' transform='scale(0.99852753,1.0014746)'><tspan sodipodi:role='line' id='tspan2918' x='32.930943' y='154.01598' style='stroke-width:0.12189227'>" + prim1[1] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2922' y='169.63661' x='13.849557' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan2924' x='13.849557' y='169.63661' style='stroke-width:0.12189227'>" + prim1[2] + "</tspan></text> <text xml:space='preserve' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' x='23.185192' y='209.85809' id='text2559-1' transform='scale(0.99852753,1.0014746)'><tspan sodipodi:role='line' id='tspan2952' x='23.185192' y='209.85809' style='stroke-width:0.12189227'>" + sec4[1] + "</tspan></text> <text xml:space='preserve' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' x='31.318241' y='223.91666' id='text2559-5' transform='scale(0.99852753,1.0014746)'><tspan sodipodi:role='line' id='tspan2954' x='31.318241' y='223.91666' style='stroke-width:0.12189227'>" + sec4[2] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958' y='249.53448' x='21.621145' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3187' x='21.621145' y='249.53448' style='stroke-width:0.12189227'>" + prim4[0] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-8' y='264.85458' x='33.027348' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3189' x='33.027348' y='264.85458' style='stroke-width:0.12189227'>" + prim4[1] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-7' y='282.97455' x='46.478165' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3191' x='46.478165' y='282.97455' style='stroke-width:0.12189227'>" + prim4[2] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-9' y='249.23396' x='84.015312' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3209' x='84.015312' y='249.23396' style='stroke-width:0.12189227'>" + sec3[0] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-94' y='260.1684' x='86.830597' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3207' x='86.830597' y='260.1684' style='stroke-width:0.12189227'>" + sec3[1] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-2' y='272.04007' x='80.261597' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3205' x='80.261597' y='272.04007' style='stroke-width:0.12189227'>" + sec3[2] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-1' y='248.60912' x='156.89993' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3197' x='156.89993' y='248.60912' style='stroke-width:0.12189227'>" + prim3[0] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-85' y='264.85458' x='139.3826' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3195' x='139.3826' y='264.85458' style='stroke-width:0.12189227'>" + prim3[1] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-4' y='284.22421' x='124.99335' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3193' x='124.99335' y='284.22421' style='stroke-width:0.12189227'>" + prim3[2] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5' y='135.82814' x='126.5574' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3203' x='126.5574' y='135.82814' style='stroke-width:0.12189227'>" + prim2[0] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-3' y='154.88535' x='137.50574' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3201' x='137.50574' y='154.88535' style='stroke-width:0.12189227'>" + prim2[1] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-39' y='173.00525' x='154.08466' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3199' x='154.08466' y='173.00525' style='stroke-width:0.12189227'>" + prim2[2] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-2' y='195.18654' x='128.74707' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3233' x='128.74707' y='195.18654' style='stroke-width:0.12189227'>" + sec2[0] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-28' y='209.24515' x='120.30122' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3231' x='120.30122' y='209.24515' style='stroke-width:0.12189227'>" + sec2[1] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-9' y='223.61612' x='126.24461' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3235' x='126.24461' y='223.61612' style='stroke-width:0.12189227'>" + sec2[2] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-8' y='186.43901' x='99.655792' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3217' x='99.655792' y='186.43901' style='stroke-width:0.12189227'>" + tert2 + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-0' y='232.36369' x='103.40951' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3211' x='103.40951' y='232.36369' style='stroke-width:0.12189227'>" + tert3 + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-33' y='186.1266' x='58.990543' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3215' x='58.990543' y='186.1266' style='stroke-width:0.12189227'>" + tert1 + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-00' y='196.43623' x='80.887215' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3225' x='80.887215' y='199.43623' style='stroke-width:0.12189227'>" + quart[0] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-00' y='196.43623' x='80.887215' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3225' x='80.887215' y='209.43623' style='stroke-width:0.12189227'>" + quart[1] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-97' y='221.11682' x='84.015305' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3229' x='79.948784' y='219.11682' style='stroke-width:0.12189227'>" + quart[2] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-1' y='231.11401' x='61.180202' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3213' x='61.180202' y='231.11401' style='stroke-width:0.12189227'>" + tert4 + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-22' y='149.2619' x='79.948784' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3221' x='79.948784' y='149.2619' style='stroke-width:0.12189227'>" + sec1[0] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-4' y='159.88393' x='84.64093' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3219' x='84.64093' y='159.88393' style='stroke-width:0.12189227'>" + sec1[1] + "</tspan></text> <text transform='scale(0.99852753,1.0014746)' id='text2958-5-44' y='171.44318' x='81.200035' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.87558413px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12189227' xml:space='preserve'><tspan sodipodi:role='line' id='tspan3223' x='81.200035' y='171.44318' style='stroke-width:0.12189227'>" + sec1[2] + "</tspan></text></g></svg>";
-            Debug.LogFormat("[Dragon Energy #{0}]=svg[Current word positions:]{1}", _moduleId, svg);
-        }
-        else
-        {
-            Debug.LogFormat("[Dragon Energy #{0}] Current position of words: {1}", _moduleId, string.Join("; ", words.Select(w => string.Format("{0}: {1}", w.getWord(), w.getPosition().getName())).ToArray()));
-        }
+        setup();
     }
 
 #pragma warning disable 414
@@ -964,7 +700,7 @@ public class dragonEnergy : MonoBehaviour
     }
 }
 
-public class Word
+class Word
 {
     private GameObject sprite;
     private Position position;
@@ -1039,10 +775,10 @@ public class Word
     }
 }
 
-public class Position
+class Position
 {
-    Level level;
-    Circle circle;
+    readonly Level level;
+    readonly Circle circle;
 
     public Position(Level level, Circle circle)
     {
@@ -1060,95 +796,57 @@ public class Position
         return level;
     }
 
-    public string getName()
+    public override string ToString()
     {
-        string name = "";
-        switch (level)
-        {
-            case Level.EXCLUDED:
-                name += "Excluded, ";
-                switch (circle)
-                {
-                    case Circle.RED:
-                        name += "Red";
-                        break;
-                    case Circle.GREEN:
-                        name += "Green";
-                        break;
-                    case Circle.CYAN:
-                        name += "Cyan";
-                        break;
-                    case Circle.PURPLE:
-                        name += "Purple";
-                        break;
-                }
-                break;
-            case Level.SECONDARY:
-                name += "Secondary, ";
-                switch (circle)
-                {
-                    case Circle.GREENPURPLE:
-                        name += "Green + Purple";
-                        break;
-                    case Circle.CYANRED:
-                        name += "Cyan + Red";
-                        break;
-                    case Circle.GREENRED:
-                        name += "Green + Red";
-                        break;
-                    case Circle.CYANPURPLE:
-                        name += "Cyan + Purple";
-                        break;
-                }
-                break;
-            case Level.TERTIARY:
-                name += "Tertiary, ";
-                switch (circle)
-                {
-                    case Circle.CYANPURPLEGREEN:
-                        name += "Green + Purple + Cyan";
-                        break;
-                    case Circle.GREENPURPLERED:
-                        name += "Green + Purple + Red";
-                        break;
-                    case Circle.GREENREDCYAN:
-                        name += "Green + Red + Cyan";
-                        break;
-                    case Circle.REDCYANPURPLE:
-                        name += "Cyan + Purple + Red";
-                        break;
-                }
-                break;
-            case Level.QUATERNARY:
-                name += "Quaternary";
-                break;
-
-        }
-        return name;
+        return string.Format("{0} — {1}", level, circle.ToReadable());
     }
 }
 
-public enum Level
+enum Level
 {
-    EXCLUDED,
-    SECONDARY,
-    TERTIARY,
-    QUATERNARY
+    Excluded,
+    Secondary,
+    Tertiary,
+    Quaternary
 }
 
-public enum Circle
+enum Circle
 {
-    GREEN,
-    PURPLE,
-    RED,
-    CYAN,
-    GREENPURPLE,
-    GREENRED,
-    CYANRED,
-    CYANPURPLE,
-    GREENPURPLERED,
-    GREENREDCYAN,
-    REDCYANPURPLE,
-    CYANPURPLEGREEN,
-    GREENREDCYANPURPLE
+    Green,
+    Purple,
+    Red,
+    Cyan,
+    GreenPurple,
+    GreenRed,
+    CyanRed,
+    CyanPurple,
+    GreenPurpleRed,
+    GreenRedCyan,
+    RedCyanPurple,
+    CyanPurpleGreen,
+    GreenRedCyanPurple
+}
+
+static class CircleUtils
+{
+    public static string ToReadable(this Circle circle)
+    {
+        switch (circle)
+        {
+            case Circle.Red: return "Red";
+            case Circle.Green: return "Green";
+            case Circle.Cyan: return "Cyan";
+            case Circle.Purple: return "Purple";
+            case Circle.GreenPurple: return "Green + Purple";
+            case Circle.CyanRed: return "Cyan + Red";
+            case Circle.GreenRed: return "Green + Red";
+            case Circle.CyanPurple: return "Cyan + Purple";
+            case Circle.CyanPurpleGreen: return "Cyan + Purple + Green";
+            case Circle.GreenPurpleRed: return "Green + Purple + Red";
+            case Circle.GreenRedCyan: return "Green + Red + Cyan";
+            case Circle.RedCyanPurple: return "Red + Cyan + Purple";
+            case Circle.GreenRedCyanPurple: return "Green + Red + Cyan + Purple";
+        }
+        return null;
+    }
 }
