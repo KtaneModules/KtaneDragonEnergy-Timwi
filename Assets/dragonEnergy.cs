@@ -37,6 +37,7 @@ public class dragonEnergy : MonoBehaviour
     private Word Angry, Blessing, Child, Curse, Heaven, Delight, Dragon, Dream, Energy, Female, Force, Forest, Friend, Hate, Hope, Kind, Longevity, Love, Loyal, Magic, Male, Mountain, Night, Pure, Heart, River, Emotion, Soul, Urgency, Wind;
     private Word[] words;
     private int currentDisplay;
+    private bool dependsOnSolvedModules;
 
     private HashSet<Word> correctWords = new HashSet<Word>();
 
@@ -60,11 +61,7 @@ public class dragonEnergy : MonoBehaviour
             handleRight();
             return false;
         };
-        Init();
-    }
 
-    void Init()
-    {
         Angry = new Word(sprites[0], new Position(Level.Excluded, Circle.Green));
         Blessing = new Word(sprites[1], new Position(Level.Excluded, Circle.Purple));
         Child = new Word(sprites[2], new Position(Level.Excluded, Circle.Red));
@@ -98,9 +95,24 @@ public class dragonEnergy : MonoBehaviour
 
         words = new Word[] { Angry, Blessing, Child, Curse, Heaven, Delight, Dragon, Dream, Energy, Female, Force, Forest, Friend, Hate, Hope, Kind, Longevity, Love, Loyal, Magic, Male, Mountain, Night, Pure, Heart, River, Emotion, Soul, Urgency, Wind };
 
+        Init();
+    }
+
+    void Init()
+    {
         indicator.material = off;
         modules = info.GetModuleNames();
         setup();
+    }
+
+    private void Update()
+    {
+        if (dependsOnSolvedModules && info.GetSolvedModuleNames().Count > 0)
+        {
+            Debug.LogFormat("[Dragon Energy #{0}] You solved another module! Calculating new solution.", _moduleId);
+            dependsOnSolvedModules = false;
+            getCorrectAnswer();
+        }
     }
 
     private void setup()
@@ -126,6 +138,37 @@ public class dragonEnergy : MonoBehaviour
 
     void InitSwaps()
     {
+        Angry.setPosition(new Position(Level.Excluded, Circle.Green));
+        Blessing.setPosition(new Position(Level.Excluded, Circle.Purple));
+        Child.setPosition(new Position(Level.Excluded, Circle.Red));
+        Curse.setPosition(new Position(Level.Excluded, Circle.Cyan));
+        Heaven.setPosition(new Position(Level.Tertiary, Circle.GreenPurpleRed));
+        Delight.setPosition(new Position(Level.Tertiary, Circle.GreenRedCyan));
+        Dragon.setPosition(new Position(Level.Tertiary, Circle.RedCyanPurple));
+        Dream.setPosition(new Position(Level.Secondary, Circle.CyanRed));
+        Energy.setPosition(new Position(Level.Secondary, Circle.GreenRed));
+        Female.setPosition(new Position(Level.Secondary, Circle.CyanPurple));
+        Force.setPosition(new Position(Level.Quaternary, Circle.GreenRedCyanPurple));
+        Forest.setPosition(new Position(Level.Excluded, Circle.Purple));
+        Friend.setPosition(new Position(Level.Secondary, Circle.GreenPurple));
+        Hate.setPosition(new Position(Level.Secondary, Circle.GreenPurple));
+        Hope.setPosition(new Position(Level.Excluded, Circle.Green));
+        Kind.setPosition(new Position(Level.Tertiary, Circle.CyanPurpleGreen));
+        Longevity.setPosition(new Position(Level.Secondary, Circle.CyanPurple));
+        Love.setPosition(new Position(Level.Secondary, Circle.CyanPurple));
+        Loyal.setPosition(new Position(Level.Secondary, Circle.GreenRed));
+        Magic.setPosition(new Position(Level.Secondary, Circle.CyanRed));
+        Male.setPosition(new Position(Level.Quaternary, Circle.GreenRedCyanPurple));
+        Mountain.setPosition(new Position(Level.Secondary, Circle.GreenRed));
+        Night.setPosition(new Position(Level.Excluded, Circle.Red));
+        Pure.setPosition(new Position(Level.Secondary, Circle.GreenPurple));
+        Heart.setPosition(new Position(Level.Secondary, Circle.CyanRed));
+        River.setPosition(new Position(Level.Excluded, Circle.Cyan));
+        Emotion.setPosition(new Position(Level.Excluded, Circle.Cyan));
+        Soul.setPosition(new Position(Level.Excluded, Circle.Purple));
+        Urgency.setPosition(new Position(Level.Excluded, Circle.Red));
+        Wind.setPosition(new Position(Level.Excluded, Circle.Green));
+
         Debug.LogFormat("[Dragon Energy #{0}] Before swapping, the displayed words are:", _moduleId);
         for (int i = 0; i < displayed.Length; i++)
             Debug.LogFormat("[Dragon Energy #{0}] {1} = {2}", _moduleId, displayed[i].getWord(), displayed[i].getPosition().getCircle().ToReadable());
@@ -139,6 +182,7 @@ public class dragonEnergy : MonoBehaviour
                 vowelCount++;
             }
         }
+
         if (info.GetBatteryCount() > 10 && (info.GetSerialNumberNumbers().ToArray()[info.GetSerialNumberNumbers().ToArray().Length - 1] == 5 || info.GetSerialNumberNumbers().ToArray()[info.GetSerialNumberNumbers().ToArray().Length - 1] == 7))
         {
             Swaps(1);
@@ -153,7 +197,6 @@ public class dragonEnergy : MonoBehaviour
         }
         else if (info.GetModuleNames().Count() > 8)
         {
-
             Swaps(4);
         }
         else if (vowelCount >= 2)
@@ -163,6 +206,7 @@ public class dragonEnergy : MonoBehaviour
         else if (info.GetSolvedModuleNames().Count() == 0)
         {
             Swaps(6);
+            dependsOnSolvedModules = true;
         }
         else
         {
@@ -220,8 +264,8 @@ public class dragonEnergy : MonoBehaviour
                 SwapWords(Heaven, Magic);
                 SwapWords(Longevity, Mountain);
                 SwapWords(Hope, Force);
-                int last = info.GetSerialNumberNumbers().ToArray()[info.GetSerialNumberNumbers().ToArray().Length - 1];
                 Debug.LogFormat("[Dragon Energy #{0}] Swap 7 has occurred: Wind ↔ Forest, Heaven ↔ Magic, Longevity ↔ Mountain, Hope ↔ Force", _moduleId);
+                int last = info.GetSerialNumberNumbers().Last();
                 if (last != 0 && last != 7 && last != 8 && last != 9)
                     Swaps(last);
                 break;
@@ -623,36 +667,6 @@ public class dragonEnergy : MonoBehaviour
         foreach (Word word in words)
             word.resetSwapCount();
 
-        Angry.setPosition(new Position(Level.Excluded, Circle.Green));
-        Blessing.setPosition(new Position(Level.Excluded, Circle.Purple));
-        Child.setPosition(new Position(Level.Excluded, Circle.Red));
-        Curse.setPosition(new Position(Level.Excluded, Circle.Cyan));
-        Heaven.setPosition(new Position(Level.Tertiary, Circle.GreenPurpleRed));
-        Delight.setPosition(new Position(Level.Tertiary, Circle.GreenRedCyan));
-        Dragon.setPosition(new Position(Level.Tertiary, Circle.RedCyanPurple));
-        Dream.setPosition(new Position(Level.Secondary, Circle.CyanRed));
-        Energy.setPosition(new Position(Level.Secondary, Circle.GreenRed));
-        Female.setPosition(new Position(Level.Secondary, Circle.CyanPurple));
-        Force.setPosition(new Position(Level.Quaternary, Circle.GreenRedCyanPurple));
-        Forest.setPosition(new Position(Level.Excluded, Circle.Purple));
-        Friend.setPosition(new Position(Level.Secondary, Circle.GreenPurple));
-        Hate.setPosition(new Position(Level.Secondary, Circle.GreenPurple));
-        Hope.setPosition(new Position(Level.Excluded, Circle.Green));
-        Kind.setPosition(new Position(Level.Tertiary, Circle.CyanPurpleGreen));
-        Longevity.setPosition(new Position(Level.Secondary, Circle.CyanPurple));
-        Love.setPosition(new Position(Level.Secondary, Circle.CyanPurple));
-        Loyal.setPosition(new Position(Level.Secondary, Circle.GreenRed));
-        Magic.setPosition(new Position(Level.Secondary, Circle.CyanRed));
-        Male.setPosition(new Position(Level.Quaternary, Circle.GreenRedCyanPurple));
-        Mountain.setPosition(new Position(Level.Secondary, Circle.GreenRed));
-        Night.setPosition(new Position(Level.Excluded, Circle.Red));
-        Pure.setPosition(new Position(Level.Secondary, Circle.GreenPurple));
-        Heart.setPosition(new Position(Level.Secondary, Circle.CyanRed));
-        River.setPosition(new Position(Level.Excluded, Circle.Cyan));
-        Emotion.setPosition(new Position(Level.Excluded, Circle.Cyan));
-        Soul.setPosition(new Position(Level.Excluded, Circle.Purple));
-        Urgency.setPosition(new Position(Level.Excluded, Circle.Red));
-        Wind.setPosition(new Position(Level.Excluded, Circle.Green));
         Debug.LogFormat("[Dragon Energy #{0}] Module reset.", _moduleId);
 
         setup();
