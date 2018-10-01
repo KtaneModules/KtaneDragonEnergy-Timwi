@@ -355,6 +355,7 @@ public class dragonEnergy : MonoBehaviour
         if (_isSolved) return;
 
         var time = (int) (info.GetTime() % 10);
+        getBadTimes();
         Debug.LogFormat("[Dragon Energy #{0}] You submitted {1} (which is in {2}) when the last digit of the timer was {3}.", _moduleId, words[currentDisplay].getWord(), words[currentDisplay].getPosition(), time);
 
         if (badTimes.Contains(time))
