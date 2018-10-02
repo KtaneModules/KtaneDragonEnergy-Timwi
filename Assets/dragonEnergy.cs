@@ -34,7 +34,7 @@ public class dragonEnergy : MonoBehaviour
     public GameObject colorblindObj;
     public MeshRenderer indicator;
 
-    private Word Angry, Blessing, Child, Curse, Heaven, Delight, Dragon, Dream, Energy, Female, Force, Forest, Friend, Hate, Hope, Kind, Longevity, Love, Loyal, Magic, Male, Mountain, Night, Pure, Heart, River, Emotion, Soul, Urgency, Wind;
+    private Word Angry, Blessing, Child, Curse, Heaven, Happiness, Dragon, Dream, Energy, Female, Force, Forest, Friend, Hate, Hope, Kindness, Longevity, Love, Loyal, Spirit, Male, Mountain, Night, Pure, Heart, River, Emotion, Soul, Urgency, Wind;
     private Word[] words;
     private int currentDisplay;
     private bool dependsOnSolvedModules;
@@ -67,7 +67,7 @@ public class dragonEnergy : MonoBehaviour
         Child = new Word(sprites[2], new Position(Level.Excluded, Circle.Red));
         Curse = new Word(sprites[3], new Position(Level.Excluded, Circle.Cyan));
         Heaven = new Word(sprites[4], new Position(Level.Tertiary, Circle.GreenPurpleRed));
-        Delight = new Word(sprites[5], new Position(Level.Tertiary, Circle.GreenRedCyan));
+        Happiness = new Word(sprites[5], new Position(Level.Tertiary, Circle.GreenRedCyan));
         Dragon = new Word(sprites[6], new Position(Level.Tertiary, Circle.RedCyanPurple));
         Dream = new Word(sprites[7], new Position(Level.Secondary, Circle.CyanRed));
         Energy = new Word(sprites[8], new Position(Level.Secondary, Circle.GreenRed));
@@ -77,11 +77,11 @@ public class dragonEnergy : MonoBehaviour
         Friend = new Word(sprites[12], new Position(Level.Secondary, Circle.GreenPurple));
         Hate = new Word(sprites[13], new Position(Level.Secondary, Circle.GreenPurple));
         Hope = new Word(sprites[14], new Position(Level.Excluded, Circle.Green));
-        Kind = new Word(sprites[15], new Position(Level.Tertiary, Circle.CyanPurpleGreen));
+        Kindness = new Word(sprites[15], new Position(Level.Tertiary, Circle.CyanPurpleGreen));
         Longevity = new Word(sprites[16], new Position(Level.Secondary, Circle.CyanPurple));
         Love = new Word(sprites[17], new Position(Level.Secondary, Circle.CyanPurple));
         Loyal = new Word(sprites[18], new Position(Level.Secondary, Circle.GreenRed));
-        Magic = new Word(sprites[19], new Position(Level.Secondary, Circle.CyanRed));
+        Spirit = new Word(sprites[19], new Position(Level.Secondary, Circle.CyanRed));
         Male = new Word(sprites[20], new Position(Level.Quaternary, Circle.GreenRedCyanPurple));
         Mountain = new Word(sprites[21], new Position(Level.Secondary, Circle.GreenRed));
         Night = new Word(sprites[22], new Position(Level.Excluded, Circle.Red));
@@ -93,7 +93,7 @@ public class dragonEnergy : MonoBehaviour
         Urgency = new Word(sprites[28], new Position(Level.Excluded, Circle.Red));
         Wind = new Word(sprites[29], new Position(Level.Excluded, Circle.Green));
 
-        words = new Word[] { Angry, Blessing, Child, Curse, Heaven, Delight, Dragon, Dream, Energy, Female, Force, Forest, Friend, Hate, Hope, Kind, Longevity, Love, Loyal, Magic, Male, Mountain, Night, Pure, Heart, River, Emotion, Soul, Urgency, Wind };
+        words = new Word[] { Angry, Blessing, Child, Curse, Heaven, Happiness, Dragon, Dream, Energy, Female, Force, Forest, Friend, Hate, Hope, Kindness, Longevity, Love, Loyal, Spirit, Male, Mountain, Night, Pure, Heart, River, Emotion, Soul, Urgency, Wind };
 
         Init();
     }
@@ -143,7 +143,7 @@ public class dragonEnergy : MonoBehaviour
         Child.setPosition(new Position(Level.Excluded, Circle.Red));
         Curse.setPosition(new Position(Level.Excluded, Circle.Cyan));
         Heaven.setPosition(new Position(Level.Tertiary, Circle.GreenPurpleRed));
-        Delight.setPosition(new Position(Level.Tertiary, Circle.GreenRedCyan));
+        Happiness.setPosition(new Position(Level.Tertiary, Circle.GreenRedCyan));
         Dragon.setPosition(new Position(Level.Tertiary, Circle.RedCyanPurple));
         Dream.setPosition(new Position(Level.Secondary, Circle.CyanRed));
         Energy.setPosition(new Position(Level.Secondary, Circle.GreenRed));
@@ -153,11 +153,11 @@ public class dragonEnergy : MonoBehaviour
         Friend.setPosition(new Position(Level.Secondary, Circle.GreenPurple));
         Hate.setPosition(new Position(Level.Secondary, Circle.GreenPurple));
         Hope.setPosition(new Position(Level.Excluded, Circle.Green));
-        Kind.setPosition(new Position(Level.Tertiary, Circle.CyanPurpleGreen));
+        Kindness.setPosition(new Position(Level.Tertiary, Circle.CyanPurpleGreen));
         Longevity.setPosition(new Position(Level.Secondary, Circle.CyanPurple));
         Love.setPosition(new Position(Level.Secondary, Circle.CyanPurple));
         Loyal.setPosition(new Position(Level.Secondary, Circle.GreenRed));
-        Magic.setPosition(new Position(Level.Secondary, Circle.CyanRed));
+        Spirit.setPosition(new Position(Level.Secondary, Circle.CyanRed));
         Male.setPosition(new Position(Level.Quaternary, Circle.GreenRedCyanPurple));
         Mountain.setPosition(new Position(Level.Secondary, Circle.GreenRed));
         Night.setPosition(new Position(Level.Excluded, Circle.Red));
@@ -261,7 +261,7 @@ public class dragonEnergy : MonoBehaviour
                 break;
             case 7:
                 SwapWords(Wind, Forest);
-                SwapWords(Heaven, Magic);
+                SwapWords(Heaven, Spirit);
                 SwapWords(Longevity, Mountain);
                 SwapWords(Hope, Force);
                 Debug.LogFormat("[Dragon Energy #{0}] Swap 7 has occurred: Wind ↔ Forest, Heaven ↔ Magic, Longevity ↔ Mountain, Hope ↔ Force", _moduleId);
@@ -733,12 +733,12 @@ class Word
     public Word(GameObject sprite, Position pos)
     {
         this.sprite = sprite;
-        this.position = pos;
+        position = pos;
     }
 
     public void wordSwapped()
     {
-        this.swapCount++;
+        swapCount++;
     }
 
     public void display(int location)
@@ -760,32 +760,32 @@ class Word
 
     public Position getPosition()
     {
-        return this.position;
+        return position;
     }
 
     public GameObject getSprite()
     {
-        return this.sprite;
+        return sprite;
     }
 
     public string getWord()
     {
-        return this.sprite.name;
+        return sprite.name;
     }
 
     public int getSwapCount()
     {
-        return this.swapCount;
+        return swapCount;
     }
 
     public void setPosition(Position pos)
     {
-        this.position = pos;
+        position = pos;
     }
 
     public void resetSwapCount()
     {
-        this.swapCount = 0;
+        swapCount = 0;
     }
 }
 
