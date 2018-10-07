@@ -528,7 +528,7 @@ public class dragonEnergy : MonoBehaviour
                     break;
             }
         }
-        Debug.LogFormat("[Dragon Energy #{0}] Forbidden digits for submitting are: {1}.", _moduleId, string.Join(", ", badTimes.Select(t => t.ToString()).ToArray()));
+        Debug.LogFormat("[Dragon Energy #{0}] You have {1} strikes. Forbidden digits for submitting are: {2}.", _moduleId, info.GetStrikes(), string.Join(", ", badTimes.Select(t => t.ToString()).ToArray()));
     }
 
     void setupThreeWords()
