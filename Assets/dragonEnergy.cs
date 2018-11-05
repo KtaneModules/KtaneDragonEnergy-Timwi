@@ -674,7 +674,7 @@ public class dragonEnergy : MonoBehaviour
     }
 
 #pragma warning disable 414
-    private readonly string TwitchHelpMessage = "Submit a word with “!{0} [word] [digit to submit at]”. Use “!{0} colorblind” to turn on colorblind mode. NOTE: The number that appears near the status light after submitting stage 2 is the number that was in the seconds place on the timer when stage 1 was submitted. This is required for stage 3.";
+    private readonly string TwitchHelpMessage = "!{0} energy 5 [submit word “energy” when last digit of countdown timer is 5] | !{0} colorblind";
 #pragma warning restore 414
 
     IEnumerator ProcessTwitchCommand(string input)
