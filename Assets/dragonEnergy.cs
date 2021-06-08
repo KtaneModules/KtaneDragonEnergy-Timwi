@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using KMHelper;
+using KModkit;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -191,7 +191,7 @@ public class dragonEnergy : MonoBehaviour
         {
             Swaps(2);
         }
-        else if ((info.IsIndicatorOn(KMBombInfoExtensions.KnownIndicatorLabel.SIG) && info.IsIndicatorOn(KMBombInfoExtensions.KnownIndicatorLabel.FRK)) || (info.GetOffIndicators().Count() == 3))
+        else if ((info.IsIndicatorOn(Indicator.SIG) && info.IsIndicatorOn(Indicator.FRK)) || (info.GetOffIndicators().Count() == 3))
         {
             Swaps(3);
         }
@@ -354,7 +354,7 @@ public class dragonEnergy : MonoBehaviour
         newAudio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.ButtonPress, submit.transform);
         if (_isSolved) return;
 
-        var time = (int) (info.GetTime() % 10);
+        var time = (int) info.GetTime() % 10;
         getBadTimes();
         Debug.LogFormat("[Dragon Energy #{0}] You submitted {1} (which is in {2}) when the last digit of the timer was {3}.", _moduleId, words[currentDisplay].getWord(), words[currentDisplay].getPosition(), time);
 
@@ -712,6 +712,29 @@ public class dragonEnergy : MonoBehaviour
         while (time != (int) info.GetTime() % 10)
             yield return "trycancel Submit wasn’t pressed due to request to cancel.";
         submit.OnInteract();
+    }
+
+    private IEnumerator TwitchHandleForcedSolve()
+    {
+        while (!_isSolved)
+        {
+            while (!correctWords.Contains(words[currentDisplay]))
+            {
+                right.OnInteract();
+                yield return new WaitForSeconds(.1f);
+            }
+
+            getBadTimes();
+            while (badTimes.Contains((int) info.GetTime() % 10))
+                yield return true;
+
+            getBadTimes();
+            if (!badTimes.Contains((int) info.GetTime() % 10) && correctWords.Contains(words[currentDisplay]))
+            {
+                submit.OnInteract();
+                yield return new WaitForSeconds(.1f);
+            }
+        }
     }
 }
 
