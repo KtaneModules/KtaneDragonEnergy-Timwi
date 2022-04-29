@@ -132,8 +132,7 @@ public class dragonEnergy : MonoBehaviour
         var colorname = new[] { "Orange", "Cyan", "Purple" }[indicatorColor];
         Debug.LogFormat("[Dragon Energy #{0}] Indicator color: {1}.", _moduleId, colorname);
         colorblindText.text = colorname;
-        if (GetComponent<KMColorblindMode>().ColorblindModeActive)
-            colorblindObj.SetActive(true);
+        colorblindObj.SetActive(GetComponent<KMColorblindMode>().ColorblindModeActive);
     }
 
     void InitSwaps()
@@ -682,8 +681,7 @@ public class dragonEnergy : MonoBehaviour
         if (input.ToLowerInvariant().Equals("colorblind"))
         {
             yield return null;
-            Debug.LogFormat("[Dragon Energy #{0}] Colorblind mode enabled via TP.", _moduleId);
-            colorblindObj.SetActive(true);
+            colorblindObj.SetActive(!colorblindObj.activeSelf);
             yield break;
         }
 
